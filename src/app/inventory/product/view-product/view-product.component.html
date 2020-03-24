@@ -1,0 +1,221 @@
+<div *ngIf='isData' class="over">
+  <img id="load" src="../../../assets/logo/spinner9.gif" alt="">
+</div>
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-3">
+    <h1 class="page-title">Inventory</h1>
+  </div>
+  <div class=" col-md-6 col-sm-9 text-right">
+    <button mat-raised-button class="mb10" color="warn">
+      <a target="_blank" href="../../../../assets/products.csv" style="text-decoration: none;color: #ffffff;" download="product_sample.csv">
+        Download Csv Sample
+      </a>
+    </button>
+    <button mat-raised-button class="mb10" color="warn" (click)='clickTerms(terms)'>Import New Products</button>
+    <button mat-raised-button class="mb10" color="warn" (click)="addProduct()">Add New Product</button>
+  </div>
+</div>
+<section class="widget" [ngClass]="{'Hide':isHide}" widget>
+  <header>
+    <h4> Products</h4>
+  </header>
+  <div class="widget-body ">
+    <div class="mt-4">
+      <div class="float-left">
+        <i class="fa fa-th-large faFa" aria-hidden="true" (click)="changeView(true,false)"></i>
+        <i class="fa fa-th-list faFa" aria-hidden="true" (click)="changeView(false,true)"></i>
+      </div>
+      <div class="width-200 float-right">
+        <div class="input-group input-group-sm input-group-transparent input-group-rounded">
+          <span class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Search">
+        </div>
+      </div>
+    </div>
+
+    <div class="mt overflow-auto clearBoth" *ngIf="tableView">
+
+      <table class="table table-striped table-hover" [mfData]="productArray  | search : searchText" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="image">Image</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="name">Name</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="category">Category</mfDefaultSorter>
+            </th>
+            <th class="hidden-sm-down">
+              <mfDefaultSorter by="brand">Brand</mfDefaultSorter>
+            </th>
+            <th class="hidden-sm-down">
+              <mfDefaultSorter by="quantity">Quantity</mfDefaultSorter>
+            </th>
+            <th class="no-sort">
+              <mfDefaultSorter by="status">Status</mfDefaultSorter>
+            </th>
+            <th class="no-sort">
+              <mfDefaultSorter by="supplier">Supplier</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="category">product view</mfDefaultSorter>
+            </th>
+            <th class="no-sort">
+              <mfDefaultSorter by="supplier">Edit</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody #newdatarow>
+          <tr *ngFor="let x of mf.data">
+            <td>
+              <span *ngFor="let img of x.imageFile">
+                <img [src]="img.path" *ngIf="img.isdefault == true" alt="Maggi" width="100" height="100">
+              </span>
+            </td>
+            <td class="align-middle">{{x.productId.txtProductName}}</td>
+            <td class="align-middle">
+              <span class="fw-semi-bold">{{x.productId.txtProductCategory.name}}</span>
+            </td>
+            <td class="hidden-sm-down align-middle">{{x.txtBrand}}</td>
+            <td class="hidden-sm-down align-middle">{{x.txtStockAvailable}}</td>
+            <td class="width150 align-middle" *ngIf="!x.approvalStatus&&permission.admin">
+              <mat-checkbox (click)="changeApproval(x)">Approve</mat-checkbox>
+            </td>
+            <td class="width150 align-middle" *ngIf="!x.approvalStatus && !permission.admin">
+              <i class="fa fa-circle  red"></i>UnApproved</td>
+            <td class="width150 align-middle" *ngIf="x.approvalStatus">
+              <i class="fa fa-circle  green"></i> Approved</td>
+            <td class="align-middle">{{x.txtSupplier}}</td>
+            <td> </td>
+            <td class="align-middle">
+              <button mat-raised-button [disabled]="!x.approvalStatus" color="warn" (click)="modifyProduct(x)">Modify</button>
+            </td>
+          </tr>
+
+          <tr *ngIf="mf.data.length === 0">
+            <td colspan="100">
+              No matches
+            </td>
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <table class="row clearBoth" *ngIf="gridView" [mfData]="productArray  | search : searchText" #mf="mfDataTable">
+
+      <div class="col-lg-4 col-xl-3 col-sm-6 col-12 " *ngFor="let x of mf.data">
+        <mat-card class="pt-3">
+          <mat-card-header class="marginBottom30 justify-content-center">
+            <h3>{{x.txtProductName}}</h3>
+          </mat-card-header>
+          <div class="img-wrapper">
+            <span *ngFor="let img of x.imageFile">
+              <img mat-card-image height="200" *ngIf="img.isdefault == true" [src]="img.path">
+            </span>
+            <div class="overlay d-flex align-items-center">
+              <div class="text-wrapper">
+                <div class="row m-0 text">
+                  <div class="col-6 d-flex justify-content-start">
+                    <label>Quantity</label>
+                  </div>
+                  <div class="col-6 d-flex justify-content-end">
+                    <span>{{x.txtStockAvailable}}</span>
+                  </div>
+                </div>
+                <div class="row m-0 text">
+                  <div class="col-6 d-flex justify-content-start">
+                    <label>Supplier</label>
+                  </div>
+                  <div class="col-6 d-flex justify-content-end">
+                    <span>{{x.txtSupplier}}</span>
+                  </div>
+                </div>
+                <div class="row m-0 text">
+                  <div class="col-6 d-flex justify-content-start">
+                    <label>Category</label>
+                  </div>
+                  <div class="col-6 d-flex justify-content-end">
+                    <span>{{x.txtProductCategory.name}}</span>
+                  </div>
+                </div>
+                <div class="row m-0 text">
+                  <div class="col-12 d-flex justify-content-center">
+                    <td class="align-middle">
+                      <button mat-raised-button color="warn" (click)="modifyProduct(x)">Modify</button>
+                    </td>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="available">
+            <i class="fa fa-circle  green"></i>
+          </div>
+          <mat-card-footer>
+            <div class="row m-0">
+              <div class="col-6 d-flex justify-content-start">
+                <h3>Brand</h3>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <span>{{x.txtBrand}}</span>
+              </div>
+
+            </div>
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </table>
+  </div>
+</section>
+<div #terms class="modal">
+
+  <div class="modal-content">
+    <header>
+      <h2 class="p-3 m-0" style="display: inline-block;">Import Products</h2>
+      <i class="fa fa-close faCloseModal p-3" (click)="closeOutside(terms)"></i>
+    </header>
+    <h4>Instructions</h4>
+    <div class="row border-bottom m-0">
+      <div class="col-12 col-md-6 border-right">
+        <p class="text-left">File must contains the following fields.</p>
+        <ul class="text-left">
+          <li>Product Name</li>
+          <li>Brand</li>
+          <li>Quantity</li>
+          <li>Model Code</li>
+          <li>Product Code</li>
+          <li>Stock Available</li>
+          <li>Category</li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6 uploadHieght">
+        <input id='inputcsv' type="file" #importFile (change)="fileChange($event)">
+        <img src="./assets/img/upload-files.png" height="200" width="200" alt="Upload">
+        <span class="fileName" (click)="triggerFile(importFile)">{{fileName}}</span>
+        <!-- <div  class="progress-bar" role="progressbar" ></div> -->
+        <div class="col-12 mt25">
+          <button mat-raised-button color="warn" (click)="upload()">Upload</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+  <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h2 mat-dialog-title>Add Supplier</h2>
+  </div>
+  <div class="col-md-6">
+    <mat-dialog-actions>
+      <button class='mat-close-custom-btn' (click)="onNoClick()" mat-dialog-close>
+        <i class="fa fa-close" style="font-size:36px"></i>
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>
+
+
+<section class="widget">
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="invitationForm">
+      <div class="col-md-12 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtBusinessName" placeholder="Buisness Name" required>
+              <mat-error *ngIf="!txtBusinessName.valid && txtBusinessName.touched">Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtBuisnessEmail" placeholder="Buisness Email" required>
+              <mat-error *ngIf="!txtBuisnessEmail.valid && txtBuisnessEmail.touched">Email Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Trader Type" formControlName="txtTraderType" required>
+                <mat-option value="Seller">Seller</mat-option>
+                <mat-option value="Buyer">Buyer</mat-option>
+                <mat-option value="Both">Both</mat-option>
+                <mat-option value="Logistics Service Provider">Logistics Service Provider</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtTraderType.valid && txtTraderType.touched">Trader Type Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Country" matInput [formControl]="country_name" [matAutocomplete]="auto" required>
+              <mat-error *ngIf="!country_name.valid && country_name.touched">Country Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filteredOptions | async" [value]="country.code" (focusout)="countryChanged(country)">
+                {{country.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 d-flex">
+            <div class="col-3 form-group">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Code" [(ngModel)]="phone_number_dialcode" formControlName="phone_number_code">
+              </mat-form-field>
+            </div>
+            <div class="col-9 form-group">
+              <mat-form-field class="example-full-width">
+                <input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Buisness Phone"
+                  formControlName="phone_number" required>
+                <mat-error *ngIf="!phone_number.valid && phone_number.touched">Buisness Phone Required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact Person Name" formControlName="txtContactName" required>
+              <mat-error *ngIf="!txtContactName.valid && txtContactName.touched">Contact Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Contact Person Email" formControlName="txtContactEmail">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Business Postal Address" formControlName="txtPostalAdress">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Business Physical Address" formControlName="txtPhysicalAddress">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Website" formControlName="txtWebsite">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Contact Person Phone" formControlName="txtPhone">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!invitationForm.valid" (click)="submit(invitationForm.value)" color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

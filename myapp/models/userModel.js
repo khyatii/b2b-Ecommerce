@@ -1,0 +1,38 @@
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+var userSchema = mongoose.Schema({
+    email: { type: String, require: true, unique: true },
+    password: { type: String },
+    salt: { type: String },
+    traderId: { type: Schema.Types.ObjectId, ref: 'trader' },
+    firstName: { type: String, default: null },
+    lastName: { type: String, default: null },
+    admin: { type: Boolean },
+    photo: { type: String, default: null },
+    txtPhone: { type: String, default: null },
+    txtFax: { type: String, default: null },
+    txtPostalAddress: { type: String, default: null },
+    txtPhysicalAddress: { type: String, default: null },
+    txtPaymentDetails: { type: String, default: null },
+    txtID: { type: String, default: null },
+    txtTaxNumber: { type: String, default: null },
+    txtDob: { type: String, default: null },
+    txtUsername: { type: String, default: null },
+    txtInventoryPermission: { type: String, default: 'rw' },
+    txtCustomerManagement: { type: String, default: 'rw' },
+    txtStockPermission: { type: String, default: 'rw' },
+    txtReportsPermission: { type: String, default: 'rw' },
+    txtSettingsPermission: { type: String, default: 'rw' },
+    txtLogisticsPermission: { type: String, default: 'rw' },
+    VendorsPermission: { type: String, default: 'rw' },
+    PurchaseOrderPermission: { type: String, default: 'rw' },
+    SalesOrderPermission: { type: String, default: 'rw' },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
+    verifyUserToken: String,
+    status: { type: Boolean },
+    referEmail: { type: String },
+    // verifyUserIdExpires: Date,
+}, { collection: 'user' })
+
+module.exports = mongoose.model('user', userSchema);

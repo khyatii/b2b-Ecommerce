@@ -1,0 +1,95 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+    <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<h1 class="page-title">Company Details</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../location">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify Location</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="locationForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Label" formControlName="label" required>
+              <mat-error *ngIf="!label.valid && label.touched">Label Required</mat-error>
+            </mat-form-field>
+          </div>
+         <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Address Line 1" formControlName="street1" required>
+              <mat-error *ngIf="!street1.valid && street1.touched">Address Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+         
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Address Line 2" formControlName="street2">
+            </mat-form-field>
+          </div>
+         <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Suburb" formControlName="suburb">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="City" formControlName="city">
+            </mat-form-field>
+          </div>
+         <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="State" formControlName="state">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Zipcode" formControlName="postal_code">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Country"  formControlName="txtCountry">
+                <mat-option *ngFor="let country of countryArray" [value]="country.code">{{country.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-checkbox formControlName="hold_stock" [checked]="holdStockChk"></mat-checkbox> <span>Hold Stock</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!locationForm.valid" (click)="submit(locationForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

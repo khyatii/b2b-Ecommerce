@@ -1,0 +1,15 @@
+.displayflex{
+    display: flex;
+}
+.heightavailable {
+    height: -webkit-stretch,;
+}
+.hide{
+    display: none;
+}
+.p2{
+    padding: 2px;
+}
+.w100{
+    width: 100%
+}

@@ -1,0 +1,10 @@
+.mat-dialog-container  {
+    width: 70% !important;
+    margin-left: 20% !important;
+}
+.mat-close-custom-btn{
+    float:right;
+    background: #fff;
+    border: unset;
+
+}

@@ -1,0 +1,36 @@
+.border-right{
+    border-right: 1px solid gainsboro;
+}
+
+.heading{
+    text-align: center;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+hr{
+    border-top: 3px solid rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+.pictureDiv{
+    position: relative;
+    height: 150px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.pictureDiv img, .pictureDiv input, .pictureDiv .overlay{
+    position: absolute;
+    left: 0;
+    margin: auto;
+    right: 0;
+}
+
+.pictureDiv .overlay{
+    top:-37px;
+}
+
+.hide_file{
+    top:0;
+}

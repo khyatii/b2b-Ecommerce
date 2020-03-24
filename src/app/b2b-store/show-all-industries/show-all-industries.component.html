@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let ind of industries">
+      <p>name: {{ind.name}}</p>
+      <ul>
+        <ng-container *ngFor="let cat of categories; let i = index">
+          <!-- <li *ngIf="cat.industryId._id == ind._id;">{{cat.name}} </li> -->
+          <ng-container *ngIf="isToshow(ind, cat, i )">
+             <li>{{cat.name}} </li>
+          </ng-container>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

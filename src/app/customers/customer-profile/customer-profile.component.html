@@ -1,0 +1,106 @@
+<div class="row justify-content-center" >
+  <div class="col-lg-6 col-md-8 col-sm-12 text-center alert alert-success opacity1 messageposition" *ngIf="isShow" >
+    Customer Profile is updated Successfully.
+  </div>
+</div>
+
+<h1 class="page-title">Customer Profile</h1>
+<section class="widget">
+  <header>
+    <h4>Customer Profile</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="customerProfileData" (ngSubmit)="submit(customerProfileData.value)">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row profileHeader">
+          <div class="col-lg-3 col-md-6 col-sm-12" style="height: 150px;margin: 0 auto;margin-top: 50px;">
+            <img src="assets/img/default-placeholder.png" class="img" id="imgProfile" width="200" height="115">       
+            <input type="file" name="avatar"  class="hide_file img"   (change)="fileChange($event)"/> 
+            <div class="overlay">
+              <label class="overlaytext">Upload Picture</label>
+            </div>
+            <!-- <input type="button" class=" btn btnUpload" mat-raised-button  (click)="uploader.uploadAll()" value="Upload" color="warn"> -->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Name" formControlName="txtName" required>
+                <mat-error *ngIf="!txtName.valid && txtName.touched">Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Registration Number" formControlName="txtRegistrationNum" required>
+                <mat-error *ngIf="!txtRegistrationNum.valid && txtRegistrationNum.touched">Registration No. Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" formControlName="txtEmail" required>
+                <mat-error *ngIf="!txtEmail.valid && txtEmail.touched">Email Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Phone Number" formControlName="txtPhone" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Mobile Number" formControlName="txtMobile" required>
+                <mat-error *ngIf="!txtMobile.valid && txtMobile.touched">Mobile Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Fax" formControlName="txtFax" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Postal Address" formControlName="txtPostal" required>
+                <mat-error *ngIf="!txtPostal.valid && txtPostal.touched">Postal Address Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Physical Address" formControlName="txtPhysicalAddress" required>
+                <mat-error *ngIf="!txtPhysicalAddress.valid && txtPhysicalAddress.touched">Physical Address Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Tax Number (PIN)" formControlName="txtTax" required>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Webisite Address" formControlName="txtWebsite" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Description" rows="6"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <button  [disabled]="!customerProfileData.valid" mat-raised-button color="warn" role="submit">Submit</button> 
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

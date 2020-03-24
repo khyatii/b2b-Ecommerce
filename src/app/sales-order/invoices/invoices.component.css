@@ -1,0 +1,76 @@
+@media screen and (min-width:596px){
+  .buttonposition{
+    position: absolute;
+    top: 93px;
+    right: 3%;
+  }
+}
+
+@media screen and (max-width:596px){  
+  .mb10{
+    margin-bottom: 10px
+  }
+}
+.example-full-width{
+  width: 100%;
+}
+.fa-pencil{
+  color: #151F2E;
+}
+.green{
+  color: green;
+}
+
+header{
+  text-align: center;
+  background: #e97300;
+  color: white;
+}
+.Hide{
+  display: none
+}
+
+.overflow-auto{
+  overflow-x: auto;
+}
+
+table{
+  margin-top: 5%;
+}
+input[type=date]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+#datepicker{
+  position: absolute;
+  margin-left: 82%;
+}
+
+#showDate{
+  position: absolute;
+  font-weight: 1000;
+}
+
+#searchH{
+  POSITION: absolute;
+  margin-left: 69%;
+  font-weight: 500;
+  margin-top: 1.2%;
+}
+
+.DateSelect{
+    width: 12%;
+    margin-left: 81%;
+    position: absolute;
+    top: 28%
+}
+
+down vote
+accepted
+::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+    color: transparent;
+}
+

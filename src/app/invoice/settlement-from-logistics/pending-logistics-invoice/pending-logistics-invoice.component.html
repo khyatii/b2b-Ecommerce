@@ -1,0 +1,78 @@
+<button class="buttonposition mb10" mat-raised-button color="warn" >
+  Back</button>
+<section class="widget" widget>
+  <header class="mb-3">
+    <h4>Invoices From Logistics</h4>
+  </header>
+  <div class="example" style="margin-top: 30px;max-width: 300px;margin-left: auto;">
+    <input type="text" placeholder="Search by vender name.." (input)='searchVendor($event)' id="searchBar" name="search2">
+    <button type="submit">
+      <i class="fa fa-search"></i>
+    </button>
+  </div>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="invoiceNo">Invoice No</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="orderNo">Order No</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="invoice">Vender</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="order">Service Type</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="companyName">Customer</mfDefaultSorter>
+            </th>
+            <!-- <th>
+              <mfDefaultSorter by="companyName">Invoice Amount</mfDefaultSorter>
+            </th>
+          
+            <th class="hidden-sm-down">
+              <mfDefaultSorter by="paymentDue">Payment Due</mfDefaultSorter>
+            </th>
+            <th class="hidden-sm-down">
+              <mfDefaultSorter by="paymentDue">Due Date</mfDefaultSorter>
+            </th> -->
+
+            <th class="no-sort">
+              <mfDefaultSorter by="view">View</mfDefaultSorter>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of pendingLogisticsArray">
+            <td>{{x.invoiceNumber}}</td>
+            <td>{{x.orderNumber}}</td>
+            <td>{{x.logisticsId.company_name}}</td>
+            <td>{{x.serviceType}}</td>
+            <td>{{x.traderId.company_name}}</td>
+            <!-- <td></td>
+             
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+            <!-- <td></td> -->
+            <!-- <td></td>  -->
+            <td>
+              <button type="button" mat-raised-button color="warn" (click)="invoice(x)">View</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

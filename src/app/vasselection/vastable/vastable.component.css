@@ -1,0 +1,20 @@
+.color{
+    background: rgb(22, 31, 47);
+    color: #fff;
+}
+
+.heightavailable{
+    height: -webkit-stretch;
+}
+
+.hide{
+    display: none;
+}
+
+.p2{
+    padding: 2px;
+}
+
+img{
+    border:0px;
+}

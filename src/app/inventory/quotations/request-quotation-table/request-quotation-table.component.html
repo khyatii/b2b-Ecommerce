@@ -1,0 +1,86 @@
+
+<h1 class="page-title">Quotations</h1>
+<div class="button-row buttonposition">
+	<button class="mb10" mat-raised-button color="warn" routerLink="../request-quotations">Request Quotations</button>
+</div>
+<!-- <div class="example" style="margin-top: 30px;max-width: 300px;margin-left: auto;">
+	<input type="text" placeholder="by company name.." (input)='searchQuotations($event)' id="searchBar" name="search2">
+	<button type="submit"><i class="fa fa-search"></i></button>
+</div> -->
+<section class="widget">
+	<header>
+		<h4>Quotations</h4>
+	</header>
+	<div class="widget-body pt-4">
+		<mat-tab-group (selectedTabChange)="onLinkClick($event)">
+			<mat-tab label="Request">
+			<div class="widget-body overflow-auto">
+				<div class="mt">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th><mfDefaultSorter by="order">Order</mfDefaultSorter></th>
+								<th><mfDefaultSorter by="companyName">Company Name</mfDefaultSorter></th>
+								<th><mfDefaultSorter by="status">status</mfDefaultSorter></th>
+								<th class="no-sort"><mfDefaultSorter by="created">Created</mfDefaultSorter></th>
+								<th class="no-sort"><mfDefaultSorter by="lastUpdated">Last Updated</mfDefaultSorter></th>
+                                <th class="no-sort"><mfDefaultSorter by="view">View Detail</mfDefaultSorter></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let x of requestQuotationArray" >
+								<td class="align-middle">{{x.RFQNumber}}</td>
+								<td class="align-middle"><span class="fw-semi-bold">{{x.supplierId.company_name}}</span></td>
+								<td class="hidden-sm-down align-middle">{{x.status}}</td>
+								<td class="hidden-sm-down align-middle">{{x.createdAt | date }}</td>
+                                <td class="align-middle">{{x.updatedAt | date }}</td>
+                                <td class="align-middle">
+                                    <button mat-raised-button color="warn" (click)="viewDetail(x)" routerLink="../view-request">View</button>
+                                </td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="12">
+									<mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			</mat-tab>
+			<mat-tab label="Response">
+				<div class="widget-body overflow-auto">
+					<div class="mt">
+						<table class="table table-striped table-hover" >
+							<thead>
+							<tr>
+								<th>Order</th>
+								<th>Company Name</th>
+								<th>Status</th>
+                                <th>Created</th>
+                                <th>Last Updated</th>
+								<th>View Detail</th>
+							</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let x of responseQuotationArray" >
+									<td class="hidden-sm-down align-middle">{{x.RFQNumber}}</td>
+                                    <td class="align-middle"><span class="fw-semi-bold">{{x.supplierId.company_name}}</span></td>
+                                    <td class="hidden-sm-down align-middle">{{x.status | titlecase}}</td>
+                                    <td class="hidden-sm-down align-middle">{{x.createdAt | date }}</td>
+                                    <td class="align-middle">{{x.updatedAt | date }}</td>
+									<td  class="align-middle"> <button mat-raised-button color="warn" [disabled]="x.status !== 'finalised'" (click)="viewDetailResponse(x)">View</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</mat-tab>
+        </mat-tab-group>
+
+
+
+	</div>
+</section>

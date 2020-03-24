@@ -1,0 +1,107 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Setup</h1>
+<div class="button-row buttonposition">
+  <button class=" mb10" mat-raised-button color="warn" routerLink="../">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify Service Catalogue</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="serviceCatalogueForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+
+        <div class="row" *ngIf="logisticsType=='Multiple Logistics'">
+          <div class="col-12 form-group">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Logistics Type" formControlName="logistics_type" (change)="logisticChange($event)">
+                <mat-option *ngFor="let x of logisticTypeArray" [value]="x">{{x}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Service Category" formControlName="ServiceCategory" required>
+                <mat-option *ngFor="let x of ServicesCategories;" value="{{x}}">{{x}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!ServiceCategory.valid && ServiceCategory.touched">Service Category Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="ServiceName" placeholder="ServiceName" [matAutocomplete]="auto" required>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of serviceName" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="!ServiceName.valid && ServiceName.touched">Service Name Required</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="ServiceDescription" placeholder="Service Description" required>
+              <mat-error *ngIf="!ServiceDescription.valid && ServiceDescription.touched">Service Description Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Unit" formControlName="Unit" required>
+                <mat-option *ngFor="let x of Units;" value="{{x.unit}}">{{x.unit}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!Unit.valid && Unit.touched">Unit Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="PricePerUnit" min="0" onpaste="return false;" (keypress)="keyPress($event)"
+                placeholder="Price Per Unit" required>
+              <mat-error *ngIf="!PricePerUnit.valid && PricePerUnit.touched">Price Per Unit Required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="ServiceUrl" placeholder="Service Url">
+              <mat-error *ngIf="!ServiceUrl.valid && ServiceUrl.touched">Enter Valid Url</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="PriceRules" placeholder="Price Rules">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!serviceCatalogueForm.valid" (click)="submit(serviceCatalogueForm.value)" color="warn"
+              type="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

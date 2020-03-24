@@ -1,0 +1,53 @@
+/deep/ .mat-input-flex .mat-form-field-flex{
+    border-radius: 1px; 
+    /* box-shadow: 0px 0px 1px 2px; */
+    /* padding: 4px 0px 0px 7px; */
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(6, 20, 38, 0.2), -2px -2px 8px rgba(6, 20, 38, 0.2), 2px -2px 8px rgba(6, 20, 38, 0.2), -2px 2px 8px rgba(6, 20, 38, 0.2);
+    padding: 4px 0px 0px 7px;
+}
+
+.productProperties{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.outer{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.phoneIcon{
+    vertical-align: baseline;
+}
+
+.top{
+    max-width: 80vw;
+    pointer-events: auto;
+    position: static;
+    height: calc(100vh - 125px) !important;
+}
+
+.infotop{
+    border-top: 1px solid grey;
+}
+
+.savedMessage{
+    text-align: center;
+    margin-top: 25%;
+    font-weight: 300;
+    // font-size: 3em;
+}
+.editsavemessage {
+    text-align: center;
+    color: green;
+}
+.btnRight{
+    direction: rtl;
+}
+#basic-addon1{
+    font-size: 24px;
+}
+
+.header-row{ background: darkorange; margin-top: -25px; margin-right: -30px; margin-left: -30px; }
+.header-heading{ text-align: center; color: white; padding: 12px; font-weight: 500; }

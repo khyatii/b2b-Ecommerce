@@ -1,0 +1,12 @@
+header{
+    background: transparent;
+    color: black
+}
+
+img {
+    width: 100%;
+}
+
+span, h1, h2, h3, h4, h5, h6, label, a{
+    word-wrap: break-word;
+}

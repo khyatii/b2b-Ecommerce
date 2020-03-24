@@ -1,0 +1,66 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<!-- <div class="loader-container" *ngIf="isLoading">
+  <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div> -->
+
+<h1 class="page-title">Enquiry</h1>
+<section class="widget" widget>
+  <header>
+    <h4>Contated Buyers Enquiry</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <div class="width-200 float-right">
+        <div class="input-group input-group-sm input-group-transparent input-group-rounded">
+          <span class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Search">
+        </div>
+      </div>
+      <table class="table table-striped table-hover" [mfData]="enquiryArray  | search : searchText" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Product</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Query</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of mf.data;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.product.productId.txtProductName}}</td>
+            <td>{{x.email}}</td>
+            <td>{{x.phone}}</td>
+            <td>{{x.city}}</td>
+            <td>{{x.query}}</td>
+          </tr>
+          <tr *ngIf="mf.data.length === 0">
+            <td colspan="100">
+              No matches
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25, 50]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

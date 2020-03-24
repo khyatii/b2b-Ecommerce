@@ -1,0 +1,45 @@
+img {
+    width: 100%;
+    border: none;
+}
+
+span, h1, h2, h3, h4, h5, h6, label, a{
+    word-wrap: break-word;
+}
+
+header{
+    background: transparent!important;
+}
+
+.payment{
+   
+    height: 100%;
+}
+.paymentWidget{
+    background: white;
+}
+
+.rightNumber{
+    background: lightgrey;
+    padding: 3px;
+    border-radius: 10%;
+}
+
+.progress{
+    height: 2px; 
+    background:#e97426
+}
+.dropdown{
+    position: relative
+}
+.dropdowButton{
+    position: absolute;
+    top:65%;
+   
+    z-index: 500;
+    left:-50px
+}
+.deleteButton{
+    background: ghostwhite;
+    border: 1px solid lightgrey;
+}

@@ -1,0 +1,65 @@
+
+
+<h1 class="page-title">Approval</h1>
+
+<section class="widget">
+  <header>
+    <h4>Approval Process</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="approvalForm">
+      <div *ngIf = "traderType=='Both' || traderType == 'Seller'">
+        <div class="col-md-10 col-sm-12 mb-2  heading">
+          Inventory Related Approval
+        </div>
+        <div class="col-md-8 col-sm-12 m-auto">
+          
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-form-field class="example-full-width">
+                <mat-select placeholder="Product Approval"  formControlName="txtProduct" multiple>
+                  <mat-option value="Modify">Modify</mat-option>
+                  <mat-option value="Add" >Add</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-form-field class="example-full-width">
+                <mat-select placeholder="Category Approval"  formControlName="txtCategorry" multiple>
+                  <mat-option value="Modify">Modify</mat-option>
+                  <mat-option value="Add" >Add</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-12">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="PriceList Approval"  formControlName="txtPriceList" multiple>
+                    <mat-option value="Modify">Modify</mat-option>
+                    <mat-option value="Add" >Add</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+  
+              <div class="col-lg-6 col-md-6 col-sm-12">
+                <mat-form-field class="example-full-width">
+                  <mat-select placeholder="Discount Approval"  formControlName="txtDiscount" multiple>
+                    <mat-option value="Modify">Modify</mat-option>
+                    <mat-option value="Add" >Add</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <button mat-raised-button [disabled]="!approvalForm.valid" (click)="submit(approvalForm.value)"	 color="warn" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

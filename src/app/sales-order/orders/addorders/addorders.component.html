@@ -1,0 +1,161 @@
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-12 text-center alert alert-success opacity1 messageposition" *ngIf="isShow" >
+    Order is added Successfully.
+  </div>
+</div>
+
+<h1 class="page-title">Orders</h1>
+ <div class="button-row buttonposition"> 
+  <button mat-raised-button class="mb10" color="warn" routerLink="../">Back</button>
+</div> 
+<section class="widget">
+  <header>
+    <h4>New Order</h4> 
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="addOrderData"  (ngSubmit)="submit(addOrderData.value)">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Customer Name" formControlName="txtCustomerName" required>
+                <mat-error *ngIf="!txtCustomerName.valid && txtCustomerName.touched">Customer Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Order No" formControlName="txtOrderNo" required>
+                <mat-error *ngIf="!txtOrderNo.valid && txtOrderNo.touched">Order No Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="issueDate" placeholder="Issue Date" formControlName="txtIssueDate" required>
+                <mat-datepicker-toggle matSuffix [for]="issueDate"></mat-datepicker-toggle>
+                <mat-datepicker #issueDate></mat-datepicker>
+                <mat-error *ngIf="!txtIssueDate.valid && txtIssueDate.touched">Issue Date Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">                
+                <input matInput [matDatepicker]="shipmentDate" placeholder="Shipment Date">
+                <mat-datepicker-toggle matSuffix [for]="shipmentDate"></mat-datepicker-toggle>
+                <mat-datepicker #shipmentDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input type="number" matInput placeholder="Price List" formControlName="txtPriceList" required>
+                <mat-error *ngIf="!txtPriceList.valid && txtPriceList.touched">Price List Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="Currency" formControlName="txtCurrency" required>                  
+                  <mat-option value="USD">USD</mat-option>
+                  <mat-option value="local">Local</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!txtCurrency.valid && txtCurrency.touched">Currency Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Reference">
+            </mat-form-field>        
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width"> 
+              <mat-select placeholder="Totals are" formControlName="txtTotalAre" required>                  
+                <mat-option value="taxexclusive">Tax Exclusive</mat-option>
+                <mat-option value="taxinclusive">Tax Inclusive</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtTotalAre.valid && txtTotalAre.touched">Total Type Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Email" formControlName="txtEmail" required>
+                <mat-error *ngIf="!txtEmail.valid && txtEmail.touched">Email Required</mat-error>
+            </mat-form-field>
+          </div>          
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input type="number" matInput placeholder="Phone Number" formControlName="txtPhoneNumber" required>
+                <mat-error *ngIf="!txtPhoneNumber.valid && txtPhoneNumber.touched">Phone Number Required</mat-error>
+            </mat-form-field>
+          </div>      
+        </div>         
+      </div>
+    
+      <hr>
+      <table class="table-responsive">
+        <thead>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Discount</th>
+          <th>Tax</th>
+          <th>Total</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of addOrderData.get('items')['controls']; let i=index" [formGroup]="item">
+            <td><mat-form-field><input matInput formControlName="name"></mat-form-field></td>
+            <td><mat-form-field><input matInput formControlName="quantity"></mat-form-field></td>
+            <td><mat-form-field><input matInput formControlName="Price"></mat-form-field></td>
+            <td><mat-form-field><input matInput formControlName="Discount"></mat-form-field></td>
+            <td><mat-form-field><input matInput formControlName="Tax"></mat-form-field></td>
+            <td><mat-form-field><input matInput formControlName="Total"></mat-form-field></td>
+          </tr>  
+        </tbody>
+      </table>
+     
+      <label class="green" (click)="addItem()">+ Add Another Item</label>
+      <hr>
+      <div class="row">
+        <div class="col-lg-7 col-md-12 col-sm-12">
+          <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Message to Customer" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-5 col-md-12 col-sm-12">
+          <div class="row">
+            <div class="col-6">
+              <label class="float-left">Total Units</label>
+            </div>
+            <div class="col-6">
+              <label class="float-right">0</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <label class="float-left">Sub Total</label>
+            </div>
+            <div class="col-6">
+              <label class="float-right">0</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <label class="float-left">Total</label>
+            </div>
+            <div class="col-6">
+              <label class="float-right">0</label>
+            </div>
+          </div>
+        </div> 
+      </div>  
+      <hr> 
+      <div class="col-12 text-center">
+        <button [disabled]="!addOrderData.valid" mat-raised-button color="warn" role="submit">Submit</button>
+      </div> 
+    </form>   
+  </div>
+</section>  

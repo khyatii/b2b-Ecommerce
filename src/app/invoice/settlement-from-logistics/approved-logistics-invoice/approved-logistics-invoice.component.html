@@ -1,0 +1,64 @@
+
+<button class="buttonposition mb10" mat-raised-button color="warn" >Back</button>
+<section class="widget" widget>
+   <header class="mb-3">
+    <h4>Invoices From Logistics</h4>
+  </header>
+  <div class="widget-body overflow-auto">    
+    <div class="mt">      
+      <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+          <th>
+            <mfDefaultSorter by="invoice">Vender</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="order">Service Type</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="companyName">Customer</mfDefaultSorter>
+          </th>
+          <th class="hidden-sm-down">
+            <mfDefaultSorter by="paid">Paid</mfDefaultSorter>
+          </th>
+         
+        
+          <th class="no-sort">
+            <mfDefaultSorter by="issuedAt">Issued At</mfDefaultSorter>
+          </th>
+          <th class="no-sort">
+            <mfDefaultSorter by="lastUpdated">Last Updated</mfDefaultSorter>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of completedLogisticsArray;let i=index;">
+            <td>{{x.logisticsId.company_name}}</td>
+            <td>{{x.serviceType}}</td>
+            <td>{{x.traderId.company_name}}</td>
+             <td ><i class="fa fa-circle  green"></i></td>
+             <td>{{x.createdAt | date}}</td>  
+             <td>{{x.updatedAt  | date}}</td>  
+             
+            <!-- <td></td>
+            <td></td>
+            <td></td> -->
+            <!-- <td></td> -->
+            <!-- <td></td>  -->
+            <!-- <td>
+              <button type="button" mat-raised-button color="warn" (click)="invoice(x)">View</button>
+            </td> -->
+        </tr>
+        
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

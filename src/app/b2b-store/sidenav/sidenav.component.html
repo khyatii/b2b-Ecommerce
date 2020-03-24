@@ -1,0 +1,34 @@
+<div id="main">
+  <!-- <div *ngIf='isData' class="over">
+      <img id="load" src="../../../assets/logo/spinner9.gi" alt="">
+  </div> -->
+  <div id="mainSideNav" (mouseleave)='leavingmouse(catSubCat)' class="m-0 row">
+    <nav [style.display]="null" class="col-12 navbar ng-star-inserted" id="sidenavList" *ngIf='!showNav'>
+      <button mat-button><span style="float:left;"><i class="fa fa-bars"></i> INDUSTRIES</span></button>
+      <button #industriesBtn mat-button class="categoryItem" *ngFor='let industry of Industries;let i = index'
+        (mouseenter)='overMouseEvent(industry,catSubCat,industriesBtn)'><span
+          style="float: left;">{{industry.name}}</span></button>
+      <button mat-button routerLink="/b2b-store/industries"><span style="float:left;">View More <span><i class="fa fa-angle-double-right"></i></span>
+        </span></button>
+    </nav>
+    <div #catSubCat id="cateexpand" class="offset-lg-3 offset-md-3 offset-xl-2 w-100 h-100">
+      <nav class="navbar bg-light">
+        <div class="row">
+          <ng-container *ngFor="let data of IndustriesData;let j=index">
+            <div class="col-md-2 col-sm-6 col-xs-12 catbox">
+              <ul id="subcatList">
+                <li class='catListItems' (click)='clickCategoryList(data)' clickCategoryList>{{data.name}} <span
+                    class="arrowCat"><i class="fa fa-caret-right"></i></span></li>
+                <ng-container *ngFor="let sub of subCatArray[j]; let i=index">
+                  <li class="subCategoryItems" (click)="clicksubCategoryList(sub)">{{sub.name}}</li>
+                  <a *ngIf="i == subCatArray[j].length-1" class="viewMorebtn" 
+                   routerLink ="/b2b-store/categoryListing?id={{data._id}}">view More</a>
+                </ng-container>
+              </ul>
+            </div>
+          </ng-container>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+	<strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+	<strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Inventory</h1>
+
+<section class="widget">
+	<header>
+		<h4>Stock Take</h4>
+	</header>
+
+	<div class="widget-body pt-4">
+		<h2 class="mb-2">Choose a location for stock take</h2>
+		<mat-form-field class="example-full-width">
+			<mat-select placeholder="Storage Location" #location="ngModel" (change)="changStorage(location.value)" [(ngModel)]="storageLocation"
+			 required>
+				<mat-option *ngFor="let location of locationArray" [value]="location._id">{{location.locationName}}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="location.errors">Storage Location Required</mat-error>
+		</mat-form-field>
+	</div>
+	<table class="table table-striped table-hover" [mfData]="productArray  | search : searchText" #mf="mfDataTable" [mfRowsOnPage]="5">
+		<thead>
+			<tr>
+				<th>
+					<mfDefaultSorter by="image">Image</mfDefaultSorter>
+				</th>
+				<th>
+					<mfDefaultSorter by="name">Name</mfDefaultSorter>
+				</th>
+				<th class="hidden-sm-down">
+					<mfDefaultSorter by="quantity">Quantity</mfDefaultSorter>
+				</th>
+				<th class="hidden-sm-down">
+					<mfDefaultSorter by="quantity">New Quantity</mfDefaultSorter>
+				</th>
+				<!-- <th class="hidden-sm-down">
+					<mfDefaultSorter by="quantity">Qantity Change</mfDefaultSorter>
+				</th>   -->
+				<th class="no-sort">
+					<mfDefaultSorter by="supplier">Edit</mfDefaultSorter>
+				</th>
+			</tr>
+		</thead>
+		<tbody #newdatarow>
+			<tr *ngFor="let x of mf.data">
+				<td>
+					<span *ngFor="let img of x.imageFile">
+						<img [src]="img.path" *ngIf="img.isdefault == true" alt="Maggi" width="100" height="100">
+					</span>
+				</td>
+				<td class="align-middle">{{x.productId.txtProductName}}</td>
+				<td class="hidden-sm-down align-middle">{{x.txtStockAvailable}}</td>
+				<td>
+					<mat-form-field class="example-full-width align-middle mt-4">
+						<input type="number" #quantity matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Stock on Hand">
+					</mat-form-field>
+				</td>
+				<!-- <td class="align-middle">{{quantityChanged}}</td> -->
+				<td class="align-middle">
+					<button mat-raised-button [disabled]="!x.approvalStatus" color="warn" (click)="modifyProduct(x,quantity.value)">Modify</button>
+				</td>
+			</tr>
+
+			<tr *ngIf="mf.data.length === 0">
+				<td colspan="100">
+					No matches
+				</td>
+			</tr>
+
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="12">
+					<mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</section>

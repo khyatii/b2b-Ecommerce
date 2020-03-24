@@ -1,0 +1,199 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="user == 'Seller' || user == 'Both' " class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Inventory</p>
+              <p class="lower-heading">Creating your First Product</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia, his full name is L Lawliet. </p>
+              <button routerLink="create-products"  class="btn btn-success pull-right" style=" background: #e27200; border: none;" >Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="user == 'Seller'" class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Relationships</p>
+              <p class="lower-heading">Adding Customer</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia, his full name is L Lawliet. </p>
+              <button routerLink='add-customer' class="btn btn-success pull-right" style="background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="user == 'Buyer'" class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Relationships</p>
+              <p class="lower-heading">Add Supplier</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia, his full name is L Lawliet. </p>
+              <button routerLink='add-suppliers' class="btn btn-success pull-right" style="background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- asd -->
+    <div *ngIf="user == 'Both'" class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Relationships</p>
+              <p class="lower-heading">Adding Customer And Suppliers</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia, his full name is L Lawliet. </p>
+              <button routerLink='customer-and-supplier' class="btn btn-success pull-right" style="background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="user == 'Seller' || user == 'Both'" class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Sales Order</p>
+              <p class="lower-heading">Creating Sales Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia. </p>
+              <button class="btn btn-success pull-right" style="    background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="user == 'Buyer' " class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Relationships</p>
+              <p class="lower-heading">Adding Suppliers</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia, his full name is L Lawliet. He does have several </p>
+              <button class="btn btn-success pull-right" routerLink="add-suppliers" style="    background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="user == 'Seller' || user == 'Both'" class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Stock Control</p>
+              <p class="lower-heading">Managing Stock Movement</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia, his full name is L Lawliet. </p>
+              <button class="btn btn-success pull-right" routerLink="create-products" style="background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="user == 'Buyer' || user =='Both'" class="col-md-4 actions">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-3">
+              <img class="logo-img" src="https://images-na.ssl-images-amazon.com/images/I/31BrnHjjm4L.jpg" alt="">
+            </div>
+            <div class="col-md-9">
+              <p class="top-heading">Purchase Order</p>
+              <p class="lower-heading">Creating Purchase Order</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <p>According to both the Death Note Character list on Wikipedia and the L character
+                page on the Death Note Wikia. </p>
+              <button class="btn btn-success pull-right" routerLink="create-po" style="background: #e27200; border: none;">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

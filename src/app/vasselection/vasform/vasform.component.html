@@ -1,0 +1,45 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+    <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<section class="widget">
+  <header class="mb-3">
+    <h4>Add New Service
+      <i class="fa fa-times float-right colorsilver" routerLink="/app/vasselection"></i>
+    </h4>    
+  </header>
+      
+  <form class="form-group" [formGroup]="vasForm" >
+    <div class="row mx-0 form-group" >
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Service Plan" formControlName="servicePLan" required>
+          <mat-error *ngIf="!servicePLan.valid && servicePLan.touched" > Service Plan Required </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row mx-0 form-group">
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Location" formControlName="location" required>
+          <mat-error *ngIf="!location.valid && location.touched" > Location Required </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row mx-0 form-group">
+      <mat-form-field class="example-full-width">
+          <input type="number" matInput placeholder="Price" formControlName="price" required>
+          <mat-error *ngIf="!price.valid && price.touched" > Price Required </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button mat-raised-button color="warn" [disabled]="!vasForm.valid" (click)="submit(vasForm.value)" class="float-right">Add Service</button>
+      </div>
+    </div>
+  </form>  
+</section>

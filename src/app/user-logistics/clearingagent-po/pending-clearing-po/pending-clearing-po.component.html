@@ -1,0 +1,46 @@
+<section class="widget" widget>
+  <header>
+    <h4> Clearing & Forwarding Agent PO</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Order&nbsp;No</th>
+            <th>Order&nbsp;Date</th>
+            <th>Qunatity</th>
+            <!-- <th>Unit&nbsp;of&nbsp;Measure</th> -->
+            <th>Total&nbsp;Cost&nbsp;of&nbsp;Goods</th>
+            <th>Clearing&nbsp;Service&nbsp;Required</th>
+            <!-- <th>Service&nbsp;Fee</th> -->
+            <th>Expected&nbsp;Arrival</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of pendingClearingPoArray;let i=index;">
+            <td>{{x.traderId.company_name}}</td>
+            <td>{{x.orderNumber}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button mat-raised-button color="warn" (click)="accept(x)">Accept</button>
+            </td>
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

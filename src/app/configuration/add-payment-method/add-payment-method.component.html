@@ -1,0 +1,43 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Configuration</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../paymentMethod">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Add Payment Method</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="addPaymentMethodForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Name"  formControlName="description" required > 
+              <mat-error *ngIf="!description.valid && description.touched">Method Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+            <mat-checkbox formControlName="active"></mat-checkbox>
+            <span>Default Payment Term</span>
+          </div>
+        </div>
+         
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!addPaymentMethodForm.valid" (click)="submit(addPaymentMethodForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section> 

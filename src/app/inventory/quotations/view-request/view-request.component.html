@@ -1,0 +1,94 @@
+<h1 class="page-title">Quotations</h1>
+<div class="button-row buttonposition">
+  <button class="mb10" mat-raised-button color="warn" routerLink="../request-quotation-table">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>View Request Quotations</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <div class="widget-body overflow-auto">
+      <div class="row mb-lg">
+        <section class="col-6 col-print-6">
+          <h5 class="text-muted no-margin">Company Information</h5>
+          <h3 class="company-name m-t-1">
+            {{SupplierName}}
+          </h3>
+          <address>
+            <!--<strong>2 Infinite Loop</strong><br>
+                                Minsk, Belarus 220004<br>
+                                088.253.5345<br>-->
+            <abbr title="Work email">e-mail:</abbr>
+            <a href="mailto:#">{{SupplierEmail}}</a>
+            <br>
+            <abbr title="Work Phone">phone:</abbr>{{SupplierConatct}}
+            <br>
+            <!--<abbr title="Work Fax">fax:</abbr>-->
+          </address>
+        </section>
+        <section class="col-6 col-print-6 text-right">
+          <h5 class="text-muted no-margin">Client Information</h5>
+          <h3 class="client-name m-t-1">
+            {{BuyerName}}
+          </h3>
+          <address>
+            <strong>Owner</strong> of
+            <a href="#">{{BuyerName}}</a>
+            <br>
+            <abbr title="Work email">e-mail:</abbr>
+            <a href="mailto:#">{{BuyerEmail}}</a>
+            <br>
+            <abbr title="Work Phone">phone:</abbr>{{BuyerContact}}
+            <br>
+          </address>
+        </section>
+      </div>
+      <div class="mt">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>
+                <mfDefaultSorter by="productName">Product Name</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="total">Total Price</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="UnitPrice">Unit Price</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="noOfItems">No. of Items</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="stockAvailable">Stock Available</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="created">Created</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="lastUpdated">Last Updated</mfDefaultSorter>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of productArray;let i = index ">
+              <td class="align-middle">{{x.productId.productId.txtProductName}}</td>
+              <td class="hidden-sm-down align-middle">{{x.productId.txtCurrency.iso3}} {{x.txtTotalPrice}}</td>
+              <td class="hidden-sm-down align-middle">{{x.productId.txtCurrency.iso3}} {{x.txtUnitPrice}}</td>
+              <td class="hidden-sm-down align-middle">{{x.txtNoOfItems}}</td>
+              <td class="hidden-sm-down align-middle">{{x.productId.txtStockAvailable}}</td>
+              <td class="hidden-sm-down align-middle">{{x.createdAt | date }}</td>
+              <td class="align-middle">{{x.updatedAt | date }}</td>
+            </tr>
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12">
+                <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>

@@ -1,0 +1,12 @@
+.left{
+    float: left;
+    margin-top: 11%;
+}
+.right{
+    float: right;
+    margin-top: 11%;
+    /* padding-right: 53px; */
+}
+.imagehieght{
+    height: 250px;
+}

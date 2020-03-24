@@ -1,0 +1,141 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Price List</h1>
+<div class="button-row buttonposition"> 
+  <!-- <button mat-raised-button class="mb10" color="warn" value="abc" (click)="fileChoose(file)">Import New Price List
+    <input accept=".xlsx, .xls, .csv" type="file" #file>
+  </button> -->
+  <!-- <button mat-raised-button class="mb10" color="warn" triggerModal modalTargetId="ImportModals">Import New Price List</button> -->
+
+
+  <button mat-raised-button class="mb10" color="warn" routerLink="../addpricelist">Add New Price List</button>
+</div> 
+<section class="widget"  widget>
+  <header>
+    <h4> Price List</h4> 
+  </header>
+  <div class="widget-body overflow-auto">    
+    <div class="mt">      
+      <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Customer</th>
+          <th>Price</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody #newdatarow>
+          <!-- <tr #Expand1>
+            <td>Laptop</td>
+            <td><span class="fw-semi-bold">Rahul Computers</span></td>
+            <td>$ 250.99</td>
+            <td class="width150"> 10/1/2017</td>
+            <td>10/5/2017</td>
+            <td> <button mat-raised-button color="warn" routerLink="../modifypricelist">Modify</button></td> -->
+            <!-- <td><i  class="fa fa-pencil" [ngClass]="{'Hide' : Expand1.isHide}" (click)="editData(Expand1)"></i></td>           -->
+          <!-- </tr> -->
+          <!-- <tr [ngCass]="{'Hide' : !Expand1.isHide}">
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Product Name" value="Laptop">
+                </mat-form-field>
+              </td>
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Category" value="Electronics">
+                </mat-form-field>
+              </td>
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Brand" value="Dell">
+                </mat-form-field>
+              </td>  
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Product Name" value="Laptop">
+                </mat-form-field>
+              </td>
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Category" value="Electronics">
+                </mat-form-field>
+              </td>                
+          </tr> -->
+          <!-- <tr #Expand2>
+            <td>Blender</td>
+            <td><span class="fw-semi-bold"> Vijay Electronics</span></td>
+            <td>$ 159.99</td>
+            <td class="width150">10/2/2017</td>
+            <td>10/7/2017</td>
+            <td> <button mat-raised-button color="warn" routerLink="../modifypricelist">Modify</button></td> -->
+            <!-- <td><i class="fa fa-pencil" [ngClass]="{'Hide' : Expand2.isHide}" (click)="editData(Expand2)"></i></td> -->
+          <!-- </tr> -->
+          <!-- <tr #Expand3>
+            <td>Maggi</td>
+            <td><span class="fw-semi-bold">Uncle's Kitchen</span></td>
+            <td>$ 349.99</td>
+            <td class="width150">10/5/2017</td>
+            <td>10/12/2017</td>
+            <td> <button mat-raised-button color="warn" routerLink="../modifypricelist">Modify</button></td> -->
+            <!-- <td><i class="fa fa-pencil"  [ngClass]="{'Hide' : Expand3.isHide}" (click)="editData(Expand3)"></i></td> -->
+          <!-- </tr>  -->
+          <tr r *ngFor="let x of array">
+            <td>{{x.product?.txtProductName}}</td>
+            <td><span class="fw-semi-bold">{{x.customerGroup?.name}}</span></td>
+            <td>{{x.currency?.iso3}} {{x.price}}</td>
+            <!-- <td>{{x.start_date.getMonth() + 1}}/{{x.start_date.getDate()}}/{{x.start_date.getFullYear()}}</td> -->
+            <td>{{formatDate(x.start_date)}}</td>
+            <!-- <td>{{x.end_date.getMonth() + 1}}/{{x.end_date.getDate()}}/{{x.end_date.getFullYear()}}</td> -->
+            <td>{{formatDate(x.end_date)}}</td>
+            <td> <button mat-raised-button color="warn" (click)="modify(x)">Modify</button></td>
+          </tr>
+        </tbody>
+        <!-- <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot> -->
+      </table>
+    </div>
+  </div>
+</section>
+
+ <!-- <div class="overflow" #ImportModals clkOutsideModal id="modalAddPriceList">
+  <div class="content-box">
+    <header>
+      <h2 class="p-3 m-0" style="display: inline-block;">Import Price List</h2>
+      <i class="fa fa-close faCloseModal p-3" (click)="closePopUp($event)"></i>
+    </header>
+    <h4>Instructions</h4>
+    <div class="row border-bottom m-0">
+      <div class="col-12 col-md-6 border-right">
+        <p class="text-left">File must contains the following fields.</p>
+        <ul class="text-left">
+          <li>Product Name</li>
+          <li>Quantity Per Unit Price</li>
+          <li>Price</li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6 uploadHieght">
+        <input type="file" accept=".xlsx, .xls, .csv" #importFile  (change)="fileChange($event.target)">
+        <img src="./assets/img/upload-files.png" height="200" width="200" alt="Upload">
+        <span class="fileName"  (click)="triggerFile(importFile)">{{fileName}}</span>
+        <div class="col-12 mt25">
+          <button mat-raised-button color="warn" (click)="upload(importFile)">Upload</button>
+        </div>        
+      </div>        
+    </div>
+    
+  </div>
+</div>  -->

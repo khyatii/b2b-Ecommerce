@@ -1,0 +1,15 @@
+<section class="widget">
+  <header class="mb-0">
+    <h4>Activity Feed</h4>
+  </header>
+  <div class="row notification-row" *ngFor="let notify of notificationArray">
+    <div class="col-lg-1 col-md-2 col-3">
+      <img src="./assets/img/avatar.png" width="100%">
+    </div>
+    <div class="col">
+      <span class="notification-title">Nicoza</span><small>{{timeSince(notify.createdAt)}}</small>
+      <p class="notification-msg">{{notify.message}}</p>
+    </div>
+    <hr />
+  </div>
+</section>

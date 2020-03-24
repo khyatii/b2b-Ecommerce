@@ -1,0 +1,112 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+<h1 class="page-title">Value Added Services</h1>
+<div class="button-row buttonposition">
+  <button class="mb10" mat-raised-button color="warn" routerLink="../viewvas">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify Value Added Services</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="modifyServicesForm" (ngSubmit)="onSubmit(modifyServicesForm.value)">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input class="form-control" formControlName="Name" matInput placeholder="Name" required>
+              <mat-error *ngIf="!Name.valid && Name.touched">Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="customerCategory" placeholder="Customer Category" required>
+                <mat-option *ngFor="let customer of customerCategoryy" [value]="customer.viewValue">
+                  {{customer.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!customerCategory.valid && customerCategory.touched">Customer Category Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="billCycle" placeholder="Billing Cycle" required>
+                <mat-option *ngFor="let bc of billingCycle" [value]="bc.viewValue">
+                  {{bc.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!billCycle.valid && billCycle.touched">Bill Cycle Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="paymentTerms" placeholder="Payment Terms" required>
+                <mat-option *ngFor="let term of paymentTermss" [value]="term.viewValue">
+                  {{term.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!paymentTerms.valid && paymentTerms.touched">Payment Terms Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select formControlName="services" placeholder="Value Added Service Type" required>
+                <mat-option *ngFor="let service of Services" [value]="service.viewValue">
+                  {{service.viewValue}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!services.valid && services.touched">Services Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row table-responsive salesLead" id="salesLead">
+          <table class="table table-striped">
+            <thead>
+              <th>Service Name</th>
+              <th>Fee</th>
+              <th>Description</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of modifyServicesForm.get('items')['controls']; let i=index" [formGroup]="item">
+                <td>
+                  <mat-form-field>
+                    <input type="hidden" formControlName="_id" value="{{serviceFeeData[i]['_id'] }}">
+                    <input matInput formControlName="subcat" value="{{serviceFeeData[i]['subcat'] }}">
+                    <mat-error>Subcat Required</mat-error>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput formControlName="price" value="{{serviceFeeData[i]['price'] }}" required>
+                    <mat-error *ngIf="!price.valid && price.touched">Price Required</mat-error>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput formControlName="description" value="{{serviceFeeData[i]['description'] }} ">
+                    <mat-error>Description Required</mat-error>
+                  </mat-form-field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button type="submit" mat-raised-button color="warn">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

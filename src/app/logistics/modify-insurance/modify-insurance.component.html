@@ -1,0 +1,148 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+    <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+  <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<h1 class="page-title">Logistics</h1>
+<div class="button-row buttonposition">
+  <button class="mb10" mat-raised-button color="warn" routerLink="../insuranceMangement">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify Insurance Agent</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="insuranceForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-form-field class="example-full-width">
+                  <input type="text"  placeholder="Country" matInput [formControl]="txtCountry" [matAutocomplete]="auto" required>
+                  <mat-error *ngIf="!txtCountry.valid && txtCountry.touched">Country Required</mat-error>
+              </mat-form-field>
+              <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option (click)="countryChanged(country)" *ngFor="let country of filteredOptions | async" [value]="country.name">
+                          {{country.name}}
+                  </mat-option>
+              </mat-autocomplete>
+      
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-form-field class="example-full-width">
+                  <input type="text"  placeholder="City" matInput [formControl]="txtTown" [matAutocomplete]="autoc" required>
+                  <mat-error *ngIf="!txtTown.valid && txtTown.touched">City Required</mat-error>
+              </mat-form-field>
+              <mat-autocomplete #autoc="matAutocomplete">
+                  <mat-option  *ngFor="let city of filteredCity | async" [value]="city.name">
+                          {{city.name}}
+                  </mat-option>
+              </mat-autocomplete>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Insurance Agent" formControlName="txtInsuranceAgent" required>
+                <mat-option *ngFor="let insurance of insuranceArray" (focusout)="changeInsurance(insurance)" [value]="insurance._id">{{insurance.company_name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtInsuranceAgent.valid && txtInsuranceAgent.touched">Insurance Agent Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Priority" formControlName="txtPriority" required>
+                <mat-option value="1st">1
+                  <sup>st</sup>
+                </mat-option>
+                <mat-option value="2nd">2
+                  <sup>nd</sup>
+                </mat-option>
+                <mat-option value="3rd">3
+                  <sup>rd</sup>
+                </mat-option>
+                <mat-option value="4th">4
+                  <sup>th</sup>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtPriority.valid && txtPriority.touched">Priority Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Service Type"  formControlName="serviceType" required>
+                <mat-option *ngFor="let x of ServicesCategories;" value="{{x}}">{{x}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!serviceType.valid && serviceType.touched">Service Type Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Service Name"  formControlName="serviceName" required>
+                <mat-option *ngFor="let x of serviceNames;" value="{{x}}">{{x}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!serviceName.valid && serviceName.touched">Service Name Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Share Transport Service Details" formControlName="txtShareTransportServiceDetails" required>
+                <mat-option value="yes">Yes</mat-option>
+                <mat-option value="no">No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtShareTransportServiceDetails.valid && txtShareTransportServiceDetails.touched">Share Transport Service Details Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Share Consignment Details" formControlName="txtShareConsignmentDetails" required>
+                <mat-option value="yes">Yes</mat-option>
+                <mat-option value="no">No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtShareConsignmentDetails.valid && txtShareConsignmentDetails.touched">Share Consignment Details Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Share Warehouse Details" formControlName="txtShareWarehouseDetails" required>
+                <mat-option value="yes">Yes</mat-option>
+                <mat-option value="no">No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtShareWarehouseDetails.valid && txtShareWarehouseDetails.touched">Share Warehouse Details Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Share Clearing Agents Details" formControlName="txtShareClearingAgentsDetails" required>
+                <mat-option value="yes">Yes</mat-option>
+                <mat-option value="no">No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtShareClearingAgentsDetails.valid && txtShareClearingAgentsDetails.touched">Share Clearing Agents Details Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!insuranceForm.valid" (click)="submit(insuranceForm.value)" color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,232 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+    <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+<h1 class="page-title">Orders</h1>
+<div class="button-row buttonposition">
+    <button mat-raised-button class="mb10" color="warn" routerLink="../quotationDetails">Back</button>
+</div>
+<section class="widget">
+    <header>
+        <h4>Details of Quotation</h4>
+    </header>
+    <div class="widget-body pt-4">
+        <form class="example-form" [formGroup]="viewQuotationDetailsData" (ngSubmit)="submit(viewQuotationDetailsData.value)">
+            <div class="col-md-12 col-sm-12 m-auto">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input type="hidden" formControlName="quotationSupplierId" value="">
+                            <input matInput placeholder="Buyer Name" value="{{BuyerName}}" disabled>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Buyer Contact" value="{{BuyerContact}}" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Payment Terms" value="{{paymentTerms}}" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Item Size" value="{{itemSize}}" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Item Weight" value="{{itemWeight}}" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Location Name" value="{{locationName}}" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Created At" value="{{createdAt | date}}" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Closing Date" value="{{closingDate | date}}" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Shipping" value="{{shipping}}" disabled>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </div>
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            <mfDefaultSorter by="productName">Product Name</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="unitMeasure">Unit of Measure</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="orderQuantity">Order Quantity</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="UnitPrice">Unit Price</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="total">Total Price</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="iteamsPerPackage">Items Per Package</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="txtPackagingWeight">Packaging Weight</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="Packaging">Packaging</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="payemntModeWithDiscount">Payment Mode with Discount</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="payemntModeDiscount">Payment Mode Discount</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="EarlyPaymentTermDiscount">Early Payment Term Discount</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="DiscountforEarlyPayment">Discount for Early Payment</mfDefaultSorter>
+                        </th>
+                        <th>
+                            <mfDefaultSorter by="remove">Remove</mfDefaultSorter>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tblProductData">
+                    <tr *ngFor="let item of viewQuotationDetailsData.get('items')['controls']; let i=index" [formGroup]="item">
+                        <td class="align-middle" *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <!-- <input type="hidden" formControlName="hiddenId" value="{{requestQuotationArray[i]['_id'] }}">-->
+                            {{requestQuotationArray[i]['productId']['productId']['txtProductName'] }}
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'" class="align-middle">
+                            {{requestQuotationArray[i]['productId']['txtSalesUnitOfMeasure']}}
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field>
+                                <input matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Order Quantity" formControlName="txtNoOfItems"
+                                    value="{{requestQuotationArray[i]['txtNoOfItems'] }}" (blur)="calculateTotal($event, i,requestQuotationArray[i])">
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field>
+                                <input min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput placeholder="Unit Price" formControlName="txtUnitPrice"
+                                    value="{{requestQuotationArray[i]['productId']['txtPrice'] }}" (blur)="calculateTotal($event, i,requestQuotationArray[i])">
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['productId']['discountId']==undefined ">
+                            <mat-form-field *ngIf="requestQuotationArray[i]['status']=='pending'">
+                                <input matInput placeholder="Total Price" disabled formControlName="txtTotalPrice" value="{{requestQuotationArray[i]['txtNoOfItems']  * requestQuotationArray[i]['productId']['txtPrice']}}">
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['productId']['discountId']!=undefined ">
+                            <mat-form-field *ngIf="requestQuotationArray[i]['status']=='pending'">
+                                <input matInput placeholder="Total Price" disabled formControlName="txtTotalPrice" value="{{requestQuotationArray[i]['txtNoOfItems']  * requestQuotationArray[i]['productId']['txtPrice']-(requestQuotationArray[i]['txtNoOfItems']  * requestQuotationArray[i]['productId']['txtPrice'] *requestQuotationArray[i]['productId'].discountId.discount)/100}}">
+                            </mat-form-field>
+                        </td>
+
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Items per Package" formControlName="txtItemPerPackage">
+                                    <mat-option value="5">5</mat-option>
+                                    <mat-option value="10">10</mat-option>
+                                    <mat-option value="15">15</mat-option>
+                                    <mat-option value="20">20</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Packaging Weight" formControlName="txtPackagingWeight">
+                                    <mat-option value="500g">250 g</mat-option>
+                                    <mat-option value="10">500 g</mat-option>
+                                    <mat-option value="15">750 g</mat-option>
+                                    <mat-option value="20">1 Kg</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Packaging" formControlName="txtPackaging">
+                                    <mat-option value="Plastic">Plastic</mat-option>
+                                    <mat-option value="Cardboard">Cardboard</mat-option>
+                                    <mat-option value="Brick Carton">Brick Carton</mat-option>
+                                    <mat-option value="Glass">Glass</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Payment Mode with Discount" formControlName="txtPaymentModeWithDiscount">
+                                    <mat-option value="Bank Transfer 5%">Bank Transfer 5%</mat-option>
+                                    <mat-option value="Cheque 4%">Cheque 4%</mat-option>
+                                    <mat-option value="Credit Card 2%">Credit Card 2%</mat-option>
+                                    <!-- <mat-option value="Cash 0%">Cash 0%</mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <input min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput placeholder="Payment Mode Discount" formControlName="txtPaymentModeDiscount">
+                                <span matSuffix>%</span>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Early Payment Term Discount" formControlName="txtEarlyPaymentTermDiscount">
+                                    <mat-option value="Bank Transfer 8%">Bank Transfer 8%</mat-option>
+                                    <mat-option value="Cheque 6%">Cheque 6%</mat-option>
+                                    <mat-option value="Credit Card 4%">Credit Card 4%</mat-option>
+                                    <!-- <mat-option value="Cash 0%">Cash 0%</mat-option> -->
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <mat-form-field class="example-full-width">
+                                <input min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput placeholder="Discount for Early Payment" formControlName="txtDiscountForEarlyPayment">
+                                <span matSuffix>%</span>
+                            </mat-form-field>
+                        </td>
+                        <td class="align-middle" *ngIf="requestQuotationArray[i]['status']=='pending'">
+                            <button type="button" mat-raised-button color="warn" (click)="removeProduct(i)">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="12">
+                            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="col-12 text-center">
+                <button [disabled]="!viewQuotationDetailsData.valid" mat-raised-button color="warn" role="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</section>

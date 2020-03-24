@@ -1,0 +1,94 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<section class="widget">
+  <header>
+    <h4>Reject Quotation</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <div class="widget-body overflow-auto">
+      <form class="example-form" [formGroup]="rejectQuotationForm">
+        <div class="col-md-12 col-sm-12 m-auto">
+          <div class="row mb-lg">
+            <section class="col-6 col-print-6">
+            </section>
+            <section class="col-6 col-print-6 text-right">
+              <h5 class="text-muted no-margin">Buyer Information</h5>
+              <h3 class="client-name m-t-1">
+                {{BuyerName}}
+              </h3>
+              <address>
+                <strong>Owner</strong> of
+                <a href="#">{{BuyerName}}</a>
+                <br>
+                <abbr title="Work email">e-mail:</abbr>
+                <a href="mailto:#">{{BuyerEmail}}</a>
+                <br>
+                <abbr title="Work Phone">phone:</abbr>{{BuyerContact}}
+                <br>
+              </address>
+            </section>
+          </div>
+
+          <div class="row table-responsive">
+            <table class="table table-striped" [mfData]="productArray" #mf="mfDataTable" [mfRowsOnPage]="5">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Product Name</th>
+                  <th>Total Price</th>
+                  <th>Unit Price</th>
+                  <th>No. of Items</th>
+                  <th>Stock Available</th>
+                  <th>Created</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let x of mf.data;let i = index ">
+                  <td class="align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    <mat-checkbox formControlName="selectItem" (change)="checkbox(x)" required></mat-checkbox>
+                  </td>
+                  <!-- <td class="align-middle">{{i+1}}</td> -->
+                  <td class="align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.productId.productId.txtProductName}}</td>
+                  <td class="hidden-sm-down align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.txtTotalPrice}}</td>
+                  <td class="hidden-sm-down align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.txtUnitPrice}}</td>
+                  <td class="hidden-sm-down align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.txtNoOfItems}}</td>
+                  <td class="hidden-sm-down align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.productId.txtStockAvailable}}</td>
+                  <td class="hidden-sm-down align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.createdAt | date }}</td>
+                  <td class="align-middle" *ngIf="productArray[i]['status']=='pending'">
+                    {{x.updatedAt | date }}
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="12">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25, 50]"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-center">
+              <button mat-raised-button [disabled]="!rejectQuotationForm.valid" (click)="cancelQuotation()" color="warn" type="submit">Reject</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

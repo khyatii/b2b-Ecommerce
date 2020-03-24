@@ -1,0 +1,71 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Company Details</h1>
+ <div class="button-row buttonposition">   
+  <button mat-raised-button class="mb10" color="warn" (click)="add()">Add New Location</button>
+</div> 
+<section class="widget" widget>
+  <header class="mb-3">
+    <h4>Locations</h4>
+  </header>
+  <div class="widget-body overflow-auto">    
+    <div class="mt">      
+      <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+          <th>
+            <mfDefaultSorter by="Label">Label</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="Address">Address</mfDefaultSorter>
+          </th>
+          <th>
+            <mfDefaultSorter by="Suburb">Suburb</mfDefaultSorter>
+          </th>
+          <th class="hidden-sm-down">
+            <mfDefaultSorter by="City">City</mfDefaultSorter>
+          </th>
+          <th class="hidden-sm-down">
+            <mfDefaultSorter by="State">State</mfDefaultSorter>
+          </th>
+          <th class="no-sort">
+            <mfDefaultSorter by="Country">Country</mfDefaultSorter>
+          </th>
+          <th class="no-sort">
+            <mfDefaultSorter by="Holdstock">Hold Stock</mfDefaultSorter>
+          </th>
+          <th>Default</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+           <tr *ngFor="let x of addLocationArray">
+            <td > {{x.label}}  </td>
+            <td > {{x.street1}}  </td>
+            <td > {{x.suburb}}  </td>
+            <td > {{x.city}}  </td>
+            <td > {{x.state}}  </td>
+            <td > {{x.txtCountry}}  </td>
+            <td><i *ngIf="x.hold_stock" class="fa fa-check" style="color: green"></i></td>
+            <td><i *ngIf="x.default" class="fa fa-check" style="color: green"></i></td>
+            <td> <button mat-raised-button color="warn" (click)="modify(x)">Modify</button></td>  
+          </tr> 
+        </tbody>
+        <!-- <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot> -->
+      </table>
+    </div>
+  </div>
+
+</section>

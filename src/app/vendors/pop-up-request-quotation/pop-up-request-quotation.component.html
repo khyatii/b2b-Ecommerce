@@ -1,0 +1,86 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<section class="widget">
+  <header>
+    <h4>Request For Quotation</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="quoutationForm">
+      <div class="col-md-12 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Payment Terms" formControlName="txtPaymentTerms" required>
+                <mat-option value="E-Payment">E-Payment</mat-option>
+                <mat-option value="Escrow">Escrow</mat-option>
+                <mat-option value="Credit">Credit</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtPaymentTerms.valid && txtPaymentTerms.touched">Payment Terms Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Currency" formControlName="txtCurrency" required>
+                <mat-option *ngFor="let currency of currencyArray" [value]="currency._id">{{currency.currency_name}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtCurrency.valid && txtCurrency.touched">Please First Add Currency</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Delivery Location" formControlName="txtDeliveryLocation" required>
+                <mat-option *ngFor="let loc of LocationArray" [value]="loc._id">{{loc.label}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtDeliveryLocation.valid && txtDeliveryLocation.touched">Delivery Location Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Shipping" formControlName="txtShipping" required>
+                <mat-option value="CPT">CPT</mat-option>
+                <mat-option value="FOB">FOB</mat-option>
+                <mat-option value="CIF">CIF</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtShipping.valid && txtShipping.touched">Shipping Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtOrderQuantity" placeholder="Order Quantity">
+              <mat-error *ngIf="!txtOrderQuantity.valid && txtOrderQuantity.touched">Order Quantity Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="txtClosingDate" [min]="minDate" placeholder="Closing Date" formControlName="txtClosingDate"
+                required>
+              <mat-datepicker-toggle matSuffix [for]="txtClosingDate"></mat-datepicker-toggle>
+              <mat-datepicker #txtClosingDate></mat-datepicker>
+              <mat-error *ngIf="!txtClosingDate.valid && txtClosingDate.touched">Closing Date Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+          </div>
+          <div class="col-4 text-center">
+            <button mat-raised-button [disabled]="!quoutationForm.valid" (click)="submit(quoutationForm.value)" color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

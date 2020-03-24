@@ -1,0 +1,52 @@
+
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+<strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+<loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<h1 class="page-title">Customers</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" (click)="addInvitation()">Add Existing</button>
+  <button class="mb10" mat-raised-button color="warn" (click)="addCustomer()">Invite</button>  
+</div>
+<section class="widget">
+  <header>
+    <h4>Customers</h4> 
+  </header>  
+  <div class="widget-body overflow-auto">    
+    <div class="mt">      
+      <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Type</th>
+          <th>Phone</th>
+          <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+            
+          <tr *ngFor="let customer of customerArray">
+            <!-- <td>3.</td> -->
+           
+            <td>{{customer.txtBusinessName}}</td>
+            <td *ngIf="customer.active==true"><i class="fa fa-circle  green"></i> Active</td>
+            <td *ngIf="customer.active==false"><i class="fa fa-circle  red"></i> InActive</td>
+            <td> {{customer.txtTraderType}}</td>
+            <td> {{customer.txtBuisnessPhone}}</td>            
+            <td> <button mat-raised-button color="warn" (click)="modifyCustomer(customer)">Modify</button></td>
+            <!-- <td><i class="fa fa-pencil"  [ngClass]="{'Hide' : Expand3.isHide}" (click)="editData(Expand3)"></i></td> -->
+          </tr> 
+        
+      </table>
+    </div>
+  </div>
+</section>

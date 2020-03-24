@@ -1,0 +1,145 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="row justify-content-center" *ngIf="searchSupplierForm.errors?.notauser">
+  <div class="col-8 text-center alert alert-danger opacity1 messageposition" [ngClass]="{'opacity0' : showMessage }">
+    <span>Supplier does not exist</span>
+  </div>
+</div>
+
+<h1 class="page-title">Vendors</h1>
+
+<section class="widget">
+  <header>
+    <h4>Search Supplier</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="searchSupplierForm">
+      <div class="col-lg-8 col-md-12 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Product Name" formControlName="txtProductName" [matAutocomplete]="autob" required>
+              <mat-error *ngIf="!txtProductName.valid && txtProductName.touched">Product Name Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #autob="matAutocomplete">
+              <mat-option *ngFor="let x of productNameArray | async" [value]="x.productId.txtProductName">
+                {{ x.productId.txtProductName }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Country" matInput [formControl]="txtCountry" [matAutocomplete]="auto">
+              <mat-error *ngIf="!txtCountry.valid && txtCountry.touched">Country Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (click)="countryChanged(country)" *ngFor="let country of filteredOptions | async" [value]="country.name">
+                {{country.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider class="example-full-width" [max]=100 [min]=0 [thumb-label]="thumbLabel" (input)="onInputMinChange($event)"></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="txtMinPriceRange" [value]="minValue" placeholder="Minimum">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="City" matInput [formControl]="txtCity" [matAutocomplete]="autoc">
+              <mat-error *ngIf="!txtCity.valid && txtCity.touched">City Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #autoc="matAutocomplete">
+              <mat-option *ngFor="let city of filteredCity | async" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider class="example-full-width" [max]=1000 [min]=100 [thumb-label]="thumbLabel" (input)="onInputMaxChange($event)"
+              #matSliderMax></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="txtMaxPriceRange" [value]="matSliderMax?.value" placeholder="Maximum">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Currency" formControlName="txtCurrency">
+                <mat-option *ngFor="let currency of currencyArray" [value]="currency._id">{{currency.currency_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!searchSupplierForm.valid" (click)="submit(searchSupplierForm.value)" color="warn"
+              type="submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="widget" [ngClass]="{'hide':isHide}" widget>
+  <header>
+    <h4> Results </h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Supplier</th>
+            <th>Location</th>
+            <th>Product</th>
+            <th>Image</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Minimum Order</th>
+            <th>Request Quotation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <span *ngIf="!searchSupplier">No product meet your search criteria</span>
+          <tr *ngFor="let x of resultArray;let i=index;">
+            <td>{{x.traderId.company_name}}</td>
+            <td>{{x.traderId.country_name}}</td>
+            <td>{{x.productId.txtProductName}}</td>
+            <td class="align-middle">
+              <span *ngFor="let img of x.imageFile">
+                <img [src]="img.path" *ngIf="img.isdefault == true" alt="Maggi" width="50" height="60">
+              </span>
+            </td>
+            <td>{{x.txtStockAvailable}}</td>
+            <td>{{x.txtPrice}}</td>
+            <td>{{x.txtMinimumOrderQuantity}}</td>
+            <td>
+              <button mat-raised-button color="warn" (click)="openDialog()">Request Quotation</button>
+            </td>
+          </tr>
+        </tbody>
+        <!-- <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot> -->
+      </table>
+    </div>
+  </div>
+</section>

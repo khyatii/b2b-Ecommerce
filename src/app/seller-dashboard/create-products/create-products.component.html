@@ -1,0 +1,18 @@
+<div class="main">
+    <div class="row">
+        <div class="col-md-12" style="text-align:right">
+            <button *ngIf="myStepper.selectedIndex > 0" (click)="gback(myStepper)" class="btn btn-info mb-2 mr-3">Back</button>
+            <button class="btn btn-info mb-2 mr-3" (click)="skipStep(myStepper)">Skip</button>
+        </div>
+    </div>
+    <mat-horizontal-stepper #myStepper id="stepid">
+        <mat-step  label="Create Product Storage Location" >
+            <app-add-location (notify)='getLocationForm($event)'></app-add-location>
+        </mat-step>
+        <mat-step [completed]="false" label="Add Single or Multiple Products" [stepControl]="productForm">
+            <app-add-product (notify)='getProductForm($event)'></app-add-product>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>
+
+

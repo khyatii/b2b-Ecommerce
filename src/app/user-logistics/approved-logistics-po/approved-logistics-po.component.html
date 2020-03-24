@@ -1,0 +1,41 @@
+<section class="widget" widget>
+  <header>
+    <h4> Warehouse PO</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Order&nbsp;No</th>
+            <th>Space&nbsp;Required</th>
+            <!-- <th>Storage&nbsp;Services&nbsp;Required</th>
+            <th>Service&nbsp;Fee</th> -->
+            <th>Storage&nbsp;Location</th>
+            <th>Storage&nbsp;Start&nbsp;Date</th>
+            <th>Storage&nbsp;End&nbsp;Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of completedWarehousePoArray;let i=index;">
+            <td>{{x.traderId.company_name}}</td>
+            <td>{{x.orderNumber}}</td>
+            <td>Available</td>
+            <td>{{x.traderId.country_name}}</td>
+            <td>{{x.createdAt | date }}</td>
+            <td>{{x.updatedAt | date }} </td>
+            <!-- <td>{{x.warehouseId.txtTown}},{{x.warehouseId.txtCountryName}}</td> -->
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

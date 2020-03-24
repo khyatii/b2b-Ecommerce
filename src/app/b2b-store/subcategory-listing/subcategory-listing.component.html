@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-2 p-0">
+            <app-sidenav id="sideNavBar"></app-sidenav>
+    </div> 
+    <div class="col-12">
+        <h2 *ngIf="products?.length == 0" class="productdata">This subcategory have no products </h2>
+        <div id="subcatproductListing">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 toprow">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 productItem" *ngFor="let product of products">
+                            <div class="card">
+                                <div *ngIf="product.imageFile.length > 0">
+                                    <div *ngFor="let images of product.imageFile">
+                                        <img class="card-img-top productImg" *ngIf="images.isdefault == true"
+                                            [src]="images.path" alt="Card image cap">
+                                    </div>
+                                </div>
+                                <div *ngIf="product.imageFile.length <= 0">
+                                    <img class="card-img-top productImg" src="http://www.telect.com/images/403-3.png">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title productName">{{product.txtBrand}}
+                                        {{product.productId.txtProductName}}</h5>
+                                    <p>By
+                                        <a href="">
+                                            <span class="sellerTraderName">{{product.traderId.registration_name}}</span>
+                                        </a>
+                                    </p>
+                                    <div class="productDetails">
+                                        <p>
+                                            <span class="productProperties">Stock Available:
+                                            </span>{{product.txtStockOnHand}}.</p>
+                                        <p>
+                                            <span class="productProperties">Currency:
+                                            </span>{{product.txtCurrency.currency_name}}.</p>
+                                        <p>
+                                            <span class="productProperties"> price/unit:</span>
+                                            {{product.txtCurrency.iso3}}
+                                            {{product.txtPrice}} / {{product.txtSalesUnitOfMeasure}}.</p>
+                                    </div>
+                                    <hr>
+                                    <div class="w-100 text-center">
+                                        <button class="btn btn-primary contactBtn">View Mobile No.</button> 
+                                        <button (click)='contactSupplier(product)' class="btn btn-primary contactBtn">Contact Supplier</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

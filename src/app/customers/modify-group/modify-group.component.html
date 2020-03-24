@@ -1,0 +1,160 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+    <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<h1 class="page-title">Cusotmer</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../customerGroup">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify Customer Group</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="customerGroupForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput [formControl]="name" placeholder="Name" required>
+              <mat-error *ngIf="!name.valid && name.touched">Name Should be Alpha Numeric</mat-error>
+            </mat-form-field>
+            <!-- <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
+                </mat-option>
+           </mat-autocomplete> -->
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <!-- <mat-form-field class="example-full-width">
+              <input type="text" matInput [formControl]="member" [matAutocomplete]="auto" placeholder="Member" required>
+              <mat-error *ngIf="!member.valid && member.touched">Member Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
+                </mat-option>
+            </mat-autocomplete> -->
+            <mat-form-field class="example-full-width">              
+
+              <mat-select type="text" matInput formControlName="member"  [(ngModel)]="selectedItems" placeholder="Member" multiple> 
+                <mat-option *ngFor="let member of memberdata" [value]="member._id">{{member.txtBusinessName}}</mat-option>
+                <!-- <mat-option *ngFor="let member of addedMmemberArray" [value]="member.CustomerId.txtBusinessName">{{member.CustomerId.txtBusinessName}}</mat-option> -->
+              </mat-select>  
+            </mat-form-field>
+          </div>
+        </div>
+         
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Status" formControlName="status">
+                <mat-option value="Active">Active</mat-option>
+                <mat-option value="Inactive">Inactive</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!status.valid && status.touched">Status Required</mat-error> 
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!customerGroupForm.valid" (click)="submit(customerGroupForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+<!-- <section class="widget" widget>
+  <header>
+    <h4> Customer Group</h4> 
+  </header>
+  <div class="widget-body overflow-auto">    
+    <div class="mt">      
+      <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+          <th>Sr No</th> 
+          <th>Member Name</th>
+          <th>Status</th>
+          <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.</td>
+            <td>Ashoka Elecctronics</td>
+            <td><i _ngcontent-c4="" class="fa fa-circle  green"></i>  Active</td>
+            <td> <button mat-raised-button color="warn">Modify</button></td> -->
+            <!-- <td><i  class="fa fa-pencil" [ngClass]="{'Hide' : Expand1.isHide}" (click)="editData(Expand1)"></i></td>           -->
+          <!-- </tr> -->
+          <!-- <tr [ngCass]="{'Hide' : !Expand1.isHide}">
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Product Name" value="Laptop">
+                </mat-form-field>
+              </td>
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Category" value="Electronics">
+                </mat-form-field>
+              </td>
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Brand" value="Dell">
+                </mat-form-field>
+              </td>  
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Product Name" value="Laptop">
+                </mat-form-field>
+              </td>
+              <td class="col-lg-4">              
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Category" value="Electronics">
+                </mat-form-field>
+              </td>                
+          </tr> -->
+          <!-- <tr>
+            <td>2.</td>
+            <td>Kartaar Electronics</td>
+            <td><i _ngcontent-c4="" class="fa fa-circle  green"></i>  Active</td>
+            <td> <button mat-raised-button color="warn">Modify</button></td> -->
+            <!-- <td><i class="fa fa-pencil" [ngClass]="{'Hide' : Expand2.isHide}" (click)="editData(Expand2)"></i></td> -->
+          <!-- </tr>
+          <tr>
+            <td>3.</td>
+            <td>Pawan Electronics</td>
+            <td><i _ngcontent-c4="" class="fa fa-circle  green"></i>  Active</td>
+            <td> <button mat-raised-button color="warn">Modify</button></td> -->
+            <!-- <td><i class="fa fa-pencil"  [ngClass]="{'Hide' : Expand3.isHide}" (click)="editData(Expand3)"></i></td> -->
+          <!-- </tr>  -->
+          <!-- <tr r *ngFor="let x of array">
+            <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4vMWQx9N_VOVnNidPYIMbyVNBsMXWC790Jmo-ROgddQ0BDKsj" alt="Maggi" width="30"></td>
+            <td>{{x.txtProduct}}</td>
+            <td>14n></td>
+            <td>$ {{x.txtPrice}}</td>
+            <td> <button mat-raised-button color="warn" routerLink="../modifyGroup">Modify</button></td>
+          </tr>
+        </tbody> -->
+        <!-- <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot> -->
+      <!-- </table>
+    </div>
+  </div>
+</section> -->

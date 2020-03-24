@@ -1,0 +1,55 @@
+
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+<strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Cusotmer</h1>
+<div class="button-row buttonposition">
+  <button class="mb10" mat-raised-button color="warn" routerLink="../customerGroup">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Details of {{GroupName}}</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover" >
+        <thead>
+        <tr>
+          <th>Sr No</th>
+          <th>Member Name</th>
+          <th>Status</th>
+          <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let member of memberArray; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{member.CustomerId.txtBusinessName}}</td>
+            <td *ngIf="member.CustomerId.active == true"><i class="fa fa-circle  green"></i>  Active</td>
+            <td *ngIf="member.CustomerId.active == false"><i class="fa fa-circle  red"></i>  Inactive</td>
+            <td> <button mat-raised-button color="warn" (click)="modifyCustomer(member)">Modify</button></td>
+          </tr>
+<!--
+          <tr>
+            <td>2.</td>
+            <td>Kartaar Electronics</td>
+            <td><i _ngcontent-c4="" class="fa fa-circle  green"></i>  Active</td>
+            <td> <button mat-raised-button color="warn"  routerLink="../modify">Modify</button></td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td>Pawan Electronics</td>
+            <td><i _ngcontent-c4="" class="fa fa-circle  green"></i>  Active</td>
+            <td> <button mat-raised-button color="warn"  routerLink="../modify">Modify</button></td>
+
+          </tr>  -->
+
+      </table>
+    </div>
+  </div>
+</section>

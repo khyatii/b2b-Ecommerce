@@ -1,0 +1,42 @@
+.footer {
+  padding: 60px 0;
+  background: #111112;
+  margin-top: 1%;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .social {
+    color: white;
+    font-size: 29px;
+  }
+  li, a {
+    color: #666666;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 24px;
+  }
+  & .title {
+    margin-bottom: .5rem;
+    font-size: 24px;
+    color: #ccc;
+    border-bottom: 1px solid #333;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer .col-sm-3 {
+    padding-bottom: 2rem;
+  }
+}
+#topButton{
+  float: right;
+  outline: none;
+  position: sticky;
+  margin-right: 1%;
+}
+body {
+  scroll-behavior: smooth;
+}

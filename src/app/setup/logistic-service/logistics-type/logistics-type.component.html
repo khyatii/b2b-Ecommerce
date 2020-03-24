@@ -1,0 +1,43 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Logistics Service</h1>
+<div class="button-row buttonposition">
+  <button mat-raised-button class="mb10" color="warn" routerLink="../addLogistics">Add New Logistics Type</button>
+</div>
+<section class="widget" widget>
+  <header>
+    <h4>Logistics Types</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Logistics Type</th>
+            <th>Modify</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of logisticTypeArray;let i=index;">
+            <td>{{i+1}}</td>
+            <td>{{x.logistics_type}}</td>
+            <td>
+              <button mat-raised-button color="warn" (click)="modify(x)">Modify</button>
+            </td>
+            <td>
+              <button mat-raised-button color="warn" (click)="delete(x,i)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

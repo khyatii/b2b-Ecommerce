@@ -1,0 +1,18 @@
+#load{
+  border: none;
+  position:relative;
+  z-index: 999;
+  left: 50%;
+  height: 20%;
+  top: 35%;
+}
+
+.over{
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.1);
+}

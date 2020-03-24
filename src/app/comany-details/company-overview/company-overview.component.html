@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-12 text-center alert alert-success opacity1 messageposition" [ngClass]="{'opacity0' : isShow }">
+    Company Overview Updated Successfully.
+  </div>
+</div>
+
+<h1 class="page-title">Company Details</h1>
+
+<section class="widget">
+  <header>
+    <h4>Company Overview</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="companyOverviewForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtCompanyName" placeholder="Company Name" required>
+              <mat-error *ngIf="!txtCompanyName.valid && txtCompanyName.touched">Company Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtWebsite" placeholder="Website">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-form-field class="example-full-width">
+                  <input type="text"  placeholder="Country" matInput [formControl]="txtCountry" [matAutocomplete]="auto" required>
+                  <mat-error *ngIf="!txtCountry.valid && txtCountry.touched">Country Required</mat-error>
+              </mat-form-field>
+              <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let country of filteredOptions | async" [value]="country.code">
+                          {{country.name}}
+                  </mat-option>
+              </mat-autocomplete>
+          </div>
+
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Role" formControlName="role">
+                <mat-option value="Accountant">Accountant</mat-option>
+                <mat-option value="CEO">CEO</mat-option>
+                <mat-option value="Purchasing Manager">Purchasing Manager</mat-option>
+                <mat-option value="Salesman">Salesman</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!role.valid && role.touched">Role Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtEmail" placeholder="Email">
+              <mat-error *ngIf="!txtEmail.valid && txtEmail.touched">Email Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input min="0" (keypress)="keyPress($event)" matInput formControlName="txtMobile" placeholder="Mobile">
+              <mat-error *ngIf="!txtMobile.valid && txtMobile.touched">Mobile Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!companyOverviewForm.valid" (click)="submit(companyOverviewForm.value)" color="warn"
+              type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

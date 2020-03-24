@@ -1,0 +1,17 @@
+.container{
+    background-color: white;
+    padding: 0;
+}
+
+#headingSection{
+    width: 100%;
+    text-align: center;
+    background-color: #e97300;
+    color: white;
+    height: 5%;
+}
+td,th{
+    text-align: center;
+}
+header{ text-align: center; background: #e97300;color: white;margin: -15px -20px;
+    padding: 15px 20px; }

@@ -1,0 +1,78 @@
+  .h150{
+    height: 150px;
+  }  
+
+  .hide_file{
+    z-index: 1;
+    position: relative;
+    top: -135px;
+    height: 115px;
+    width: 150px;
+    opacity: 0;
+  }
+
+  .hide_file:hover ~ .overlay{
+    opacity: 1;
+  }
+  
+  .overlay {
+    border-radius: 94px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: 16px;
+    max-height: 150px;
+    opacity: 0;
+    background: rgba(0,0,0,0.5);
+    transition: .5s ease;
+  }  
+  
+  .overlaytext{
+      position: relative;
+      left: 2%;
+      top: 36%;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 600;
+  }
+
+  .profileHeader{
+    /* background: url('assets/img/pictures/19.jpg'); */
+    background-size: 100% 170px;
+    background-repeat: no-repeat;
+    margin-bottom: 20px;
+  }
+
+  #imgProfile{
+    border-radius: 94px;
+    width: 150px;
+    height: 150px;
+  }
+  
+  @media screen and (max-width:767px){
+    .mt100{
+      margin-top: 100px;
+    }
+    .hide_file{
+      z-index: 1;
+      position: relative;
+      top: -44px;
+      left: -205px;
+      height: 115px;
+      width: 200px;
+      opacity: 0;
+    }
+  }
+  @media screen and (max-width:513px){
+    .hide_file{
+      top: -115px;
+      left: 0;
+      height: 115px;
+      width: 200px;
+      opacity: 0;
+    }
+  }

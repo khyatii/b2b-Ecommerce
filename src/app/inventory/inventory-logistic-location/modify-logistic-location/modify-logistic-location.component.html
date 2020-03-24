@@ -1,0 +1,210 @@
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-12 text-center alert alert-success opacity1 messageposition" *ngIf="isShow">
+    Inventory Location Modified
+  </div>
+</div>
+
+<h1 class="page-title">{{logisticsHeading}} Inventory</h1>
+<div class="button-row buttonposition">
+  <button class=" mb10" mat-raised-button color="warn" routerLink="../">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify {{logisticsHeading}} Location</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="locationForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-12 form-group">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Logistics Type" formControlName="logistics_type" (change)="logisticChange($event)" required>
+                <mat-option *ngFor="let x of logisticTypeArray" [value]="x">{{x}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!logistics_type.valid && logistics_type.touched">Logistics Type Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <!-- <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtLocationName" placeholder="Location Name" required>
+              <mat-error *ngIf="!txtLocationName.valid && txtLocationName.touched">Location Name Required</mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Service Type" formControlName="serviceType">
+                <mat-option *ngFor="let x of ServicesCategories" value="{{x}}">{{x}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!serviceType.valid && serviceType.touched">Service Type Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Location Type" formControlName="txtLocationType" required>
+                <mat-option value="Warehouse">Warehouse</mat-option>
+                <mat-option value="Branch">Branch</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtLocationType.valid && txtLocationType.touched">Location Type Required</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Country" matInput [formControl]="txtCountry" [matAutocomplete]="auto" required>
+              <mat-error *ngIf="!txtCountry.valid && txtCountry.touched">Country Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option (focusout)="countryChanged(country)" *ngFor="let country of filteredOptions | async" [value]="country.name">
+                {{country.name}}
+              </mat-option>
+            </mat-autocomplete>
+
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="City" matInput [formControl]="txtTown" [matAutocomplete]="autoc" required>
+              <mat-error *ngIf="!txtTown.valid && txtTown.touched">City Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #autoc="matAutocomplete">
+              <mat-option *ngFor="let city of filteredCity | async" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtGeoLocation" placeholder="Geo Location" required>
+              <mat-error *ngIf="!txtGeoLocation.valid && txtGeoLocation.touched">Country Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Status" formControlName="txtStatus" required>
+                <mat-option value="Active">Active</mat-option>
+                <mat-option value="InActive">InActive</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtStatus.valid && txtStatus.touched">Status Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="logisticsType=='Warehouse'">
+          <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="storageLocation" placeholder="No. of Storage Location" >
+              <mat-error *ngIf="!storageLocation.valid && storageLocation.touched">No. of Storage Location Required</mat-error>
+            </mat-form-field>
+          </div> -->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="packageType" placeholder="Package Type">
+              <mat-error *ngIf="!packageType.valid && packageType.touched">Package Type Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="dimensions" placeholder="Dimensions">
+              <mat-error *ngIf="!dimensions.valid && storageLocation.touched">Dimensions Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="ratePerUnit" placeholder="Rate per Unit">
+              <mat-error *ngIf="!ratePerUnit.valid && ratePerUnit.touched">Rate per Unit Required</mat-error>
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="txtCapacity"
+                placeholder="Storage Capacity">
+              <mat-error *ngIf="!txtCapacity.valid && txtCapacity.touched">Size Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="logisticsType=='Transport'">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="destinationsTransport"
+                placeholder="No. of destinations">
+              <mat-error *ngIf="!destinationsTransport.valid && destinationsTransport.touched">No. of destinations Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="transportServices"
+                placeholder="No. of Transport Services">
+              <mat-error *ngIf="!transportServices.valid && transportServices.touched">No. of Transport Services Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="logisticsType=='Clearing'">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="destinationsClearing"
+                placeholder="No. of destinations">
+              <mat-error *ngIf="!destinationsClearing.valid && destinationsClearing.touched">No. of destinations Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="clearingServices"
+                placeholder="No & Types Clearance Services">
+              <mat-error *ngIf="!clearingServices.valid && clearingServices.touched">No & Types Clearance Services Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="logisticsType=='Insurance'">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="townsCovered"
+                placeholder="No. of town and countries covered">
+              <mat-error *ngIf="!townsCovered.valid && townsCovered.touched">No. of town and countries Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="insuranceServices"
+                placeholder="No & Types Insurance Services">
+              <mat-error *ngIf="!insuranceServices.valid && insuranceServices.touched">No & Types Insurance Services Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Ownership Type" formControlName="txtOwnership" required>
+                <mat-option value="Self">Self</mat-option>
+                <mat-option value="Leased">Leased</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtDescription" placeholder="Name" required>
+              <mat-error *ngIf="!txtDescription.valid && txtDescription.touched">Name Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-12 text-center">
+          <button mat-raised-button [disabled]="!locationForm.valid" (click)="submit(locationForm.value)" color="warn" type="submit">Modify</button>
+        </div>
+
+
+      </div>
+    </form>
+  </div>
+</section>

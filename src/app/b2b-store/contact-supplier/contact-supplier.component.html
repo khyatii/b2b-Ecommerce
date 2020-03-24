@@ -1,0 +1,93 @@
+<div class="row header-row">
+  <div class="col-md-12">
+    <h3 class="header-heading">Contact Supplier</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col-12">
+        <h4>{{product.productId.txtProductName}}</h4>
+      </div>
+      <div class="col-12">
+        <div *ngFor="let images of product.imageFile">
+          <img style="max-height: 180px;max-width: 200px" class="card-img-top productImg"
+            *ngIf="images.isdefault == true" [src]="images.path" alt="Card image cap">
+        </div>
+      </div>
+      <div class="col-12">
+        <p class="outer">
+          <span class="productProperties">Stock Available:
+          </span>{{product.txtStockAvailable}}.</p>
+        <p class="outer">
+          <span class="productProperties">Currency:
+          </span>{{product.txtCurrency.currency_name}}.</p>
+        <p class="outer">
+          <span class="productProperties"> price/unit:</span>
+          {{product.txtCurrency.iso3}} {{product.txtPrice}} / {{product.txtSalesUnitOfMeasure}}.
+        </p>
+      </div>
+      <div class="pl-5">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend phoneIcon">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa fa-phone"></i>
+            </span>
+          </div>
+          <div mat-flat-button color="green">{{product.traderId.phone_number}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 col-sm-12 col-xs-12">
+    <h3 *ngIf="savedDetails" class="savedMessage">
+      Thanks for Submitting your Interest On {{product.productId.txtProductName}}
+      <br>
+      <p class="editsavemessage">Soon You will Receive a Call on your Mobile No.
+        <br> {{phone_no}}</p>
+    </h3>
+    <form *ngIf="!savedDetails" class="example-form" [formGroup]="contactSupplierForm">
+      <div class="row">
+        <div class="col-2">
+          <mat-form-field class="example-full-width">
+            <input matInput type="text" formControlName="calling_code">
+          </mat-form-field>
+        </div>
+        <div class="col-10">
+          <mat-form-field class="example-full-width">
+            <input min="0" (keypress)="keyPress($event)" matInput placeholder="Enter your Phone Number"
+              formControlName="phone" required>
+            <mat-error *ngIf="!phone.valid && phone.touched">Enter Correct Phone Number</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Enter your Name" formControlName="name" type="text" required>
+            <mat-error *ngIf="!name.valid && name.touched">Name Required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Enter your Email" formControlName="email" type="text" required>
+            <mat-error *ngIf="!email.valid && email.touched">Please Enter a valid Email</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Enter your city" type="text" formControlName="city">
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <textarea matInput rows="9" cols="40" formControlName="query" cdkAutosizeMinRows="6" cdkAutosizeMaxRows="9"
+              placeholder="Ask your queries... "></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-12 btnRight">
+          <button class="btn btn-success" [disabled]="!contactSupplierForm.valid"
+            (click)="submitUserDetails(contactSupplierForm.value)">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

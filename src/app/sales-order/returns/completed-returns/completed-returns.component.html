@@ -1,0 +1,52 @@
+<!-- <button [ngClass]="{'Hide':!isHide}" class="buttonposition mb10" mat-raised-button color="warn" (click)="viewInvoiceTable()">Back</button> -->
+<section class="widget" widget>
+  <header class="mb-3">
+    <h4>Returns</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>
+              <mfDefaultSorter by="orderNo">Order No</mfDefaultSorter>
+            </th>
+            <th class="no-sort">
+              <mfDefaultSorter by="orderDate">Order Date</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter by="paid">Paid</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter>Reason for Return</mfDefaultSorter>
+            </th>
+            <th>
+              <mfDefaultSorter>View</mfDefaultSorter>
+            </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of completedReturnArray;let i=index;">
+            <td>{{x.orderNumber}}</td>
+            <td>{{x.createdAt | date}}</td>
+            <td class="hidden-sm-down">
+              <i class="fa fa-circle  green"></i>
+            </td>
+            <td>{{x.txtReasonForReturn}}</td>
+            <td>
+              <button mat-raised-button color="warn" (click)="viewDetails(x)" routerLink="../view-returns">View</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,164 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Returns</h1>
+<div class="button-row buttonposition">
+  <button class=" mb10" mat-raised-button color="warn" routerLink="../returns">Back</button>
+</div>
+
+<div class="row">
+
+
+
+  <section class="widget col-lg-9 col-12 pl-0 py-0 backColor" widget>
+    <div class="col-12 widget">
+      <header class="mb-3">
+        <h4>Return Details</h4>
+      </header>
+
+
+      <div class="widget-body">
+        <div class="row mb-lg">
+          <section class="col-6 col-print-6">
+            <h5 class="text-muted no-margin">Company Information</h5>
+            <h3 class="company-name m-t-1">
+              {{SupplierName}}
+            </h3>
+            <address>
+              <!-- <strong>2 Infinite Loop</strong><br>
+              Minsk, Belarus 220004<br>
+              088.253.5345<br> -->
+              <abbr title="Work email">e-mail:</abbr>
+              <a href="mailto:#">{{SupplierEmail}}</a>
+              <br>
+              <abbr title="Work Phone">phone:</abbr>{{SupplierConatct}}
+              <br>
+              <!-- <abbr title="Work Fax">fax:</abbr> (012) 678-132-901 -->
+            </address>
+          </section>
+          <section class="col-6 col-print-6 text-right">
+            <h5 class="text-muted no-margin">Client Information</h5>
+            <h3 class="client-name m-t-1">
+              {{BuyerName}}
+            </h3>
+            <address>
+              <strong>Owner</strong> of
+              <a href="#">{{BuyerName}}</a>
+              <br>
+              <abbr title="Work email">e-mail:</abbr>
+              <a href="mailto:#">{{BuyerEmail}}</a>
+              <br>
+              <abbr title="Work Phone">phone:</abbr>{{BuyerContact}}
+              <br>
+              <!-- <abbr title="Work Fax">fax:</abbr> (012) 678-132-901 -->
+            </address>
+          </section>
+        </div>
+        <div class="mt">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>
+                  <mfDefaultSorter>Image</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter>Product</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter>Quantity Delievered</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter>Quantity Returned</mfDefaultSorter>
+                </th>
+                <th>
+                  <mfDefaultSorter>Price</mfDefaultSorter>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let x of productArray;let i=index;">
+                <td>
+                  <span *ngFor="let img of x.productId.imageFile">
+                    <img [src]="img.path" *ngIf="img.isdefault == true" alt="Maggi" width="50" height="50">
+                  </span>
+                </td>
+                <td>{{x.productId.productId.txtProductName}}</td>
+                <td>{{x.qunatityDelievered}}</td>
+                <td>{{x.returnedQty}}</td>
+                <td>{{x.productId.txtCurrency.iso3}} {{x.returnedQty*x.txtTotalPrice}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="12">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-4">
+            <div class="row text-right">
+              <div class="col-6"></div>
+              <!-- instead of offset -->
+              <div class="col-3">
+                <p>Subtotal</p>
+                <p>Tax(10%)</p>
+                <p class="no-margin">
+                  <strong>Total</strong>
+                </p>
+              </div>
+              <div class="col-3">
+                <p>{{total}}</p>
+                <p>{{tax}}</p>
+                <p class="no-margin">
+                  <strong>{{total+tax}}</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="widget col-lg-3 col-12" widget>
+    <header class="mb-3">
+      <h4>Tracking Details</h4>
+    </header>
+    <div class="row py-2">
+      <i class="fa fa-archive fa-lg col-2 mt-1"></i>
+      <span class="px-1 col-8 f-15">Packed</span>
+      <i class="fa fa-clock-o mt-1" *ngIf="!isPacked"></i>
+      <i class="fa fa-check-square mt-1 colorGreen" *ngIf="isPacked"></i>
+    </div>
+    <div class="row py-2">
+      <i class="fa fa-truck fa-lg col-2 mt-1"></i>
+      <span class="px-1 col-8 f-15">Shipped</span>
+      <i class="fa fa-clock-o mt-1" *ngIf="!isShipped"></i>
+      <i class="fa fa-check-square mt-1 colorGreen" *ngIf="isShipped"></i>
+    </div>
+    <div class="row py-2">
+      <i class="fa fa-home fa-lg col-2 mt-1"></i>
+      <span class="px-1 col-8 f-15">Delievered</span>
+      <i class="fa fa-clock-o mt-1" *ngIf="!isDelievered"></i>
+      <i class="fa fa-check-square mt-1 colorGreen" *ngIf="isDelievered"></i>
+    </div>
+    <div class="row py-2" *ngIf="isReceived">
+      <i class="fa fa-check-circle fa-lg col-2 mt-1"></i>
+      <span class="px-1 col-8 f-15">Received</span>
+      <i class="fa fa-check-square mt-1 colorGreen"></i>
+    </div>
+    <div class="row py-2 pl-15" *ngIf="!isReceived">
+      <button class=" mb10" mat-raised-button color="warn" (click)="received()">Received</button>
+    </div>
+  </section>
+
+</div>

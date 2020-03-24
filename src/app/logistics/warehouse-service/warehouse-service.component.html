@@ -1,0 +1,81 @@
+<h1 class="page-title">Logistics</h1>
+
+<section class="widget">
+  <header>
+    <h4>Warehouse Service Management</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="warehouseServiceForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Product"  formControlName="optProduct" required>
+                  <mat-option value="Shoes">Shoes</mat-option>
+                  <mat-option value="Dress" >Dress</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!optProduct.valid && optProduct.touched">Select a Product </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Country"  formControlName="optCountry" >
+                  <mat-option value="Kenya">Kenya</mat-option>
+                  <mat-option value="USA" >USA</mat-option>
+                  <mat-option value="India" >India</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Town"  formControlName="optTown" >
+                  <mat-option value="Kilifi">Kilifi</mat-option>
+                  <mat-option value="NY" >NY</mat-option>
+                  <mat-option value="Delhi" >Delhi</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Priority"  formControlName="optPriority" required>
+                <mat-option value="1st">1 <sup>st</sup> </mat-option>
+                <mat-option value="2nd">2 <sup>nd</sup> </mat-option>
+                <mat-option value="3rd">3 <sup>rd</sup> </mat-option>
+                <mat-option value="4th">4 <sup>th</sup> </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!optPriority.valid && optPriority.touched">Select a Priority</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Share Transport Service Provider Details"  formControlName="optShareTransport" >
+                  <mat-option value="yes">Yes</mat-option>
+                  <mat-option value="no" >No</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div  class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Share Consignment Details"  formControlName="optShareConsignement" >
+                  <mat-option value="yes">Yes</mat-option>
+                  <mat-option value="no" >No</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!warehouseServiceForm.valid" (click)="submit(warehouseServiceForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

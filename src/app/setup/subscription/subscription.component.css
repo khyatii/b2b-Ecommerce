@@ -1,0 +1,50 @@
+.border{
+    line-height: 3;
+    border: 1px solid gainsboro;
+    border-top: none;
+}
+
+.bordertop{
+    border: 1px solid gainsboro;
+}
+
+.colorOrange{
+    color: #e27200;
+}
+
+.example-full-width{
+    width: 100%;
+}
+
+
+header{
+  text-align: center;
+  background: #e97300;
+  color: white;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+  display: none;
+}
+
+label{
+    margin-bottom: 0;
+}
+
+.margin-nicozaPlan{
+    margin-top: 53px;
+    margin-bottom: 42px;
+}
+
+@media screen and (min-width:596px){
+  .buttonposition{
+    position: absolute;
+    top: 93px;
+    right: 3%;
+  }
+}
+@media screen and (max-width:596px){  
+  .mb10{
+    margin-bottom: 10px
+  }
+}

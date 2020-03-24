@@ -1,0 +1,30 @@
+input[type=file]{
+    display: none;
+}
+.example input[type=text] {
+    padding: 7px;
+    border-bottom-left-radius: 9px;
+    border-top-left-radius: 9px;
+    font-size: 17px;
+    border: 1px solid darkcyan;
+    background: #f1f1f1;
+}
+
+.example button {
+    float: right;
+    border-bottom-right-radius: 9px;
+    border-top-right-radius: 9px;
+    margin-right: 13px;
+    width: 20%;
+    padding: 7px;
+    background: darkcyan;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+.example button:hover {
+    background: #0071ce;
+}

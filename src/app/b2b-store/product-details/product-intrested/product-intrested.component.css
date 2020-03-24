@@ -1,0 +1,31 @@
+#carouselExampleControls{
+    background: white;
+}
+.alignCenter{
+    text-align:center;
+}
+.sliderBox{
+    background: white;
+    margin-top:15px;
+}
+.sliderBox>.heading{
+    background: #e27325;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 17px;
+}
+.sliderBox>img{
+    height:200px;
+   
+}
+
+.carousel-indicators li {
+    background-color: #999;
+    background-color: rgba(70,70,70,.25);
+  }
+  
+  .carousel-indicators .active {
+    background-color: #444;
+  }
+  

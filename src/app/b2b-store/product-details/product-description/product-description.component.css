@@ -1,0 +1,43 @@
+.back{
+    padding: 20px;
+    background: #fff;
+}
+
+.borderContact{
+    border: 1px solid #e97300;
+}
+
+.colorGrey{
+    color: #8b898b;
+}
+
+@media screen and (min-width:992px){
+    .h550{
+        height: 550px;
+    }
+}   
+
+header{
+    line-height: 4;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+input{
+    width: 100%;
+    height: 50px !important;
+    padding: 10px;
+}
+
+mat-icon{
+    padding-top: 6px;
+    margin-right: 10px;
+}
+
+.mb-15{
+    margin-bottom: -15px;
+}
+
+.overflow-y-auto{
+    overflow-y: auto;
+}

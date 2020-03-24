@@ -1,0 +1,127 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Configuration</h1>
+<section class="widget">
+  <header>
+    <h4>Default Settings</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="defaultForm">
+      <div class="col-md-10 col-sm-12 m-auto">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Defualt Sales Tax"  formControlName="default_sale_tax">
+                <mat-option value="Sales (12.5%)">Sales (12.5%)</mat-option>
+                <mat-option value="Purchase (12.5%)" >Purchase (12.5%)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Defualt Purchase Tax"  formControlName="default_purchase_tax">
+                <mat-option value="Sales (12.5%)">Sales (12.5%)</mat-option>
+                <mat-option value="Purchase (12.5%)" >Purchase (12.5%)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Defualt Tax Exempts" value="0 %" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Totals Are"  formControlName="total_are">
+                <mat-option value="Tax Inclusive">Tax Inclusive</mat-option>
+                <mat-option value="Tax Exclusive" >Tax Exclusive</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Primary Loaction" value="Kenya" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Primary Contact"  formControlName="primary_contact">
+                <mat-option value="John Doe">John Doe</mat-option>
+                <mat-option value="Lucifer Smith" >Lucifer Smith</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>          
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Primary Billing Loaction" value="Kenya" disabled>
+            </mat-form-field>
+          </div>
+          
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Payment Terms"  formControlName="payment_terms">
+                <mat-option value="NET 30">NET 30</mat-option>
+                <mat-option value="Cash on Delivery" >Cash on Delivery</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+         
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Payment Method"  formControlName="payment_method">
+                <mat-option value="Bank Transfer">Bank Transfer</mat-option>
+                <mat-option value="Cash" >Cash</mat-option>
+                <mat-option value="PayPal" >PayPal</mat-option>
+                <mat-option value="Card" >Card</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>          
+        </div>
+
+        <div class="row">
+          
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Price List (Sale)"  formControlName="sale_price_list">
+                <mat-option value="Wholesale">Wholesale</mat-option>
+                <mat-option value="Retail" >Retail</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+         
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Price List (Purchase)"  formControlName="purchase_price_list">
+                <mat-option value="Select a Price List" >Select a Price List</mat-option>
+                <mat-option value="Buy">Buy</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>          
+        </div>
+         
+        
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button  (click)="submit(defaultForm.value)"	 color="warn" type="submit">Save Changes</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>

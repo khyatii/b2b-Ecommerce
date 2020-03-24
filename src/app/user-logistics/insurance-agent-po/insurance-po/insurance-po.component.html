@@ -1,0 +1,165 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+
+<div class="row">
+  <div class="col-12 hidden-print">
+    <button mat-raised-button class="mb10 float-right" color="warn" routerLink="../insuranceAgent-po">Back</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <section class="widget widget-invoice">
+      <header>
+        <div class="row">
+          <div class="col-md-6 col-print-6 col-12">
+            <h1>
+              <strong>Insurance PO</strong>
+            </h1>
+          </div>
+          <div class="col-md-6 col-print-6 col-12">
+            <div class="text-muted fs-larger text-right">
+              <span class="fw-semi-bold">Issue Date</span> - {{createdAt | date}}
+            </div>
+            <div class="text-muted fs-larger text-right">
+              <span class="fw-semi-bold">Order Number</span> - {{orderNumber}}
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="widget-body">
+        <div class="row mb-lg">
+          <section class="col-6 col-print-6">
+            <h5 class="text-muted no-margin">Company Information</h5>
+            <h3 class="company-name m-t-1">
+              {{TraderName}}
+            </h3>
+            <address>
+              <!-- <strong>2 Infinite Loop</strong>
+              <br> Minsk, Belarus 220004
+              <br> 088.253.5345<br> -->
+              <abbr title="Work email">e-mail:</abbr>
+              <a href="mailto:#">{{TraderEmail}}</a>
+              <br>
+              <abbr title="Work Phone">phone:</abbr>{{TraderContact}}
+              <br>
+              <!-- <abbr title="Work Fax">fax:</abbr> (012) 678-132-901 -->
+            </address>
+          </section>
+          <section class="col-6 col-print-6 text-right">
+            <h5 class="text-muted no-margin">Client Information</h5>
+            <h3 class="client-name m-t-1">
+              {{LogisticsName}}
+            </h3>
+            <address>
+              <strong>Owner</strong> of
+              <a href="#">{{LogisticsName}}</a>
+              <br>
+              <abbr title="Work email">e-mail:</abbr>
+              <a href="mailto:#">{{LogisticsEmail}}</a>
+              <br>
+              <abbr title="Work Phone">phone:</abbr>{{LogisticsContact}}
+              <br>
+              <!-- <abbr title="Work Fax">fax:</abbr> (012) 678-132-901 -->
+              <p class="no-margin">
+                <strong>Note:</strong>
+              </p>
+              <p class="text-muted">This is the note issued by the client regarding th goods</p>
+            </address>
+          </section>
+        </div>
+        <div class="row table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th class="hidden-xs-down hidden-print">Description</th>
+                <th>Quantity</th>
+                <!-- <th>Price per Unit</th>
+                <th>Total</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let x of pendingPoProductArray;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{x.productId.productId.txtProductName}}</td>
+                <td class="hidden-xs-down hidden-print">{{x.productId.txtDescription}}</td>
+                <td>{{x.txtNoOfItems}}</td>
+                <!-- <td>{{x.txtUnitPrice}}</td>
+                <td>{{x.txtNoOfItems*x.txtUnitPrice}}</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ServiceName</th>
+                <th class="hidden-xs-down hidden-print">ServiceDescription</th>
+                <th>Unit</th>
+                <th>Price per Unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let x of servicesArray;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{x.ServiceName}}</td>
+                <td class="hidden-xs-down hidden-print">{{x.ServiceDescription}}</td>
+                <td>{{x.Unit}}</td>
+                <td>{{x.PricePerUnit}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 col-print-6 col-12">
+            <p>
+              <strong>Note:</strong>
+              Purchase Order Invoice for the following item
+            </p>
+          </div>
+          <div class="col-md-4 col-print-6 col-12">
+            <div class="row text-right">
+              <div class="col-6"></div>
+              <!-- instead of offset -->
+              <div class="col-3">
+                <p>Subtotal</p>
+                <p>Tax(10%)</p>
+                <p class="no-margin">
+                  <strong>Total</strong>
+                </p>
+              </div>
+              <div class="col-3">
+                <p>{{total}}</p>
+                <p>{{tax}}</p>
+                <p class="no-margin">
+                  <strong>{{total+tax}}</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12  d-flex hidden-print" style="justify-content: center !important;">
+          <button (click)="print()" class="btn btn-inverse">
+            <i class="fa fa-print"></i>
+            &nbsp;&nbsp; Print
+          </button>
+        </div>
+        <div class="row btn-toolbar mt-lg justify-content-end hidden-print">
+          <button mat-raised-button color="warn" (click)="Accepted()">Accept</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

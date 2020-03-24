@@ -1,0 +1,196 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+    <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<!-- <div class="loader-container" >
+    <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div> -->
+
+<div class="app flex-row align-items-center pt-7">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 parent">
+                <div class="row card-group mb-0">
+                    <div class="col-md-6 card card-inverse card-primary py-3 hidden-md-down backgroundblue">
+                        <div class="card-block pt20 text-center">
+                            <div>
+                                <h2>Log In</h2>
+                                <p class="mt-4">By continuing, you agree to Nicoza's Conditions of Use and Privacy Notice.</p>
+                                <a routerLink="/login">
+                                    <button class=" mt-4" mat-raised-button color="warn">Already Have an Account</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 card p-2">
+                        <div class="card-block">
+                            <form class=" box example-form" [formGroup]="signupUser" (ngSubmit)="onSubmit(signupUser.value)">
+                                <h1>Sign Up</h1>
+                                <p class="text-muted">Fill your details.</p>
+                                <div *ngIf="isHide">
+
+                                    <div class="col-12">
+                                        <div class="col-12 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Company Name" formControlName="company_name">
+                                                <mat-error *ngIf="!company_name.valid && company_name.touched">Company Name Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="col-12 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Email" formControlName="email">
+                                                <mat-error *ngIf="!email.valid && email.touched">Email Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="col-12 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <!-- <input matInput placeholder="Role" formControlName="role"> -->
+                                                <mat-select placeholder="Role" formControlName="role">
+                                                    <mat-option value="Accountant">Accountant</mat-option>
+                                                    <mat-option value="CEO">CEO</mat-option>
+                                                    <mat-option value="Purchasing Manager">Purchasing Manager</mat-option>
+                                                    <mat-option value="Salesman">Salesman</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="!role.valid && role.touched">Role Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="col-12 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-select placeholder="Trader Type" formControlName="trader_type">
+                                                    <mat-option value="Seller">Seller</mat-option>
+                                                    <mat-option value="Buyer">Buyer</mat-option>
+                                                    <mat-option value="Both">Both</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="!trader_type.valid && trader_type.touched">Trader Type Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 text-center mt-1">
+                                        <button type="submit" mat-raised-button color="warn" [disabled]="!company_name.valid || !email.valid
+                    || !role.valid || !trader_type.valid" (click)="hideDiv()">Next</button>
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="!isHide">
+
+                                    <div class="col-12">
+                                        <div class="col-12 form-group">
+
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" placeholder="Country" matInput [formControl]="country_name" [matAutocomplete]="auto" required>
+                                                <mat-error *ngIf="!country_name.valid && country_name.touched">Country Required</mat-error>
+                                            </mat-form-field>
+                                            <mat-autocomplete #auto="matAutocomplete">
+                                                <mat-option *ngFor="let country of filteredOptions | async" [value]="country.code" (focusout)="countryChanged(country)">
+                                                    {{country.name}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex">
+                                        <div class="col-3 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input type="text" matInput placeholder="Code" [(ngModel)]="phone_number_dialcode" formControlName="phone_number_code">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-9 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input min="0" (keypress)="keyPress($event)" matInput placeholder="Phone Number" formControlName="phone_number">
+                                                <mat-error *ngIf="!phone_number.valid && phone_number.touched">Enter Correct Phone Number</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="col-12 form-group">
+                                            <mat-form-field class="example-full-width">
+                                                <input matInput placeholder="Registrant Name" formControlName="registration_name">
+                                                <mat-error *ngIf="!registration_name.valid && registration_name.touched">Registrant Name Required</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div class="row justify-content-center form-group">
+                                        <re-captcha (resolved)="resolved($event)" siteKey="6LcBQTMUAAAAAPMLBvGkWSfJYPxBSVwFS2o8JlJk"></re-captcha>
+                                    </div>
+
+                                    <div class="col-12 text-center mt-1">
+                                        <mat-checkbox #regsiterBtn formControlName="checkTerms" required>I hereby Accept all
+                                        </mat-checkbox>
+                                        <span>
+                                            <a class="colorBlue" (click)="clickTerms(terms)">Terms and Conditions.</a>
+                                        </span>
+                                    </div>
+                                    <div class="col-12 text-center mt-1">
+                                        <button type="submit" mat-raised-button color="warn" (click)="hideDiv()">Back</button>
+                                        <button *ngIf="regsiterBtn.checked" [disabled]="!signupUser.valid" type="submit" mat-raised-button color="warn">Register</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-2 displaynone">
+                                    <div class="col-12">
+                                        <a routerLink="/login">
+                                            <button class="wid100" mat-raised-button color="warn">Already Have an Account</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div #terms class="termsandConditions">
+                <div class="content-box">
+                    <header>
+                        <h3 style="display: inline-block;" class="p-3 m-0">Terms and Conditions</h3>
+                        <i class="fa fa-close faCloseModal p-3" (click)="closeOutside(terms)"></i>
+                    </header>
+                    <hr class="mt-0">
+                    <ol class="text-left" style="list-style-type:decimal">
+                        <li>Publishing any Website material in any media.</li>
+                        <li>Selling, sublicensing and/or otherwise commercializing any Website material.</li>
+                        <li>Publicly performing and/or showing any Website material.</li>
+                        <li>Using this Website in any way that is, or may be, damaging to this Website.</li>
+                        <li>Using this Website in any way that impacts user access to this Website.</li>
+                        <li>Using this Website contrary to applicable laws and regulations, or in a way that causes, or may cause,
+                            harm to the Website, or to any person or business entity.</li>
+                        <li>Engaging in any data mining, data harvesting, data extracting or any other similar activity in relation
+                            to this Website, or while using this Website</li>
+                        <li>Using this Website to engage in any advertising or marketing</li>
+                        <li>In these Website Standard Terms And Conditions, “Your Content” shall mean any audio, video, text,
+                            images or other material you choose to display on this Website. </li>
+                        <li>These Terms, including any legal notices and disclaimers contained on this Website, constitute the
+                            entire agreement between Nicoza and you in relation to your use of this Website, and supersede
+                            all prior agreements and understandings with respect to the same.</li>
+                        <li>These Terms will be governed by and construed in accordance with the laws of the State, and you submit
+                            to the non-exclusive jurisdiction of the state and federal courts located in for the resolution
+                            of any disputes.</li>
+                    </ol>
+                    <footer class="page-footer font-small orange pt-4" style="background-color: #e97300;color: white;font-size: 1.6em;height: 55px;">
+                        <div class="footer-copyright text-center py-3" style="margin-top: -37px;">© 2018 Copyright:
+                            <a href="#" style="color: aliceblue"> Nicoza</a>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

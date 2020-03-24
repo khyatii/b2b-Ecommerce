@@ -1,0 +1,301 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+	<strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+	<strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+	<loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<h1 class="page-title">Inventory</h1>
+<div class="button-row buttonposition">
+	<button mat-raised-button color="warn" class="mb10" routerLink="../">Back</button>
+</div>
+<section class="widget">
+	<header>
+		<h4>Modify Product</h4>
+	</header>
+	<div class="widget-body pt-4">
+		<form class="example-form" [formGroup]="modifyProductForm">
+			<div class="col-md-8 col-sm-12 m-auto">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Product Code" formControlName="txtProductCode" required>
+							<mat-error *ngIf="!txtProductCode.valid && txtProductCode.touched">Product Code Should be Alpha Numeric</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Model Code" formControlName="txtModelCode">
+							<mat-error *ngIf="!txtModelCode.valid && txtModelCode.touched">Model Code Should be Alpha Numeric</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Part No" formControlName="txtPartNo">
+							<mat-error *ngIf="!txtPartNo.valid && txtPartNo.touched">PartNo Should be Alpha Numeric</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Serial No" formControlName="txtSerialNo">
+							<mat-error *ngIf="!txtSerialNo.valid && txtSerialNo.touched">SerialNo Should be Alpha Numeric</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Product Name" formControlName="txtProductName" required>
+							<mat-error *ngIf="!txtProductName.valid && txtProductName.touched">Product Name Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Brand" formControlName="txtBrand" required>
+							<mat-error *ngIf="!txtBrand.valid && txtBrand.touched">Brand Name Required</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select type="text" matInput [formControl]="industry" placeholder="Industry" required>
+								<mat-option *ngFor="let x of industryArray" (focusout)="getCategories(x)" [value]="x._id">{{x.name}}</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!industry.valid && industry.touched">industry Required</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select type="text" matInput [formControl]="txtProductCategory" placeholder="Category" required>
+								<mat-option *ngFor="let x of catArray" (focusout)="getSubCategories(x)" [value]="x.name ">{{x.name}}</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtProductCategory.valid && txtProductCategory.touched">Product Category Required</mat-error>
+						</mat-form-field>
+						<!-- <mat-form-field class="example-full-width">
+							<input type="text" matInput [formControl]="txtProductCategory" (input)="filterCategory($event.target.value)" [matAutocomplete]="autoName"
+							 [(value)]="txtProductCategory" [name]="options" placeholder="Category" required (blur)="newProductCategory(txtProductCategory.value)">
+
+							<mat-error *ngIf="!txtProductCategory.valid && txtProductCategory.touched">Product Category Required</mat-error>
+						</mat-form-field>
+
+						<mat-autocomplete #autoName="matAutocomplete">
+							<mat-option *ngFor="let option of categoryArray" (focusout)="changeCategory(option)" [value]="option.name">
+								{{ option.name }}
+							</mat-option>
+						</mat-autocomplete> -->
+					</div>
+
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select type="text" matInput [formControl]="txtProductSubCategory" placeholder="Sub Category" required>
+								<mat-option *ngFor="let x of subcatArray" (focusout)="changeSubCategory(x)" [value]="x.name">{{x.name}}</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtProductSubCategory.valid && txtProductSubCategory.touched">Product Sub Category Required</mat-error>
+						</mat-form-field>
+						<!-- <mat-form-field class="example-full-width">
+							<input matInput placeholder="Sub Categoty" formControlName="txtProductSubCategory" (input)="filterSubCategory($event.target.value)"
+							 [name]="subCategoryoptions" [matAutocomplete]="auto" required (blur)="newProductSubCategory($event.target.value)">
+							<mat-error *ngIf="!txtProductSubCategory.valid && txtProductSubCategory.touched">Product Sub Category Required</mat-error>
+						</mat-form-field>
+						<mat-autocomplete #auto="matAutocomplete">
+							<mat-option *ngFor="let val of subCategoryArray" (focusout)="changeSubCategory(val)" [value]="val.name">
+								{{ val.name }}
+							</mat-option>
+						</mat-autocomplete> -->
+					</div>
+
+				</div>
+				<div class="row h150">
+					<div class="col-lg-8 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<textarea matInput placeholder="Product Description" formControlName="txtDescription" rows="6"></textarea>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<!-- <img src="http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png" width="200" height="115">       
+							<input type="file" name="avatar"  class="hide_file img" ng2FileSelect [uploader]="uploader" /> 
+							<div class="overlay">
+							<label class="overlaytext">Upload Picture</label>
+							</div> -->
+						<!-- <input type="button" class=" btn btnUpload" mat-raised-button  (click)="uploader.uploadAll()" value="Upload" color="warn"> -->
+						<img [src]="defaultImg" width="200" height="115">
+						<!-- <input id="photo" type="file" class="hide_file img" (change)="fileChange($event)" /> -->
+						<div class="overlay" (click)="clickTerms(terms)">
+							<label class="overlaytext">Upload Picture</label>
+						</div>
+					</div>
+				</div>
+				<div class="row mt100">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Price" formControlName="txtPrice"
+							 required>
+							<mat-error *ngIf="!txtPrice.valid && txtPrice.touched">Price Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Currency" formControlName="txtCurrency" required>
+								<!-- <mat-option value="USD">USD</mat-option>
+								<mat-option value="local">Local</mat-option> -->
+								<mat-option *ngFor="let currency of currencyArray" [value]="currency._id">{{currency.currency_name}}</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtCurrency.valid && txtCurrency.touched">Currency Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Quantity Per Unit Price"
+							 formControlName="txtQuantityPerUnitPrice" required>
+							<mat-error *ngIf="!txtQuantityPerUnitPrice.valid && txtQuantityPerUnitPrice.touched">Quantity Per Unit Price Required</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Storage Location" formControlName="txtStorageLocation" required>
+								<mat-option *ngFor="let warehouse of warehouseArray" [value]="warehouse._id">{{warehouse.locationName}}</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtStorageLocation.valid && txtStorageLocation.touched">Storage Location Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Sale Unit of Measure" formControlName="txtSalesUnitOfMeasure">
+								<mat-option *ngFor="let unit of unitsArray" [value]="unit">{{unit}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Stock on Hand" formControlName="txtStockOnHand">
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Stock Available"
+							 formControlName="txtStockAvailable">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Stock Reorder Level"
+							 formControlName="txtStockReorderLevel">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Product Video Url" formControlName="txtProductVideoUrl">
+							<mat-error *ngIf="!txtProductVideoUrl.valid && txtProductVideoUrl.touched">Enter Valid Url</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Price Rules" formControlName="txtPriceRules">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Preferred Suppliers" formControlName="txtSupplier">
+
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" placeholder="Minimum Order Quantity"
+							 formControlName="txtMinimumOrderQuantity">
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput placeholder="Item Size" formControlName="txtItemSize">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput placeholder="Item Color" formControlName="txtItemColor">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput placeholder="Item Weigtht" formControlName="txtItemWeight">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput placeholder="Item Warranty" formControlName="txtItemWarranty">
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row m-0 my-3">
+					<div class="col-lg-4 col-md-6 col-sm-6 col-12 pl-0 pt-2" *ngFor="let doc of fetchDocArray;let i = index;">
+						<div class="col-12 docName">
+							<p class="m-0">{{doc.name}}
+								<span class="float-right">
+									<i class="fa fa-file-text-o" aria-hidden="true"></i>
+									<i class="fa fa-close faCloseDoc" (click)="deleteFetchDoc(doc._id)" aria-hidden="true"></i>
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-12 pl-0 pt-2" *ngFor="let doc of docArray;let i = index;">
+						<div class="col-12 docName">
+							<p class="m-0">{{doc.name}}
+								<span class="float-right">
+									<i class="fa fa-file-text-o" aria-hidden="true"></i>
+									<i class="fa fa-close faCloseDoc" (click)="deleteDoc(i)" aria-hidden="true"></i>
+								</span>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-12 text-center">
+						<input class="d-none" type="file" multiple (change)="docChange($event)" placeholder="Documents" #uploadDocs formControlName="txtDocuments">
+						<button type="button" (click)="uploadDocument(uploadDocs)" mat-raised-button color="warn">Upload Documents</button>
+						<button mat-raised-button color="warn" [disabled]="!modifyProductForm.valid" (click)="submit(modifyProductForm.value)">Update</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+
+
+<div #terms class="modal">
+	<div class="modal-content">
+		<header>
+			<h3 class="p-3 m-0" style="display: inline-block;">Upload Product Photos</h3>
+			<i class="fa fa-close faCloseModal p-3" (click)="closeOutside(terms)"></i>
+		</header>
+		<h5 class="m-0 mt-3">Please Select Default Image</h5>
+		<div class="row m-0">
+			<div class="col-lg-3 col-md-3 col-6" style="max-height: 137px; margin: 10px 0">
+				<img src="./assets/img/uploadImage.png" class="" width="100%" height="125">
+				<input id="photo" type="file" accept="image/*" class="hide_file img" (change)="fileChange($event)" />
+			</div>
+			<div class="col-lg-3 col-md-3 col-6 imgContainer" *ngFor="let image of imageArray; let i = index" style="max-height: 137px;margin: 10px 0;position:relative">
+				<img [src]="image.path" class="img imgRef" width="100%" height="125" (click)="defaultImage(image, $event, i)">
+				<i #i class="fa fa-check faCursor default-check"></i>
+				<div class="middle">
+					<i class="fa fa-trash faCursor default-delete" (click)="deleteImage(image._id,i)"></i>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

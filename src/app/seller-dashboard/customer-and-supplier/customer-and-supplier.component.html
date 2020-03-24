@@ -1,0 +1,18 @@
+<div class="main">
+    <div class="row">
+        <div class="col-md-12" style="text-align:right">
+            <button *ngIf="customerAndSupplierstepper.selectedIndex > 0" (click)="gback(customerAndSupplierstepper)"
+                class="btn btn-info mb-2 mr-3">Back</button>
+            <button class="btn btn-info pull-right mb-2 mr-3"
+                (click)="skipStep(customerAndSupplierstepper)">Skip</button>
+        </div>
+    </div>
+    <mat-horizontal-stepper linear #customerAndSupplierstepper>
+        <mat-step label="Add Customers">
+            <app-invitation (notify)="addedCustomers()"></app-invitation>
+        </mat-step>
+        <mat-step label="Add Suppliers">
+            <app-seller-management></app-seller-management>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

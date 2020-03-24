@@ -1,0 +1,85 @@
+<div class="header">
+  <div class="row">
+    <div class="col-lg-2 col-6 col-md-4 col-sm-4 col-xs-4 my-auto">
+      <img class="border-0" src="assets/img/nicoza_logo.png" height="80" width="180" alt="logo"
+        routerLink='/b2b-store/home'>
+    </div>
+    <div class="col-lg-4 col-md-8 col-sm-8 col-xs-8 hidden-md-down input-group" matAutocompleteOrigin>
+      <input #searchbox type="text" [matAutocomplete]="auto" (click)='clickSearchbox($event)'
+        (keyup)="searchproduct($event,autocomp)" (keyup.enter)='searchString(searchbox.value)' class="form-control"
+        placeholder="Search" aria-describedby="basic-addon2">
+      <span class="input-group-addon" id="basic-addon2" (click)='searchString(searchbox.value)'>
+        <i class="fa fa-lg fa-search"></i>
+      </span>
+    </div>
+    <mat-autocomplete class="autoList" #autocomp #auto="matAutocomplete" md-dropdown-items="10">
+      <div #subcats (mouseleave)='leavingcategory(subcats)' id="sideResults">
+        <p class="catname"> {{catName}} </p>
+        <ng-container *ngFor='let subcat of categoryhoverResults'>
+          <button (click)='clickonsubcat(subcat._id)' class="btn btn-primary SubCatbtn"
+            color="primary">{{subcat.name}}</button>
+        </ng-container>
+      </div>
+      <ng-container *ngFor="let product of searchResults | slice:0:10;">
+        <mat-option *ngIf='product.categoryId' (click)='clickonsubcat(product._id)'
+          (mouseleave)='leavingcategory(subcats)' (mouseenter)='leavingcategory(subcats)' class='searchOption'
+          [value]="product.name">
+          {{product.name}} <span class="forsubcats">in {{product.categoryId.name}}</span>
+        </mat-option>
+        <mat-option *ngIf='!product.categoryId' (click)='clickonCategory(product._id)' class='searchOption'
+          (mouseenter)='categoryhover(product._id,subcats,product.name)' [value]="product.name">
+          {{product.name}} <i class="fa fa-angle-right rightarr"></i>
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+
+    <div class="col-lg-2 col-6 col-md-6 col-sm-6 col-xs-6 my-auto d-flex justify-content-sm-end pt5">
+      <button mat-raised-button class="button">Get Quotes </button>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-6 my-auto">
+      <ul class="nav justify-content-end">
+        <li *ngIf="!isUser" class="nav-item">
+          <a class="nav-link " routerLink='../signupSeller'>Sell on Nicoza</a>
+        </li>
+        <li *ngIf="!isUser" class="nav-item">
+          <a class="nav-link">Join</a>
+        </li>
+        
+        <!-- <li class="nav-item" *ngIf="!isUser">
+          <a [matMenuTriggerFor]="menu" class="nav-link">Login
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <mat-menu #menu="matMenu" id="loginPop">
+            <button mat-menu-item routerLink='../login'>Login</button>
+            <button style="margin-left: 10px;margin-right:10px" class="color" mat-button routerLink='../signupSeller'>
+              Register here </button>
+          </mat-menu>
+        </li> -->
+        <!-- <li class="nav-item" *ngIf="isUser">
+        <a [matMenuTriggerFor]="Loggedinmenu" class="nav-link">{{userDetails.registration_name}}
+          <i class="fa fa-caret-down"></i>
+        </a>
+        <mat-menu  #Loggedinmenu="matMenu" id="loggedInpopup">
+          <button mat-menu-item routerLink='../login'>Login</button>
+          <button style="margin-left: 10px;margin-right:10px" class="color" mat-button routerLink='../signupSeller'> Register here </button>
+        </mat-menu> 
+      </li> -->
+
+        <li class="nav-item pl-1 user">
+          <a class="nav-link " href="#">
+            <span *ngIf="!isUser">My Profile</span>
+            <span *ngIf="isUser">{{userDetails.registration_name}}</span>
+            <i class="fa fa-user fa-fw mr-1"></i>
+          </a>
+          <div class="dropdown-content mr-4 w-auto">
+            <a *ngIf="!isUser" routerLink='../login'>Login <i class="mr-1"></i></a>
+            <a *ngIf="!isUser" routerLink='../signupSeller'>Register Now<i class="mr-1"></i></a>
+            <a *ngIf="isUser" (click)="logoutUser()">Logout <i class="fa fa-sign-out  mr-1"></i></a>
+            <a *ngIf="isUser" (click)="dashboardRedirect()">Dashboard  <i class="fa fa-wallet mr-1"></i></a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>

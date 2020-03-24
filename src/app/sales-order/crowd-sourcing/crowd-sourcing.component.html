@@ -1,0 +1,327 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+	<strong>Success!</strong> {{successMsg}}
+</div>
+​
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+	<strong>Warning!</strong> {{errorMsg}}
+</div>
+​
+<h1 class="page-title">Orders</h1>
+<section class="widget">
+	<header>
+		<h4>Crowd Sourcing</h4>
+	</header>
+	<div class="left">
+		<img class="imagehieght" src="../../../assets/img/crowdLeft.png" />
+	</div>
+	<div class="right">
+		<img class="imagehieght" src="../../../assets/img/crowdRight.png" />
+	</div>
+	<div class="widget-body pt-4">
+		<form class="example-form" [formGroup]="crowdSourcingForm">
+			<div class="col-lg-8 col-md-12 col-sm-12 m-auto">
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput [formControl]="txtProduct" (click)="productdata()" [matAutocomplete]="auto" placeholder="Product"
+							 required>
+							<mat-error *ngIf="!txtProduct.valid && txtProduct.touched">Product Required</mat-error>
+						</mat-form-field>
+						<mat-autocomplete #auto="matAutocomplete">
+							<mat-option *ngFor="let option of filteredOptions | async" [value]="option.productId.txtProductName">
+								{{ option.productId.txtProductName }}
+							</mat-option>
+						</mat-autocomplete>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtOrderQuantity"
+							 [(ngModel)]="qty" placeholder="Order Quantity" required>
+							<mat-error *ngIf="!txtOrderQuantity.valid && txtOrderQuantity.touched">Order Quantity Required</mat-error>
+						</mat-form-field>
+					</div>
+					​
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Delivery Location" formControlName="txtDeliveryLocation" required>
+								<mat-option *ngFor="let loc of LocationArray" [value]="loc._id">{{loc.label}}</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtDeliveryLocation.valid && txtDeliveryLocation.touched">Delivery Location Required</mat-error>
+						</mat-form-field>
+					</div>
+					​
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Shipping" formControlName="txtShipping" required>
+								<mat-option value="CPT">CPT</mat-option>
+								<mat-option value="FOB">FOB</mat-option>
+								<mat-option value="CIF">CIF</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtShipping.valid && txtShipping.touched">Shipping Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Urgency" formControlName="txtUrgency" required>
+								<mat-option value="high">High</mat-option>
+								<mat-option value="medium">Medium</mat-option>
+								<mat-option value="low">Low</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtUrgency.valid && txtUrgency.touched">Urgency Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input matInput [matDatepicker]="ClosingDate" [min]="minDate" [(ngModel)]="closingDateVal" placeholder="Closing Date" formControlName="txtClosingDate"
+							 required>
+							<mat-datepicker-toggle matSuffix [for]="ClosingDate"></mat-datepicker-toggle>
+							<mat-datepicker #ClosingDate></mat-datepicker>
+							<mat-error *ngIf="!txtClosingDate.valid && txtClosingDate.touched">Closing Date Required</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Payment Terms" formControlName="txtPaymentTerms" required>
+								<mat-option value="E-PaymentEscrow">E-Payment – Escrow</mat-option>
+								<mat-option value="credit">Credit</mat-option>
+								<mat-option value="E-PaymentNoEscrow">E-Payment – No Escrow</mat-option>
+							</mat-select>
+							<mat-error *ngIf="!txtPaymentTerms.valid && txtPaymentTerms.touched">Payment Terms Required</mat-error>
+						</mat-form-field>
+					</div>
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Purchase Unit of Measure" formControlName="txtPurchaseUnitOfMeasure">
+								<mat-option *ngFor="let unit of unitsArray" [value]="unit">{{unit}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput formControlName="txtItemSize" placeholder="Item Size">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<input type="text" matInput formControlName="txtItemWeight" placeholder="Item Weight">
+						</mat-form-field>
+					</div>
+					​
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Source Country" formControlName="txtSourceCountry">
+								<mat-option *ngFor="let country of countryArray" (focusout)="countryChanged(country)" [value]="country.name">{{country.name}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Source City" formControlName="txtSourceCity">
+								<mat-option [value]="city.name" *ngFor="let city of citiesArray ">{{city.name}}</mat-option>
+								<!-- <mat-option [value]="city.name" *ngFor="let city of citiesArray ">{{city.name | sort}}</mat-option> -->
+							</mat-select>
+						</mat-form-field>
+					</div>
+					​
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Best Warehousing Fee" formControlName="txtBestWarehousingFee">
+								<mat-option value="yes">Yes</mat-option>
+								<mat-option value="no">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-2 col-md-2 col-sm-4">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtminPriceRange"
+							 placeholder="Min Range" [value]="minValue">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8">
+						<mat-slider class="example-full-width" [max]="max" [min]="min" [thumb-label]="thumbLabel" (input)="onInputChange($event)"></mat-slider>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-4">
+						<mat-form-field class="example-full-width">
+							<input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtmaxPriceRange"
+							 placeholder="Max Range" [value]="maxValue">
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8">
+						<mat-slider class="example-full-width" [max]=1000 [min]=100 [thumb-label]="thumbLabel" (input)="onInputMaxChange($event)"></mat-slider>
+					</div>
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Best Transportation Fee" formControlName="txtBestTransportationFee">
+								<mat-option value="yes">Yes</mat-option>
+								<mat-option value="no">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Best Clearing & Forwarding Fees" formControlName="txtBestCleaningAndforwardingFee">
+								<mat-option value="yes">Yes</mat-option>
+								<mat-option value="no">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Best Insurance Fees" formControlName="txtBestInsuranceFee">
+								<mat-option value="yes">Yes</mat-option>
+								<mat-option value="no">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Best Trade Financing" formControlName="txtBestTradeFinancing">
+								<mat-option value="yes">Yes</mat-option>
+								<mat-option value="no">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Currency" formControlName="txtCurrency">
+								<mat-option *ngFor="let currency of currencyArray" [value]="currency.currency_name">{{currency.currency_name}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Supplier Ratings" formControlName="txtSupplierRatings">
+								<mat-option value="1">1</mat-option>
+								<mat-option value="2">2</mat-option>
+								<mat-option value="3">3</mat-option>
+								<mat-option value="4">4</mat-option>
+								<mat-option value="5">5</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				​
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12">
+						<mat-form-field class="example-full-width">
+							<mat-select placeholder="Supplier Compliance" formControlName="txtSupplierCompliance">
+								<mat-option value="yes">Yes</mat-option>
+								<mat-option value="no">No</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				​ ​
+				<div class="row">
+					<div class="col-12 text-center">
+						<button mat-raised-button [disabled]="!crowdSourcingForm.valid" (click)="submit(crowdSourcingForm.value)" color="warn" type="submit">Submit</button>
+					</div>
+				</div>
+				​
+			</div>
+		</form>
+	</div>
+</section>
+<section class="widget" [ngClass]="{'hide':isHide}" widget>
+	<header>
+		<h4> Results </h4>
+	</header>
+	<div class="widget-body overflow-auto">
+		<div class="mt">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>Unit of Measure</th>
+						<th>DisCount</th>
+						<th>Closing Date</th>
+						<th>Issue PO</th>
+						<th>Proforma Invoice</th>
+						<th>Contact Supplier</th>
+						<th>Document</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let x of productarray;let i=index;">
+						<td class="align-middle">
+							<span *ngFor="let img of x.productId.imageFile">
+								<img *ngIf="img.isdefault == true" [src]="img.path" alt="Maggi" width="100" height="100">
+							</span>
+						</td>
+						<td class="align-middle">{{x.productId.productId.txtProductName}}</td>
+						<td class="align-middle">{{x.productId.txtPrice}}</td>
+						<td class="align-middle">{{x.txtNoOfItems}}</td>
+						<td class="align-middle">{{x.productId.txtSalesUnitOfMeasure}}</td>
+						<td class="align-middle" *ngIf="discountarray > 0 ">{{discountarray}}%</td>
+						<td class="align-middle" *ngIf="discountarray === 0 ">NA</td>
+						<td class="align-middle">{{closingDateVal | date}}</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable >= x.txtNoOfItems)">
+							<button mat-raised-button color="warn" (click)="issuePurchaseOrder(x)">Issue Po</button>
+						</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable < x.txtNoOfItems)">
+							<button mat-raised-button color="warn" (click)="issuePurchaseOrder(x)">Available Stock {{x.productId.txtStockAvailable}}</button>
+						</td>
+						​
+						<!-- <td class="align-middle" *ngIf="(x.productId.txtStockAvailable >= x.txtNoOfItems) && (shipping == 'FOB')">
+							<button mat-raised-button color="warn" (click)="issuePo(x)">Issue PO</button>
+						</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable >= x.txtNoOfItems) && (shipping == 'CIF')">
+							<button mat-raised-button color="warn" (click)="issuePoDirect(x)">Issue PO</button>
+						</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable >= x.txtNoOfItems) && (shipping == 'CPT')">
+							<button mat-raised-button color="warn" (click)="issuePoDirect(x)">Issue PO</button>
+						</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable < x.txtNoOfItems) && (shipping == 'FOB')">
+							<button mat-raised-button color="warn">Available Stock {{x.productId.txtStockAvailable}} </button>
+						</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable < x.txtNoOfItems) && (shipping == 'CIF')">
+							<button mat-raised-button color="warn">Available Stock {{x.productId.txtStockAvailable}} </button>
+						</td>
+						<td class="align-middle" *ngIf="(x.productId.txtStockAvailable < x.txtNoOfItems) && (shipping == 'CPT')">
+							<button mat-raised-button color="warn">Available Stock {{x.productId.txtStockAvailable}} </button>
+						</td> -->
+						​
+						<td class="align-middle">N/A</td>
+						<td class="align-middle">
+							<button mat-raised-button color="warn" (click)="mailMe(x)">Contact</button>
+						</td>
+						<td class="align-middle" *ngFor="let doc of x.productId.document">
+							<span (click)="download(doc.path)">
+								{{doc.name}}
+							</span>
+						</td>
+						​
+					</tr>
+				</tbody>
+				<!-- <tfoot>
+					<tr>
+					<td colspan="12">
+						<mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+					</td>
+					</tr>
+					</tfoot> -->
+			</table>
+		</div>
+	</div>
+</section>

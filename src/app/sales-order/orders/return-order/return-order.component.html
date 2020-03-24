@@ -1,0 +1,123 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+		<strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Orders</h1>
+ <div class="button-row buttonposition">
+  <button mat-raised-button class="mb10" color="warn" routerLink="../">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Return Order</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="returnOrderData"  (ngSubmit)="submit(returnOrderData.value)">
+      <div class="col-md-8 col-sm-12 m-auto">
+
+         <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Order Date" value="{{orderDate | date }}" disabled>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <mat-form-field class="example-full-width">
+                   <input matInput placeholder="Date Delivered" value="{{deliveredDate | date}}" disabled>
+                </mat-form-field>
+            </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Location" value="" disabled>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <mat-form-field class="example-full-width">
+                    <mat-select placeholder="Reason For Return" formControlName="txtReasonForReturn" required>
+                    <mat-option value="Damaged">Damaged</mat-option>
+                    <mat-option value="Wrong Product Delivered">Wrong Product Delivered</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="!txtReasonForReturn.valid && txtReasonForReturn.touched">Reason For Return Required</mat-error>
+                </mat-form-field>
+            </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Comment" formControlName="txtComment" required>
+                <mat-error *ngIf="!txtComment.valid && txtComment.touched">Comment Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <mat-select placeholder="Credit Note Required" formControlName="txtCreditNote" required>
+                <mat-option value="Yes">Yes</mat-option>
+                <mat-option value="No">No</mat-option>
+              </mat-select>
+              <mat-error *ngIf="!txtCreditNote.valid && txtCreditNote.touched">Total Type Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+
+      <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th><mfDefaultSorter by="order">Order No.</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="image">Image</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="productName">Product Name</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="QuantityOrdered">Quantity Ordered</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="qunatityDelievered">Qunatity Delievered</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="qunatityDelievered">Qunatity Returned</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="total">Total Price</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="UnitPrice">Unit Price</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="documents">Documents</mfDefaultSorter></th>
+                <th><mfDefaultSorter by="remove"></mfDefaultSorter></th>
+
+            </tr>
+        </thead>
+        <tbody id="tblProductData">
+         <tr *ngFor="let item of returnOrderData.get('items')['controls']; let i=index" [formGroup]="item">
+            <td class="align-middle">{{productArray[i]['orderNumber']}}</td>
+            <td class="align-middle">
+                <span *ngFor="let img of productArray[i]['productId']['imageFile']"><img [src]="img.path" *ngIf="img.isdefault == true" alt="Maggi" width="100" height="100"></span>
+            </td>
+            <td class="align-middle"><input type="hidden" formControlName="hiddenId" value="{{productArray[i]['_id'] }}" >{{productArray[i]['productId']['productId']['txtProductName'] }}</td>
+            <td class="align-middle">{{productArray[i]['txtNoOfItems']}}</td>
+            <td class="align-middle">{{productArray[i]['qunatityDelievered']}}</td>
+            <td class="align-middle"><mat-form-field><input type="number" matInput placeholder="Quantity to be Returned" (blur)="returnQty($event, i)" formControlName="txtQunatityToBeReturned" value=""></mat-form-field></td>
+            <td class="align-middle">{{productArray[i].productId.txtCurrency.iso3}} {{productArray[i]['txtTotalPrice']}}</td>
+            <td class="align-middle">{{productArray[i].productId.txtCurrency.iso3}} {{productArray[i]['txtUnitPrice']}}</td>
+            <td class="align-middle" *ngFor="let doc of productArray[i]['productId']['document']">
+                    <span (click)="download(doc.path)">
+                        {{doc.name}}
+                    </span>
+                </td>
+            <td class="align-middle">
+                <button type="button"  mat-raised-button color="warn"(click)="removeProduct(i)">Remove</button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="12">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+
+      <div class="col-12 text-center">
+        <button [disabled]="!returnOrderData.valid" mat-raised-button color="warn" role="submit">Return</button>
+      </div>
+    </form>
+  </div>
+</section>

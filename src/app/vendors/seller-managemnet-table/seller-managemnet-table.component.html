@@ -1,0 +1,70 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Vendors</h1>
+<div class="button-row buttonposition">
+  <button class="mb10" mat-raised-button color="warn" (click)="add()">Add Supplier</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Suppliers</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <div class="widget-body overflow-auto">
+      <div class="mt">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>
+                <mfDefaultSorter by="supplier">Supplier</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="priority">Priority</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="product">Product</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter by="orderQuantity">Order Quantity</mfDefaultSorter>
+              </th>
+              <th>Branch Name</th>
+              <th class="no-sort">
+                <mfDefaultSorter>Start Date</mfDefaultSorter>
+              </th>
+              <th class="no-sort">
+                <mfDefaultSorter>End Date</mfDefaultSorter>
+              </th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let supplier of sellerManagementArray">
+              <td> {{supplier.optSupplier.company_name}} </td>
+              <td> {{supplier.optPriority}} </td>
+              <td> {{supplier.optProduct.productId.txtProductName}} </td>
+              <td> {{supplier.txtOrderQuantity}} </td>
+              <td> {{supplier.optBranchName}} </td>
+              <td> {{dateFormat(supplier.txtstartDate)}} </td>
+              <td> {{dateFormat(supplier.txtEndDate)}} </td>
+              <td>
+                <button mat-raised-button color="warn" (click)="modifySupplier(supplier)">Modify</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12">
+                <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

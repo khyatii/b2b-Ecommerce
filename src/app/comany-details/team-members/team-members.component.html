@@ -1,0 +1,73 @@
+
+<h1 class="page-title">Team</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../addTeamMembers">Add Member</button>
+</div>
+
+<section class="widget">
+  <header>
+    <h4>Team Members</h4> 
+  </header> 
+    <div class="mt-5">           
+        <div  class="swiper-container col-12 align-self-center pb-4 " [swiper]="config2" [(index)]="index4">
+            <div class="swiper-wrapper mt-4" >
+            <div class="swiper-slide shadow  " *ngFor="let member of teamArray">
+                <div class="headerSlide">
+                <h3 class="mb-0">
+                    {{member.firstName}}
+                </h3>
+                </div>
+                <div class="p10" *ngIf="member.photo == null">
+                    <img src="./assets/img/avatar.png" 
+                    alt="First slide" class="img-fluid imageTeam" style="display: block;border:0px;height:250px " >          
+                </div>
+                <div class="p10" *ngIf="member.photo != null">
+                    <img [src]="member.photo" 
+                    alt="First slide" class="img-fluid imageTeam" style="display: block;border:0px;height:250px " >          
+                </div>
+                <div class="productDetails mt-2 row">
+                    <div class="col-lg-2 col-md-1 col-sm-1 col-1 d-flex justify-content-start">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-lg-6 col-md-7 col-sm-7 col-7 d-flex justify-content-end">
+                        <span>{{member.email}}</span> 
+                    </div>
+                </div>
+                <!-- <div class="productDetails row">
+                    <div class="col-lg-2 col-md-1 col-sm-1 col-1 d-flex justify-content-start">
+                        <i class="fa fa-mobile fa-lg" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-lg-6 col-md-7 col-sm-7 col-7 d-flex justify-content-end">
+                        <span>{{member.phone}}</span> 
+                    </div>
+                </div> -->
+                 <!-- <div class="productDetails row">
+                    <div class="col-lg-2 col-md-1 col-sm-1 col-1 d-flex justify-content-start">
+                        <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-lg-6 col-md-7 col-sm-7 col-7 d-flex justify-content-end">
+                        <span>Primary Contact</span> 
+                    </div>
+                </div> -->
+                <div class="productDetails mt-2 row">
+                    <div class="d-flex justify-content-center col-10">
+                        <span class="colorGreen">
+                            <button mat-raised-button color="primary" 
+                            (click)="modify(member)">Permission</button>
+                        </span>
+                    </div>     
+                </div>
+            </div>
+            </div>
+            
+            <div class="swiper-scrollbar"></div>
+            
+            <div class="swiper-pagination"></div>
+            
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div> 
+    
+        
+</section>

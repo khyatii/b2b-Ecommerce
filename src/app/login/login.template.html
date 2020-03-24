@@ -1,0 +1,79 @@
+<!-- <div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div> -->
+<div *ngIf='isData' class="over">
+    <img id="load" src="../../../assets/logo/spinner9.gif" alt="">
+</div>
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+<strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="app flex-row align-items-center pt-10">
+  <div class="container logindata">
+    <div class="rowdata justify-content-center">
+      <div class="col-md-8">
+        <div class="card-group mb-0">
+          <div class="card p-2"  [@flyInOut]="">
+            <div class="card-block">
+              <form class="box form-group" [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
+                <h1>Login</h1>
+                <p class="text-muted">Sign In to your account</p>
+                <div class="input-group mb-1">
+
+                  <mat-form-field class="example-full-width">
+
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error *ngIf="!email.valid && email.touched" > Email Required </mat-error>
+
+                  </mat-form-field>
+                </div>
+                <div class="input-group mb-2">
+
+                  <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Password" type="password" formControlName="password" required>
+
+                  <mat-error *ngIf="!password.valid && password.touched">Password Required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <button mat-raised-button  color="warn"
+                     type="submit">Login</button><br><br>
+                     <a  routerLink="/loginlogistic">  <button mat-raised-button   color="warn"
+                      type="submit" >Login As Logistic</button></a>
+                  </div>
+
+                  <div class="col-6 text-right">
+                    <button type="button" class="btn btn-link px-0" routerLink="/forgotPassword">Forgot password?</button>
+                  </div>
+                </div>
+                <div class="row mt-2 displaynone">
+                  <div class="col-12">
+                    <a  routerLink="/signupSeller"><button  class="wid100" mat-raised-button color="warn"  >Register</button></a><br>
+                    <a routerLink="/logistics"><button class="wid100 mt-2" mat-raised-button color="warn"  >Register as Logistics</button></a>
+                  </div>
+
+                </div>
+                <div class="incorrect" *ngIf="loginForm.errors?.notauser">
+                  <span class="alert alert-danger">
+                     Password or Username is incorrect
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card card-inverse card-primary py-3 hidden-md-down backgroundblue" style="width:100%" >
+            <div class="card-block pt16 text-center">
+              <div>
+                <h2>Sign up</h2>
+                <p>By continuing, you agree to Nicoza's Conditions of Use and Privacy Notice.</p>
+                <a routerLink="/signupSeller"><button class="wid70" mat-raised-button color="warn"  >Register</button></a><br>
+                <a routerLink="/logistics"><button class="wid70 mt-2" mat-raised-button color="warn"  >Register as Logistics</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<h1 class="page-title">Approve Logistic Type</h1>
+<section class="widget">
+  <div class="widget-body pt-4">
+    <mat-tab-group>
+        <mat-tab label="Pending">
+          <div *ngIf='isData' class="over">
+              <img id="load" src="../../../assets/logo/spinner9.gif" alt="">
+          </div>
+          <p *ngIf='!isPending' class="showmsz">Nothing to show</p>
+          <div *ngIf='isPending' >
+            <header>
+              <h4>Approve Logistic Type</h4>
+            </header>
+            <div class="widget-body overflow-auto">
+              <div class="mt table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Company</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th>Country</th>
+                      <th>Status</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let item of requestedArr">
+                     <tr *ngIf="item.statusLogistic == 'pending'">
+                      <td>{{item.traderId.company_name}}</td>
+                      <td>{{item.traderId.email}}</td>
+                      <td>{{item.traderId.phone_number}}</td>
+                      <td>{{item.traderId.country_name}}</td>
+                      <td>{{item.statusLogistic}}</td>
+                      <td><button class="btn btn-success" (click)='setStatus(item,set)'>Accept</button></td>
+                      <td><button class="btn btn-danger" (click)= 'setStatus(item,unset)'>Reject</button></td>
+                    </tr>
+                  </ng-container>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="12">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Completed">
+          <p *ngIf='!isComplete' class="showmsz">Nothing to show</p>
+          <div *ngIf='isComplete'>
+            <header>
+              <h4>Approve Logistic Type</h4>
+            </header>
+            <div class="widget-body overflow-auto">
+              <div class="mt table-responsive">
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Company</th>
+                      <th>Email</th>
+                      <th>Mobile</th>
+                      <th>Country</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let item of requestedArr">
+                     <tr *ngIf="item.statusLogistic !== 'pending'">
+                      <td>{{item.traderId.company_name}}</td>
+                      <td>{{item.traderId.email}}</td>
+                      <td>{{item.traderId.phone_number}}</td>
+                      <td>{{item.traderId.country_name}}</td>
+                      <td>{{item.statusLogistic}}</td>
+                    </tr>
+                  </ng-container>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="12">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+        </div>
+        </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

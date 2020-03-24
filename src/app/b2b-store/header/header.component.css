@@ -1,0 +1,235 @@
+.button{
+    background-color: #e27200;
+    height: 46px;
+    color: #fff;
+    font-size: 16px;
+}
+.header{
+    width: 100%;
+    background: white;
+    top:0;
+    font-family:poppins;
+    left: 0;
+}
+.color{
+    background:  #e97300;
+    color: #fff;
+}
+
+.color:hover{
+    opacity: 0.5;
+    background: #e97300;
+    color: #fff;
+}
+
+ul{
+    list-style: none
+}
+
+.menuList>div>a{
+    font-weight:600;    
+}
+
+li{
+    font-size:17px;
+    padding: 8px 0px;
+}
+.fa-search{
+    color: #fff;
+}
+
+.form-control{
+    border-color:  #e97300;
+}
+.input-group{
+    margin: auto 0;
+    height: 50px;
+}
+
+.input-group-addon {
+    padding: 0.5rem 1.75rem;
+    background:  #e97300;
+}  
+.menuTitle>li>a{
+    /* font-size: 20px; */
+    font-weight: 600
+}
+.row{
+    background: #fff;
+}
+
+
+@media screen and (max-width:575px){
+    .pt5{
+        padding-top: 5px;
+    }
+}
+.menu{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.11);
+    border-top: 1px solid #efefef;
+    transition: height 1s;
+    display:none;
+    height: 0px;
+
+    z-index:10;
+    width:100%;
+}
+.height100{
+    display:visible;
+    height: 800px 
+}
+
+.menuItem{
+    position: relative;
+    padding-left:40px
+}
+
+menuItem>div>a{
+    position: relative;
+}
+.menuItem>div>a::after{
+    position: absolute;
+    content: "";
+    left: 0px;
+    top: 15px;
+    display: block;
+    width: 21px;
+    border-bottom: 1px dashed black;
+    z-index: 1;
+}
+.menuItem::before{
+    content: "";
+    left: -15px;
+    transform: rotate(90deg);
+    top: 0px;
+    position: absolute;
+    display: block;
+    width: 21px;
+    border-bottom: 1px dashed black;
+    z-index: 1;
+
+}
+.menuItem>div{
+    background: rgba(79, 79, 79, 0);
+}
+
+.smallMenu{
+    background: rgba(79, 79, 79, 0.16);
+    width: 100%
+}
+
+.smallSearch{
+  padding-right: 66px;
+}
+
+.smallSearch>span{
+    padding: 0.5rem 1.75rem;
+    border: 1px solid;
+}
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+  }
+ 
+  .contentRelative[_ngcontent-c1]{
+    margin-top: 88px;
+  }
+
+  #loginPop{
+      margin-top: 20px;
+  }
+  .cdk-overlay-pane{
+    top: 54px !important;
+    right: 1px !important;
+}
+
+
+.mat-autocomplete-panel{
+    max-height: auto !important;
+}
+:host /deep/ .mat-autocomplete-panel {
+    max-height: auto !important;
+  }
+  ::ng-deep .cdk-overlay-pane{ 
+      height: auto !important;
+    }
+.autoList{
+    width: 1em;
+    margin-top: 0.8em;
+    width:130%;
+    /* min-width: 412px !important; */
+}
+
+.searchOption{
+    font-size:15px;
+    height: 45px;
+    color: #666;
+}
+
+.sideoption{
+    width: 20px;
+    height: 100%;
+}
+.rightarr{
+    margin-left: 0.5em;
+    font-size: 1em;
+    font-weight: 800;
+    color: orangered;
+}
+.forsubcats{
+    color:#165c82;
+}
+#sideResults{
+    /* border-left: 1px solid gray; */
+    margin-left: 17.4em;   
+    height: 100%;
+    position: absolute;
+    background-color: #ebeef5;
+    z-index: 3;
+    display: none;
+}
+
+.SubCatbtn{
+    border-color: orangered;
+    color:#165c82;
+    background-color: #ebeef5;
+    margin-top:3%;
+    margin-left:3%;
+}
+.catname{
+    padding: 1em;
+    font-size: medium;
+    font-weight: 400;
+}
+.md-virtual-repeat-container .md-autocomplete-suggestions-container {
+    height: 500px;
+    max-height: 500px !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    text-decoration: none;
+    padding: 5px;
+    font-size: 17px;
+    display: block;
+    line-height: inherit;
+    display: block;
+    color: #343434;
+  }
+  .dropdown-content a{
+      cursor: pointer;
+  }
+  .user:hover .dropdown-content {display: block;}
+  

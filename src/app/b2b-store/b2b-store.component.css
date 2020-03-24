@@ -1,0 +1,36 @@
+.widget{
+    background: #efefef;
+}
+.contentAbsolute{
+    position: absolute;
+}
+
+
+@media screen and (max-width:990px){
+    .contentRelative{
+
+        margin-top:157px;
+    }
+}
+
+.contentRelative{
+    margin-top: 88px;
+}
+
+/* .cdk-overlay-pane{
+    pointer-events: auto;
+    top: 65px;
+    right: 12.03125px;
+}  */
+
+#loginPop{
+    margin-top: 80px;
+}
+
+#appfooter{
+    width: 100%;
+}
+
+#appheader{
+    width:100%;
+}

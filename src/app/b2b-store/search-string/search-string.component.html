@@ -1,0 +1,45 @@
+<!-- <h2 *ngIf="!resultProducts.length" class="productdata">No results found </h2> -->
+<div id="subcatproductListing">
+    <div class="row">
+            <div class="col-md-2 p-0">
+                <app-sidenav id="sideNavBar"></app-sidenav>
+            </div>
+        <div class="col-md-10 col-lg-10 toprow">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 productItem" *ngFor="let product of resultProducts">
+                    <div class="card">
+                        <div *ngIf="product.imageFile.length > 0">
+                            <div *ngFor="let images of product.imageFile">
+                                <img class="card-img-top productImg" *ngIf="images.isdefault == true" [src]="images.path" alt="Card image cap">
+                            </div>
+                        </div>
+                        <div *ngIf="product.imageFile.length <= 0">
+                            <img class="card-img-top productImg" src="http://www.telect.com/images/403-3.png">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title productName">{{product.txtBrand}} {{product.txtProductName}}</h5>
+                            <p>By
+                                <a href="">
+                                    <span class="sellerTraderName">{{product.traderName}}</span>
+                                </a>
+                            </p>
+                            <div class="productDetails">
+                                <p>
+                                    <span class="productProperties">Stock Available: </span>{{product.txtStockOnHand}}.</p>
+                                <p>
+                                    <span class="productProperties">Country: </span>{{product.traderId.country_name}}.</p>    
+                                <p>
+                                    <span class="productProperties">Currency: </span>{{product.txtCurrency.currency_name}}.</p>
+                                <p>
+                                    <span class="productProperties"> price/unit:</span> {{product.txtCurrency.iso3}} {{product.txtPrice}} / {{product.txtSalesUnitOfMeasure}}.</p>
+                            </div>
+                            <hr>
+                            <button class="btn btn-primary contactBtn">View Mobile No.</button>
+                            <button (click)="contactSupplier(product)" class="btn btn-primary contactBtn">Contact Supplier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

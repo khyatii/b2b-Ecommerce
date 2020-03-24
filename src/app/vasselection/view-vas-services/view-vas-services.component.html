@@ -1,0 +1,51 @@
+<h1 class="page-title">Value Added Services</h1>
+<div class="button-row buttonposition">
+  <button mat-raised-button class="mb10" color="warn" routerLink="../vasservices">Add Value Added Services</button>
+</div>
+<section class="widget" widget>
+  <header>
+    <h4>Value Added Services</h4>
+  </header>
+    <div class="widget-body overflow-auto">
+      <div class="mt">
+        <table class="table table-striped table-hover" [mfData]="industryArray" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Customer Category</th>
+              <th>Billing Cycle</th>
+              <th>Value Added Service Type</th>
+              <!-- <th>Fee</th> -->
+              <th>Payment Terms</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of allVasServices;let i=index;">
+              <td>{{x.name}}</td>
+              <td>{{x.customerCategory}}</td>
+              <td>{{x.billingCycle}}</td>
+              <td>{{x.vasType}}</td>
+              <!-- <td *ngFor="let fees of fee">{{fees.price}} $</td> -->
+              <td>{{x.paymentTerms}}</td>
+              <td>
+                <button mat-raised-button color="warn" (click)='modify(x)'>Modify</button>
+              </td>
+
+              <td>
+                <button mat-raised-button color="warn" (click)='delete(x,i)'>Delete</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25, 50]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,61 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+
+<h1 class="page-title">Configuration</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../paymentTerms">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Add Payment Terms</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="addPaymentTermsForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Name"  formControlName="name" required > 
+              <mat-error *ngIf="!name.valid && name.touched">Currency Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput placeholder="Due In Days"  formControlName="due_in_date" required> 
+              <mat-error *ngIf="!due_in_date.valid && due_in_date.touched">ISO Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+         
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="From"  formControlName="payment_term_from	" required>
+                <mat-option value="Invoice Date">Invoice Date</mat-option>
+               <mat-option value="End Of the month" >End Of the month</mat-option>
+             </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+              <mat-checkbox formControlName="default"></mat-checkbox>
+              <span>Default Payment Term</span>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!addPaymentTermsForm.valid" (click)="submit(addPaymentTermsForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section> 

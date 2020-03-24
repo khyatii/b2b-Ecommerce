@@ -1,0 +1,29 @@
+#datepicker{
+    position: absolute;
+    margin-left: 82%;
+    margin-top: -1%;
+}
+
+#showDate{
+    position: absolute;
+    font-weight: 1000;
+  }
+
+#searchH{
+    POSITION: absolute;
+    margin-left: 69%;
+    font-weight: 500;
+    margin-top: 1.2%;
+}
+
+#filterdiv{
+    padding-bottom: 1.8%;
+    padding-top: 0.5%;
+}
+  
+.DateSelect{
+    width: 12%;
+    margin-left: 85%;
+    position: absolute;
+    top: 28%
+  }

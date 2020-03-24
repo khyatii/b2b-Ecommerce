@@ -1,0 +1,66 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Logistics Service</h1>
+<div class="button-row buttonposition">
+
+  <button mat-raised-button class="mb10" color="warn" routerLink="../add">Add New Service Type</button>
+</div>
+<section class="widget" widget>
+  <header>
+    <h4>Service Catalogue</h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <div class="width-200 float-right">
+        <div class="input-group input-group-sm input-group-transparent input-group-rounded">
+          <span class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input class="form-control form-control-sm" id="table-search-input" [(ngModel)]="searchText" type="text" placeholder="Search">
+        </div>
+      </div>
+      <table class="table table-striped table-hover" [mfData]="serviceTypeArray  | search : searchText" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <thead>
+          <tr>
+            <th>Logistics Type</th>
+            <th>Service Type</th>
+            <th>Service Name</th>
+            <th>Modify</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of mf.data;let i=index;">
+            <td>{{x.logistics_type}}</td>
+            <td>{{x.service_type}}</td>
+            <td>{{x.service_name}}</td>
+            <td>
+              <button mat-raised-button color="warn" (click)="modify(x)">Modify</button>
+            </td>
+            <td>
+              <button mat-raised-button color="warn" (click)="delete(x,i)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="mf.data.length === 0">
+            <td colspan="100">
+              No matches
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25, 50]"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

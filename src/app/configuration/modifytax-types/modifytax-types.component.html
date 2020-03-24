@@ -1,0 +1,115 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Configuration</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../taxType">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Modify Tax Type</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="addTaxTypeForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Tax Name"  formControlName="tax_name" required > 
+              <mat-error *ngIf="!tax_name.valid && tax_name.touched">Tax Name Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Code"  formControlName="tax_code" required> 
+              <mat-error *ngIf="!tax_code.valid && tax_code.touched">Tax Code Required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+         
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-checkbox formControlName="computedTax" (change)="showCompoundTax()" ></mat-checkbox>
+              <span>Has Computed Tax</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Tax Lines"  formControlName="tax_lines"  >             
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Percent"  formControlName="tax_line_percent" >
+              <span matSuffix>%</span>            
+            </mat-form-field>
+          </div>          
+        </div>
+        
+        <div class="row" [ngClass]="{'hide':isHide}">
+          <div class="col-lg-9 col-md-9 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Compound Tax"  formControlName="compound_tax"  >             
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Percent"  formControlName="compound_tax_percent" >
+              <span matSuffix>%</span>            
+            </mat-form-field>
+          </div>          
+        </div>
+
+        <div class="row" [ngClass]="{'hide':!isHide}">
+          <div class="offset-6 col-3">
+            <label> Total Rate  </label>            
+          </div>
+          <div class="col-3"> 
+            <label class="float-right"> 0 % </label>
+          </div>
+        </div>
+
+        <div class="row" [ngClass]="{'hide':isHide}">
+          <div class="offset-6 col-3">
+            <label> Subtotal Rate </label>            
+          </div>
+          <div class="col-3"> 
+            <label class="float-right"> 0 % </label>
+          </div>
+        </div>
+
+        <div class="row" [ngClass]="{'hide':isHide}">
+          <div class="offset-6 col-3">
+            <label> Compound Rate </label>            
+          </div>
+          <div class="col-3"> 
+            <label class="float-right"> 0 % </label>
+          </div>
+        </div>
+
+        <div class="row" [ngClass]="{'hide':isHide}">
+          <div class="offset-6 col-3">
+            <label> Effcetive Rate </label>            
+          </div>
+          <div class="col-3"> 
+            <label class="float-right"> 0 % </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!addTaxTypeForm.valid" (click)="submit(addTaxTypeForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section> 

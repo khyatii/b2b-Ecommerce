@@ -1,0 +1,216 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+    <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+    <loaders-css [loader]="'ball-triangle-path'" [loaderClass]="'my-loader'"></loaders-css>
+</div>
+
+<h1 class="page-title">Team</h1>
+<div class="button-row buttonposition">
+    <button class="mb10" mat-raised-button color="warn" routerLink="../teamMembers">Back</button>
+</div>
+<section class="widget mt-4 row pt-0 px-0">
+    <header class="col-12 m-0">
+        <h4>Permissions</h4>
+    </header>
+    <form class="example-form row m-0" [formGroup]="permissionForm">
+        <div class="widget-body pt-4 col-lg-8 col-md-8 col-12 offset-lg-2 offset-md-2 offset-0">
+            <h4 class="heading">Member Details</h4>
+            <hr>
+            <div class="row mt-4">
+                <div class="mt-2 col-sm-12 pictureDiv">
+                    <img *ngIf="imagePath == null" src="assets/img/default-placeholder.png" class="img" id="imgProfile" width="200" height="115">
+                    <img *ngIf="imagePath != null" [src]="imagePath" class="img" id="imgProfile" width="200" height="115">
+                    <input type="file" name="avatar" class="hide_file img" (change)="fileChange($event)" />
+                    <div class="overlay">
+                        <label class="overlaytext">Change Picture</label>
+                    </div>
+                    <!-- <input type="button" class=" btn btnUpload" mat-raised-button  (click)="uploader.uploadAll()" value="Upload" color="warn"> -->
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtFirstName" placeholder="Name">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtEmail" placeholder="Email">
+
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="number" matInput formControlName="txtPhone" placeholder="Phone">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="number" matInput formControlName="txtFax" placeholder="Fax">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtPostalAddress" placeholder="Postal Address">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtPhysicalAddress" placeholder="Physical Address">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtPaymentDetails" placeholder="Payment Details">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="number" matInput formControlName="txtID" placeholder="Id No./Passport No.">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="number" matInput formControlName="txtTaxNumber" placeholder="Tax Number(PIN)">
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtDob" placeholder="Date of Birth">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" matInput formControlName="txtUsername" placeholder="Username">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="widget-body pt-4 col-lg-8 col-md-8 col-12 offset-lg-2 offset-md-2 offset-0">
+            <h4 class="heading">Permissions</h4>
+            <hr>
+            <div class="row mt-4">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Inventory Control" formControlName="txtInventoryPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Stock Control" formControlName="txtStockPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="wo">Write Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Customer Management" formControlName="txtCustomerManagement">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Vendor Management" formControlName="VendorsPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Sales Order Management" formControlName="SalesOrderPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Purchase Order Management" formControlName="PurchaseOrderPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Reports" formControlName="txtReportsPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="wo">Write Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> -->
+
+            <div class="row mt-2">
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Settings" formControlName="txtSettingsPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Logistics" formControlName="txtLogisticsPermission">
+                            <mat-option value="rw">Read & Write</mat-option>
+                            <mat-option value="ro">Read Only</mat-option>
+                            <mat-option value="noa">No Access</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-12 text-center">
+                    <button mat-raised-button [disabled]="!permissionForm.valid" (click)="submit(permissionForm.value)" color="warn" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

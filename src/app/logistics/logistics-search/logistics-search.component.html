@@ -1,0 +1,146 @@
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-12 text-center alert alert-success opacity1 messageposition" *ngIf="isShow">
+    Request for Quotation Sent Successfully.
+  </div>
+</div>
+<h1 class="page-title">Logistics</h1>
+<section class="widget">
+  <header>
+    <h4>Search Logistics</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="searchLogisticsForm">
+      <div class="col-lg-8 col-md-12 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select (change)="setSelected($event)" placeholder="Logistics Service Type" formControlName="txtLogisticsService" required
+                multiple>
+                <mat-option *ngFor="let x of logisticTypeArray;let i=index;" value="{{x.logistics_type}}">{{x.logistics_type}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Service Name" formControlName="txtServiceName" required multiple>
+                <mat-optgroup *ngFor='let s of global' label="{{s.name}}">
+                  <mat-option *ngFor="let service of s.data; let i= index" value="{{service.service_name}}">{{service.service_name}}</mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Country" matInput [formControl]="txtCountry" [matAutocomplete]="auto" required>
+              <mat-error *ngIf="!txtCountry.valid && txtCountry.touched">Country Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let country of filteredOptions | async" [value]="country.code" (focusout)="countryChanged(country)">
+                {{country.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="City" matInput [formControl]="txtCity" [matAutocomplete]="autoc" required>
+              <mat-error *ngIf="!txtCity.valid && txtCity.touched">City Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #autoc="matAutocomplete">
+              <mat-option *ngFor="let city of filteredCity | async" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <!-- <div class="  row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider thumbLabel (input)="minSlideChange($event)" min='0' max='1000' class="example-full-width"></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtMinPriceRange"
+                value="{{minValue}}" placeholder="Minimum">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider thumbLabel (input)="maxSlideChange($event)" min="0" max="1000" class="example-full-width"></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtMaxPriceRange"
+                value='{{maxValue}}' placeholder="Maximum">
+            </mat-form-field>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider class="example-full-width" [max]="maxAmount/2" [min]="minAmount" #matSliderMin></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="txtMinPriceRange"
+                [(ngModel)]="matSliderMin.value" placeholder="Minimum">
+            </mat-form-field>
+          </div>
+
+
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider class="example-full-width" [max]=1000 [min]=100 [max]="maxAmount" [min]="maxAmount/2" [thumb-label]="true" #matSliderMax></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtMaxPriceRange"
+                [(ngModel)]="matSliderMax.value" placeholder="Maximum">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Currency" formControlName="txtCurrency">
+                <mat-option *ngFor="let currency of currencyArray" [value]="currency._id">{{currency.currency_name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class=" col-md-6 col-sm-12 text-center">
+            <button mat-raised-button [disabled]="!searchLogisticsForm.valid" (click)="submit(searchLogisticsForm.value)" color="warn"
+              type="submit">Search</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<section class="widget" [ngClass]="{'hide':isHide}" widget>
+  <header>
+    <h4> Results </h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover resultsTable">
+        <thead>
+          <tr>
+            <th>Vendor Name</th>
+            <th>Logistics Service</th>
+            <th>Country</th>
+            <th>Quotation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let x of searchResults'>
+            <td>{{x.company_name}}</td>
+            <td>{{x.logistics_type}}</td>
+            <td>{{x.country_name }}</td>
+            <td>
+              <button mat-raised-button color="warn" (click)="showMessage()">Request Quotation</button>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</section>

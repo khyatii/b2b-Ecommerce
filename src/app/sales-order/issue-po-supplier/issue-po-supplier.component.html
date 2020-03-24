@@ -1,0 +1,133 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+		<strong>Success!</strong> {{successMsg}}
+	</div>
+	
+	<div class="alert alert-danger" role="alert" [hidden]="isError">
+		<strong>Warning!</strong> {{errorMsg}}
+	</div>
+	
+	<h1 class="page-title">Sales Order</h1>
+	
+	<section class="widget">
+		<header>
+			<h4>Request Quotations For Logistic Service
+			</h4>
+		</header>
+	
+		<div class="widget-body pt-4">
+			<form class="example-form" [formGroup]="issuePoSupplierForm">
+				<div class="col-md-9 col-sm-9 m-auto">
+						<div class="row">
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Warehouse Provider name" formControlName="txtWarehouse" (change)="getService($event)">
+											<mat-option *ngFor="let hero of warehouse" 
+											 [value]="hero._id" >{{hero.company_name}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Service Type" formControlName="txtWarehouseType" (change)="getServiceName($event)">
+											<mat-option  *ngFor="let hero of warehouseType" [value]="hero" >{{hero}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Service Name" formControlName="txtWarehouseService" multiple>
+											<mat-option *ngFor="let hero of warehouseService" [value]="hero.ServiceName">{{hero.ServiceName}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+			
+							</div>
+			
+							<div class="row">
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Transportation Provider" formControlName="txtTransportation" (change)="getServiceTransport($event)">
+											<mat-option *ngFor="let ts of tranport" [value]="ts._id" >{{ts.company_name}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Transportation Type" formControlName="TransportType" (change)="getTransportService($event)">
+											<mat-option *ngFor="let type of transportType" [value]="type" >{{type}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Transportation Name" formControlName="TransportName" multiple>
+											<mat-option *ngFor="let type of transportName" [value]="type.ServiceName"> {{type.ServiceName}} </mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+			
+							</div>
+			
+							<div class="row">
+			
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Clearing & Forwarding Agent" formControlName="txtClearing" (change)="getClearing($event)">
+											<mat-option *ngFor="let ts of clearance" [value]="ts._id" >{{ts.company_name}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Clearing Type" formControlName="txtClearingType" (change)="getClearingService($event)">
+											<mat-option *ngFor="let Clearing of ClearingType" [value]="Clearing" >{{Clearing}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Clearing  Name" formControlName="txtClearingName" multiple>
+											<mat-option *ngFor="let Clearing of ClearingName" [value]="Clearing.ServiceName" >{{Clearing.ServiceName}} </mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+			
+							</div>
+							<div class="row">
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Insurance Agent" formControlName="txtInsurance" (change)="getInsurance($event)">
+											<mat-option *ngFor="let ts of insurance" [value]="ts._id" >{{ts.company_name}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Agent Type" formControlName="txtInsuranceType" (change)="getInsuranceService($event)">
+											<mat-option *ngFor="let insurance of InsuranceType" [value]="insurance" >{{insurance}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+								<div class="col-lg-4 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<mat-select placeholder="Agent Name" formControlName="txtInsuranceName" multiple>
+											<mat-option  *ngFor="let insurance of InsuranceName" [value]="insurance.ServiceName" >{{insurance.ServiceName}}</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-3 col-md-4 col-sm-12">
+									<mat-form-field class="example-full-width">
+										<input matInput type="text" placeholder="Freight Rate" formControlName="txtFrightRate">
+									</mat-form-field>
+								</div>
+								<div class="col-6 text-center">
+									<button mat-raised-button [disabled]="!issuePoSupplierForm.valid" (click)="submit(issuePoSupplierForm.value)" color="warn"
+									 type="submit">Issue</button>
+								</div>
+							</div>
+				</div>
+		</form>
+	</div>
+</section>

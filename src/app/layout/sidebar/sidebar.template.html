@@ -1,0 +1,609 @@
+<div class="js-sidebar-content" *ngIf="isDataLoaded">
+  <header class="logo hidden-sm-down">
+    <a>
+      <img src="assets/img/nicoza_logo.png" width="60%">
+    </a>
+  </header>
+  <div class="sidebar-status hidden-md-up">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="thumb-sm avatar float-right">
+        <img class="rounded-circle" src="assets/img/people/a5.jpg" alt="...">
+      </span>
+      <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
+           should be used with bg-* and text-* classes for colors -->
+      <span class="circle bg-warning fw-bold text-gray-dark">
+        13
+      </span>
+      &nbsp; Philip
+      <strong>Smith</strong>
+      <b class="caret"></b>
+    </a>
+    <!-- #notifications-dropdown-menu goes here when screen collapsed to xs or sm -->
+  </div>
+
+  <!-- main notification links are placed inside of .sidebar-nav -->
+  <ul class="sidebar-nav">
+    <!-- <li>
+      <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="fa fa-desktop"></i>
+          </span>
+        Dashboard
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-dashboard" class="collapse">
+        <li><a [routerLink]=" ['dashboard'] ">Widgets</a></li>
+      </ul>
+    </li> -->
+    <li style="text-align: center;border-top: 1px solid #2d2d2d;line-height: 35px;cursor:pointer;" *ngIf="traderBoth == 'Both'">
+      <span class="col-6" style="border-right: 1px solid #2d2d2d;color:#f0741b;" (click)="selectBuyer($event.target)">Buyer</span>
+      <span class="col-6" (click)="selectSeller($event.target)">Seller</span>
+    </li>
+    <li>
+      <a [routerLink]=" ['dashboard'] ">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Dashboard
+      </a>
+    </li>
+    <!-- <li>
+      <a [routerLink]=" ['inbox'] ">
+          <span class="icon">
+            <i class="fa fa-envelope"></i>
+          </span>
+        Email
+          <span class="badge badge-danger">
+            9
+          </span>
+      </a>
+    </li> -->
+
+    <li>
+      <a class="collapsed" data-target="#sidebar-valueadded" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Value Added
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-valueadded" class="collapse">
+        <li>
+          <a [routerLink]=" ['vasselection'] " *ngIf="trader == 'admin'">Value Added</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['vasselection/viewvas'] " *ngIf="trader == 'admin'">Value Added Services</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['vasselection/vassubscribe'] " *ngIf="trader == 'Seller'||trader == 'Buyer'">Subscribe</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['vasselection/subsplan'] " *ngIf="trader == 'Seller'">Plan</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="trader == 'Seller'">
+      <a class="collapsed" data-target="#sidebar-inventory" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Inventory
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-inventory" class="collapse">
+        <li *ngIf="(permission.InventoryPermission == 'rw' || permission.InventoryPermission == 'ro')">
+          <a [routerLink]=" ['inventory/manage-inventory'] ">Manage Inventory Locations</a>
+        </li>
+        <li *ngIf="(permission.InventoryPermission == 'rw' || permission.InventoryPermission == 'ro')">
+          <a [routerLink]=" ['inventory/product'] ">Products</a>
+        </li>
+        <li *ngIf="(permission.txtStockPermission == 'rw' || permission.txtStockPermission == 'wo')">
+          <a [routerLink]=" ['inventory/stock'] ">Stock</a>
+        </li>
+        <li *ngIf="(permission.InventoryPermission == 'rw' || permission.InventoryPermission == 'ro')">
+          <a [routerLink]=" ['inventory/search-product'] ">Search Product</a>
+        </li>
+        <li *ngIf="(permission.txtStockPermission == 'rw' || permission.txtStockPermission == 'wo')">
+          <a [routerLink]=" ['inventory/stock-take'] ">Stock Take</a>
+        </li>
+        <!-- <li><a [routerLink]=" ['inventory/stock-update'] ">Stock Update</a></li> -->
+      </ul>
+    </li>
+
+    <!-- <li *ngIf="trader == 'Seller'"> -->
+    <li *ngIf="trader == 'Seller' && (permission.SalesOrderPermission == 'rw' || permission.SalesOrderPermission == 'ro')">
+      <a class="collapsed" data-target="#sidebar-salesOrder" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Sales Order
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-salesOrder" class="collapse">
+        <li>
+          <a [routerLink]=" ['salesorders/quotationDetails'] ">View Quotations</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['salesorders/purchaseorder'] ">Purchase Order</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['salesorders/invoices'] ">Invoices</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['salesorders/returns'] ">Returns</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['salesorders/enquiry'] ">Enquiry</a>
+        </li>
+      </ul>
+    </li>
+    <!-- <li *ngIf="trader == 'Buyer'"> -->
+    <li *ngIf="trader == 'Buyer'&& (permission.PurchaseOrderPermission == 'rw' || permission.PurchaseOrderPermission == 'ro')">
+      <a class="collapsed" data-target="#sidebar-salesOrder" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Purchase Order
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-salesOrder" class="collapse">
+
+        <li>
+          <a [routerLink]=" ['salesorders/crowdsourcing'] ">Crowd Sourcing</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['inventory/quotations'] ">Request Quotation</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['salesorders/orders'] ">Orders</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['salesorders/invoices'] ">Invoices</a>
+        </li>
+        <!-- <li><a [routerLink]=" ['salesorders/shipments'] ">Shipments</a></li>   -->
+        <li>
+          <a [routerLink]=" ['salesorders/recievingGoods'] ">Recieving of Goods</a>
+        </li>
+      </ul>
+    </li>
+
+    <li *ngIf="trader == 'Buyer' || trader == 'Seller' && (permission.InventoryPermission == 'rw' || permission.InventoryPermission == 'ro')">
+      <a class="collapsed" data-target="#sidebar-Invoice" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Invoices
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-Invoice" class="collapse">
+        <!-- <li><a [routerLink]=" ['invoices/settlementVAS'] ">Settlement VAS</a></li>
+        <li><a [routerLink]=" ['invoices/settlementFromSeller'] ">Settlement From Seller</a></li> -->
+        <li>
+          <a [routerLink]=" ['invoices/settlementFromLogistics'] ">Settlement From Logistics</a>
+        </li>
+      </ul>
+    </li>
+    <!-- <li>
+      <a [routerLink]=" ['charts'] ">
+          <span class="icon">
+            <i class="glyphicon glyphicon-stats"></i>
+          </span>
+        Charts
+      </a>
+    </li>  -->
+    <!-- <li>
+      <a [routerLink]=" ['profile'] ">
+          <span class="icon">
+            <i class="glyphicon glyphicon-user"></i>
+          </span>
+        Profile -->
+    <!-- <sup class="text-warning fw-semi-bold">
+          new
+        </sup> -->
+    <!-- </a>
+    </li> -->
+    <li *ngIf="trader == 'Seller' && (permission.CustomersPermission == 'rw' || permission.CustomersPermission == 'ro')">
+      <a class="collapsed" data-target="#sidebar-Customers" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-users" aria-hidden="true"></i>
+
+        </span>
+        Customers
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-Customers" class="collapse">
+        <li>
+          <a [routerLink]=" ['customers/allCustomer'] " *ngIf="trader == 'Seller'">Customers</a>
+        </li>
+        <!-- <li><a [routerLink]=" ['customers/customer-profile'] ">Customer Profile</a></li> -->
+        <li>
+          <a [routerLink]=" ['customers/customerGroup'] " *ngIf="trader == 'Seller'">Customer Groups</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="trader == 'Buyer' && (permission.VendorsPermission == 'rw' || permission.VendorsPermission == 'ro')">
+      <a class="collapsed" data-target="#sidebar-Customers" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fa fa-industry" aria-hidden="true"></i>
+        </span>
+        Vendors
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-Customers" class="collapse">
+
+        <li>
+          <a [routerLink]=" ['vendors/sellermanagementtable'] " *ngIf="trader == 'Buyer'">Seller Management</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['vendors/suppliersearch']" *ngIf="trader == 'Buyer'">Search Supplier</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="(trader == 'Seller'||trader == 'Buyer') && (permission.LogisticsPermission == 'rw' || permission.LogisticsPermission == 'ro')">
+      <a class="collapsed" data-target="#sidebar-Logistics" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class=" fa fa-truck"></i>
+        </span>
+        Logistics
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-Logistics" class="collapse">
+        <li>
+          <a [routerLink]=" ['logistics/warehouse'] ">Warehouse</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['logistics/logisticssearch'] ">Search Logistics</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['logistics/transportmanagement'] ">Transport Management</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['logistics/clearing'] ">Clearing Management</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['logistics/insuranceMangement'] ">Insurance Management</a>
+        </li>
+        <!-- <li><a [routerLink]=" ['logistics/warehouseService'] ">Warehouse Service</a></li> -->
+
+      </ul>
+    </li>
+  </ul>
+  <!--
+  <h5 class="sidebar-nav-title">Template <a class="action-link" href="#"><i class="glyphicon glyphicon-refresh"></i></a></h5>
+  <ul class="sidebar-nav">
+    <li>
+
+      <a class="collapsed" data-target="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="glyphicon glyphicon-align-right"></i>
+          </span>
+        Forms
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-forms" class="collapse">
+        <li><a [routerLink]=" ['forms/elements'] ">Form Elements</a></li>
+        <li><a [routerLink]=" ['forms/validation'] ">Form Validation</a></li>
+        <li><a [routerLink]=" ['forms/wizard'] ">Form Wizard</a></li>
+      </ul>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-ui" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="glyphicon glyphicon-tree-conifer"></i>
+          </span>
+        UI Elements
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-ui" class="collapse">
+        <li><a [routerLink]=" ['ui/components'] ">Components</a></li>
+        <li><a [routerLink]=" ['ui/notifications'] ">Notifications</a></li>
+        <li><a [routerLink]=" ['ui/icons'] ">Icons</a></li>
+        <li><a [routerLink]=" ['ui/buttons'] ">Buttons</a></li>
+        <li><a [routerLink]=" ['ui/tabs-accordion'] ">Tabs & Accordion</a></li>
+        <li><a [routerLink]=" ['ui/list-groups'] ">List Groups</a></li>
+      </ul>
+    </li>
+    <li>
+      <a [routerLink]=" ['grid'] ">
+          <span class="icon">
+            <i class="glyphicon glyphicon-th"></i>
+          </span>
+        Grid
+      </a>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-maps" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="glyphicon glyphicon-map-marker"></i>
+          </span>
+        Maps
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-maps" class="collapse">
+        <li><a [routerLink]=" ['maps/google'] ">Google Maps</a></li>
+        <li><a [routerLink]=" ['maps/vector'] ">Vector Maps</a></li>
+      </ul>
+    </li>
+    <li>
+
+      <a class="collapsed" data-target="#sidebar-tables" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="fa fa-table"></i>
+          </span>
+        Tables
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-tables" class="collapse">
+        <li><a [routerLink]=" ['tables/basic'] ">Tables Basic</a></li>
+        <li><a [routerLink]=" ['tables/dynamic'] ">Tables Dynamic <sup class="bg-transparent text-danger fs-sm fw-bold">ng2</sup></a></li>
+      </ul>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-extra" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="fa fa-leaf"></i>
+          </span>
+        Extra
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-extra" class="collapse">
+        <li><a [routerLink]=" ['extra/calendar'] ">Calendar <sup class="bg-transparent text-danger fs-sm fw-bold">ng2</sup></a></li>
+        <li><a [routerLink]=" ['extra/invoice'] ">Invoice</a></li>
+        <li><a [routerLink]=" ['/login'] ">Login Page</a></li>
+        <li><a [routerLink]=" ['/error'] ">Error Page</a></li>
+        <li><a [routerLink]=" ['extra/gallery'] ">Gallery <sup class="bg-transparent text-danger fs-sm fw-bold">ng2</sup></a></li>
+        <li><a [routerLink]=" ['extra/search'] ">Search Results</a></li>
+        <li><a [routerLink]=" ['extra/timeline'] ">Time Line</a></li>
+      </ul>
+    </li>
+    <li>
+      <a class="collapsed" data-target="#sidebar-levels" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="fa fa-folder-open"></i>
+          </span>
+        Menu Levels
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-levels" class="collapse">
+        <li><a href>Level 1</a></li>
+        <li>
+          <a class="collapsed" data-target="#sidebar-sub-levels" data-toggle="collapse" data-parent="#sidebar-levels">
+            Level 2
+            <i class="toggle fa fa-angle-down"></i>
+          </a>
+          <ul id="sidebar-sub-levels" class="collapse">
+            <li><a href>Level 3</a></li>
+            <li><a href>Level 3</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+-->
+  <h5 class="sidebar-nav-title">Setup
+    <a class="action-link" href="#">
+      <i class="glyphicon glyphicon-refresh"></i>
+    </a>
+  </h5>
+  <ul class="sidebar-nav">
+    <li *ngIf="trader == 'admin'">
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#setup" data-toggle="collapse" data-parent="#sidebar">
+        <!-- <span class="icon">
+          <i class="fab fa-accessible-icon"></i>
+        </span> -->
+        <span class="icon">
+          <i class="far fa-address-card"></i>
+        </span>
+        Product Classification
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="setup" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/industry'] ">Industry</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/category'] ">Category</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/subCategory'] ">Sub Category</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="trader == 'admin'">
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#setup1" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="far fa-address-card"></i>
+        </span>
+        Logistics Units
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="setup1" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/logistic-unit/ViewWarehouse'] ">Warehouse Unit</a>
+        </li>
+        <li>
+          <a [routerLink]="['setup/logistic-unit/ViewTransport'] ">Transport Unit</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/logistic-unit/ViewClearing']">Clearing Unit</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/logistic-unit/ViewInsurance']">Insurance Unit</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="trader == 'admin'">
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#setup2" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="far fa-address-card"></i>
+        </span>
+        Logistics Service
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="setup2" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/logistic-service/logisticsType'] ">Logistic Type</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/logistic-service/serviceType'] ">Service Type</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="(trader == 'Seller' ||trader == 'Both') && (permission.InventoryPermission == 'rw' || permission.InventoryPermission == 'ro')">
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#setup" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fab fa-product-hunt"></i>
+        </span>
+        Products
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="setup" class="collapse">
+        <!-- <li><a [routerLink]=" ['setup/product-list'] ">Price Lists</a></li> -->
+        <li>
+          <a [routerLink]=" ['setup/product-discount'] ">Product Discount</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#subscription" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="far fa-address-card"></i>
+        </span>
+        Subscription
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="subscription" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/subscription'] ">Plan & Billing</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="trader == 'Seller'||trader == 'Buyer' && (permission.SettingsPermission == 'rw' || permission.SettingsPermission == 'ro')">
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#configuration" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fas fa-cog"></i>
+        </span>
+        Configuration
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="configuration" class="collapse">
+        <!-- <li><a [routerLink]=" ['config/general'] ">General</a></li> -->
+        <li>
+          <a [routerLink]=" ['config/currency'] ">Currency</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['companyDetails/location'] ">Locations</a>
+        </li>
+        <!-- <li><a [routerLink]=" ['config/taxType'] ">Tax Type</a></li>
+        <li><a [routerLink]=" ['config/paymentTerms'] ">Payment Terms</a></li>
+        <li><a [routerLink]=" ['config/paymentMethod'] ">Payment Method</a></li>
+        <li><a [routerLink]=" ['config/default'] ">Default Settings</a></li> -->
+      </ul>
+    </li>
+    <li>
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#customTemplate" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="fas fa-columns"></i>
+        </span>
+        Templates
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="customTemplate" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/templates'] ">Templates</a>
+        </li>
+      </ul>
+    </li>
+    <!-- <li *ngIf="permission.admin == true"> -->
+    <li>
+      <a class="collapsed" data-target="#companyDetails" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="far fa-address-card"></i>
+        </span>
+        Company Details
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="companyDetails" class="collapse">
+        <li>
+          <a [routerLink]=" ['companyDetails/companyOverview'] ">Company Overview</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['companyDetails/teamMembers'] ">Team Members</a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+
+  <!--   <h5 class="sidebar-nav-title">Logistics <a class="action-link" href="#"><i class="glyphicon glyphicon-refresh"></i></a></h5>
+  <ul class="sidebar-nav">
+    <li>
+      <a class="collapsed" data-target="#logisticsPO" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="glyphicon glyphicon-align-right"></i>
+          </span>
+           Logistics PO
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="logisticsPO" class="collapse">
+        <li><a [routerLink]=" ['logisticsUser/logistics-po'] ">Warehouse PO</a></li>
+        <li><a [routerLink]=" ['logisticsUser/transport-po'] ">Transport PO</a></li>
+        <li><a [routerLink]=" ['logisticsUser/clearingAgent-po'] ">Clearing Agent PO</a></li>
+        <li><a [routerLink]=" ['logisticsUser/insuranceAgent-po'] ">Insurance Agent PO</a></li>
+        <li><a [routerLink]=" ['logisticsUser/warehouse'] ">Warehouse</a></li>
+        <li><a [routerLink]=" ['logisticsUser/transport'] ">Transport</a></li>
+        <li><a [routerLink]=" ['logisticsUser/clearing'] ">Clearing Agent</a></li>
+        <li><a [routerLink]=" ['logisticsUser/insurance'] ">Insurance Agent</a></li>
+      </ul>
+    </li>
+  </ul>
+   <h5 class="sidebar-nav-title">Labels <a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
+  <ul class="sidebar-labels">
+    <li>
+      <a href="#">
+
+        <i class="fa fa-circle text-warning mr-xs"></i>
+        <span class="label-name">My Recent</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-circle text-gray mr-xs"></i>
+        <span class="label-name">Starred</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-circle text-danger mr-xs"></i>
+        <span class="label-name">Background</span>
+      </a>
+    </li>
+  </ul>
+   <h5 class="sidebar-nav-title">Projects</h5>
+
+ <div class="sidebar-alerts">
+    <div class="alert fade show">
+      <a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+      <span class="text-white fw-semi-bold">Sales Report</span> <br>
+      <div class="progress progress-xs bg-blue-light mt-xs mb-0">
+        <div class="progress-bar progress-xs" role="progressbar" style="width: 16%" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <small>Calculating x-axis bias... 65%</small>
+    </div>
+    <div class="alert fade show">
+      <a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+      <span class="text-white fw-semi-bold">Personal Responsibility</span> <br>
+      <div class="progress progress-xs bg-blue-light mt-xs mb-0">
+        <div class="progress-bar progress-xs bg-danger" role="progressbar" style="width: 23%" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <small>Provide required notes</small>
+    </div>
+  </div> -->
+</div>

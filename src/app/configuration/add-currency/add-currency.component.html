@@ -1,0 +1,88 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+      <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+    <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Configuration</h1>
+<div class="button-row buttonposition"> 
+  <button class="mb10" mat-raised-button color="warn" routerLink="../currency">Back</button>
+</div>
+<section class="widget">
+  <header>
+    <h4>Add Currency</h4> 
+  </header>  
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="addCurrencyForm">
+      <div class="col-md-8 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select  [formControl]="currency_name" placeholder="Currnecy Name"  (change)="change($event)">
+                <mat-option *ngFor="let option of currencyArray  " [value]="option"  >
+                    {{option.value.name }}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="!currency_name.valid && currency_name.touched">Currency Name Required</mat-error> 
+            </mat-form-field> 
+
+            <!-- <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Currnecy Name"  formControlName="currency_name" required > 
+              <mat-error *ngIf="!currency_name.valid && currency_name.touched">Currency Name Required</mat-error>
+            </mat-form-field> -->
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="ISO"   [value]="inputISO" disabled> 
+             
+            </mat-form-field>
+          </div>
+        </div>
+         
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Symbol"   [value]="inputSymbol"  disabled>
+            
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Exchange Rate" value="Live Exchange Rate" disabled >
+              </mat-form-field>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-5">
+              <mat-form-field class="example-full-width">
+                <input type="text" matInput placeholder="Base Value" [value]="baseValue" disabled>
+              </mat-form-field>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-self-center">
+              <span>=</span>    
+            </div>
+            <div class="col-5">
+                <mat-form-field class="example-full-width">
+                  <input type="number" matInput placeholder="Exchange Rate" [value]="exchangeRate"  formControlName="txtExchangeRate"  required >
+                  <span matSuffix>{{inputSymbol}}</span>
+                
+                </mat-form-field>
+              </div>
+          </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!addCurrencyForm.valid" (click)="submit(addCurrencyForm.value)"	 color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+        <!-- <tr *ngFor="let c of currencyObject | keys">           
+            <td >{{c.value.name}}</td>
+          </tr> -->
+      </div>
+    </form>
+  </div>
+</section> 

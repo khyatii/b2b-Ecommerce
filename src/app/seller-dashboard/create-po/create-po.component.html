@@ -1,0 +1,17 @@
+<div class="main">
+    <div class="row">
+        <div class="col-md-12" style="text-align:right">
+            <button *ngIf="purchaseOrderStepper.selectedIndex > 0" (click)="gback(purchaseOrderStepper)"
+                class="btn btn-info mb-2 mr-3">Back</button>
+            <button class="btn btn-info pull-right mb-2 mr-3" (click)="skipStep(purchaseOrderStepper)">Skip</button>
+        </div>
+    </div>
+    <mat-horizontal-stepper [linear]="true" #purchaseOrderStepper>
+        <mat-step label="Request Quotations">
+            <app-request-quotations (notify)="createPoStep()"></app-request-quotations>
+        </mat-step>
+        <mat-step label="Issue Purchase Order">
+            <app-view-orders ></app-view-orders>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

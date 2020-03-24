@@ -1,0 +1,281 @@
+<div class="alert alert-success" role="alert" [hidden]="isSuccess">
+  <strong>Success!</strong> {{successMsg}}
+</div>
+
+<div class="alert alert-danger" role="alert" [hidden]="isError">
+  <strong>Warning!</strong> {{errorMsg}}
+</div>
+
+<h1 class="page-title">Inventory</h1>
+
+<section class="widget">
+  <header>
+    <h4>Stock</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="searchProductForm">
+      <div class="col-lg-8 col-md-12 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <!-- <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtProductName" placeholder="Product Name" required>
+              <mat-error *ngIf="!txtProductName.valid && txtProductName.touched">Name Required</mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput placeholder="Product Name" formControlName="txtProductName" (input)="filterProductName($event.target.value)"
+                [name]="filterOptionProduct" [matAutocomplete]="autoProduct" [value]="txtProductName" required>
+              <mat-error *ngIf="!txtProductName.valid && txtProductName.touched">Product Name Required</mat-error>
+            </mat-form-field>
+            <mat-autocomplete #autoProduct="matAutocomplete">
+              <mat-option *ngFor="let val of productNameArray" (focusout)="changeProduct(val)" [value]="val.productId.txtProductName">
+                {{ val.productId.txtProductName }}
+              </mat-option>
+            </mat-autocomplete>
+
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" matInput formControlName="txtModel" placeholder="Model">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider class="example-full-width" [max]="maxAmount/2" [min]="minAmount" [max]=1000 [min]=100 [step]="step" [thumb-label]="thumbLabel"
+              #matSliderMin></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" min="0" (keypress)="keyPress($event)" onpaste="return false;" matInput formControlName="txtMinPriceRange"
+                [(ngModel)]="matSliderMin.value" placeholder="Minimum">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtPartNo" placeholder="Part No.">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <mat-slider class="example-full-width" [max]="maxAmount" [min]="maxAmount/2" [step]="step" [thumb-label]="true" #matSliderMax></mat-slider>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput min="0" (keypress)="keyPress($event)" onpaste="return false;" formControlName="txtMaxPriceRange"
+                [(ngModel)]="matSliderMax.value" placeholder="Maximum">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtSerialNo" placeholder="Serial No.">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Storage Location *" formControlName="txtStorageLocation">
+                <mat-option *ngFor="let location of locationArray" [value]="location._id">{{location.locationName}}</mat-option>
+
+              </mat-select>
+              <mat-error *ngIf="!txtStorageLocation.valid && txtStorageLocation.touched">Storage Location Required</mat-error>
+
+            </mat-form-field>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!searchProductForm.valid" (click)="submit(searchProductForm.value)" color="warn" type="submit">Search</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="widget" [ngClass]="{'hide':isUpdate}" widget>
+  <header>
+    <h4> Results </h4>
+  </header>
+  <div class="widget-body overflow-auto">
+    <div class="mt">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Model</th>
+
+            <th>Unit of Measure</th>
+            <th>Location</th>
+            <th>Stock Availiable</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <span *ngIf="!searchProduct">No product meet your search criteria</span>
+          <tr *ngFor="let result of resultArray">
+            <td>
+              <span *ngFor="let img of result.imageFile">
+                <img [src]="img.path" *ngIf="img.isdefault == true" alt="Maggi" width="100" height="100">
+              </span>
+            </td>
+            <td class="align-middle">{{result.productId.txtProductName}}</td>
+            <td class="align-middle">{{result.txtModelCode}}</td>
+            <td class="align-middle">{{result.txtSalesUnitOfMeasure}}</td>
+            <td class="align-middle">{{result.txtStorageLocation?.locationName}}</td>
+            <td class="align-middle">{{result.txtStockAvailable}}</td>
+            <td class="align-middle">
+              <button mat-raised-button color="warn" (click)="isUpdate=true;isHide=false;product=result;updateForm(product,null);">Update</button>
+            </td>
+          </tr>
+
+          <!-- <tr r *ngFor="let x of array">
+            <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4vMWQx9N_VOVnNidPYIMbyVNBsMXWC790Jmo-ROgddQ0BDKsj" alt="Maggi" width="30"></td>
+            <td>{{x.txtProduct}}</td>
+            <td>14n></td>
+            <td>$ {{x.txtPrice}}</td>
+            <td> <button mat-raised-button color="warn" routerLink="../modifyGroup">Modify</button></td>
+          </tr>
+        </tbody> -->
+          <!-- <tfoot>
+        <tr>
+          <td colspan="12">
+            <mfBootstrapPaginator [rowsOnPageSet]="[10, 25, 50, 100]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+        </tfoot> -->
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="widget" [ngClass]="{'hide':isHide}">
+  <header>
+    <h4>Update Stock</h4>
+  </header>
+  <div class="widget-body pt-4">
+    <form class="example-form" [formGroup]="searchProductFormUpdate">
+      <div class="col-lg-8 col-md-12 col-sm-12 m-auto">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtProductName" placeholder="Product Name" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtModelCode" placeholder="Model" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtPartNo" placeholder="Part No." disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtSerialNo" placeholder="Serial No." disabled>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtStorageLocation" placeholder="Storage Location" required disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtPrice" placeholder="Cost Price" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="txtStockAvailable" placeholder="Stock Available" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="txtStockOnHand" placeholder="Stock On Hand" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput formControlName="txtQuantityChange" #quantity placeholder="Quantity Change" (change)="updateForm(null,quantity.value)"
+                required>
+              <!-- <mat-error *ngIf="!txtQuantityChange.valid && txtQuantityChange.touched">Quantity Change Required</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Storage Unit of Measure" formControlName="txtStorageUnitOfMeasure" required>
+                <mat-option *ngFor="let unit of unitsArray" [value]="unit">{{unit}}</mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="!txtStorageUnitOfMeasure.valid && txtStorageUnitOfMeasure.touched">Storage Unit of Measure Required</mat-error> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Reason" formControlName="txtReason" required>
+                <mat-option value="New Products">New Products</mat-option>
+                <mat-option value="Returned">Returned</mat-option>
+                <mat-option value="Production of Goods">Production of Goods</mat-option>
+                <mat-option value="Shrinkage">Shrinkage</mat-option>
+                <mat-option value="Promotion">Promotion</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-error *ngIf="!txtReason.valid && txtReason.touched">Reason Required</mat-error> -->
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput formControlName="txtComments" placeholder="Comments" required>
+              <!-- <mat-error *ngIf="!txtComments.valid && txtComments.touched">Comments Required</mat-error>             -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput [matDatepicker]="AdjustedDate" placeholder="Date Adjusted" formControlName="txtAdjustedDate" required>
+              <mat-datepicker-toggle matSuffix [for]="AdjustedDate"></mat-datepicker-toggle>
+              <mat-datepicker #AdjustedDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <button mat-raised-button [disabled]="!searchProductFormUpdate.valid" (click)="updateStock(searchProductFormUpdate.value)"
+              color="warn" type="submit">Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</section>

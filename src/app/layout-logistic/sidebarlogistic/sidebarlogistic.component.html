@@ -1,0 +1,193 @@
+<div class="js-sidebar-content">
+  <header class="logo hidden-sm-down">
+    <a >
+      <img src="assets/img/nicoza_logo.png" width="60%">
+    </a>
+  </header>
+  <div class="sidebar-status hidden-md-up">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <span class="thumb-sm avatar float-right">
+        <img class="rounded-circle" src="assets/img/people/a5.jpg" alt="...">
+      </span>
+      <!-- .circle is a pretty cool way to add a bit of beauty to raw data.
+           should be used with bg-* and text-* classes for colors -->
+      <span class="circle bg-warning fw-bold text-gray-dark">
+        13
+      </span>
+      &nbsp; Philip
+      <strong>Smith</strong>
+      <b class="caret"></b>
+    </a>
+    <!-- #notifications-dropdown-menu goes here when screen collapsed to xs or sm -->
+  </div>
+  <!-- main notification links are placed inside of .sidebar-nav -->
+  <ul class="sidebar-nav">
+    <!-- <li>
+      <a class="collapsed" data-target="#sidebar-dashboard" data-toggle="collapse" data-parent="#sidebar">
+          <span class="icon">
+            <i class="fa fa-desktop"></i>
+          </span>
+        Dashboard
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="sidebar-dashboard" class="collapse">
+        <li><a [routerLink]=" ['dashboard'] ">Widgets</a></li>
+      </ul>
+    </li> -->
+    <li style="text-align: center;border-top: 1px solid #2d2d2d;line-height: 35px;cursor:pointer;" *ngIf="traderBoth == 'Both'">
+      <span class="col-6" style="border-right: 1px solid #2d2d2d;color:#f0741b;" (click)="selectBuyer($event.target)">Local</span>
+      <span class="col-6" (click)="selectSeller($event.target)">International</span>
+    </li>
+    <li>
+      <a [routerLink]=" ['dashboard'] ">
+        <span class="icon">
+          <i class="fa fa-desktop"></i>
+        </span>
+        Dashboard
+      </a>
+    </li>
+    <!-- <li>
+      <a [routerLink]=" ['inbox'] ">
+          <span class="icon">
+            <i class="fa fa-envelope"></i>
+          </span>
+        Email
+          <span class="badge badge-danger">
+            9
+          </span>
+      </a>
+    </li> -->
+
+    <li>
+      <a class="collapsed" data-target="#logisticsPO" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-align-right"></i>
+        </span>
+        Logistics PO
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="logisticsPO" class="collapse">
+        <li *ngIf="logistics_type == 'Warehouse'">
+          <a [routerLink]=" ['logisticsUser/logistics-po'] ">Warehouse PO</a>
+          <a [routerLink]= "['logisticsUser/approve-Logistic-request']">modify Warehouse Request</a>
+        </li>
+        <li *ngIf="logistics_type == 'Transport'">
+          <a [routerLink]=" ['logisticsUser/transport-po'] ">Transport PO</a>
+          <a [routerLink]= "['logisticsUser/approve-Logistic-request']">modify Transport Request</a>
+        </li>
+        <li *ngIf="logistics_type == 'Clearing'">
+          <a [routerLink]=" ['logisticsUser/clearingAgent-po'] ">Clearing Agent PO</a>
+          <a [routerLink]= "['logisticsUser/approve-Logistic-request']">modify Clearing Request</a>
+        </li>
+        <li *ngIf="logistics_type == 'Insurance'">
+          <a [routerLink]=" ['logisticsUser/insuranceAgent-po'] ">Insurance Agent PO</a>
+          <a [routerLink]= "['logisticsUser/approve-Logistic-request']">modify Insurance Request</a>
+        </li>
+        <li *ngIf="logistics_type == 'Multiple Logistics'">
+          <div  *ngFor="let data of multipletype" style="margin-left: 26%; font-size: 14px">
+          <a (click)="callMultiple(data)">{{data}}</a>
+         <br>
+          </div>
+          <a [routerLink]= "['logisticsUser/approve-Logistic-request']">modify Logistics Request</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a class="collapsed" data-target="#invoices" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-align-right"></i>
+        </span>
+        Invoices
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="logisticsPO" class="collapse">
+        <li>
+          <a [routerLink]=" ['logisticsUser/logistics-po'] ">Warehouse PO</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#setup" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-align-right"></i>
+        </span>
+        Setup
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="setup" class="collapse">
+        <li>
+          <a [routerLink]=" ['inventory/manage-logistic-inventory'] ">Storage Locations</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/service-catalogue'] ">Service Catalogue</a>
+        </li>
+      </ul>
+    </li>
+
+    <li>
+      <a class="collapsed" data-target="#companyDetails" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-align-right"></i>
+        </span>
+        Company Details
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="companyDetails" class="collapse">
+        <li>
+          <a [routerLink]=" ['companyDetails/companyOverviewLogistics'] ">Company Overview</a>
+        </li>
+        <!-- <li><a [routerLink]=" ['companyDetails/teamMembers'] ">Team Members</a></li> -->
+        <!-- <li><a [routerLink]=" ['companyDetails/location'] ">Locations</a></li> -->
+      </ul>
+    </li>
+
+  </ul>
+
+
+  <h5 *ngIf="trader == 'admin'" class="sidebar-nav-title">Setup
+    <a class="action-link" href="#">
+      <i class="glyphicon glyphicon-refresh"></i>
+    </a>
+  </h5>
+  <ul class="sidebar-nav">
+    <li *ngIf="trader == 'admin'">
+      <!-- an example of nested submenu. basic bootstrap collapse component -->
+      <a class="collapsed" data-target="#setup" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-align-right"></i>
+        </span>
+        Industry
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="setup" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/industry'] ">Industry</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/category'] ">Category</a>
+        </li>
+        <li>
+          <a [routerLink]=" ['setup/subCategory'] ">Sub Category</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- <li>
+      <a class="collapsed" data-target="#customTemplate" data-toggle="collapse" data-parent="#sidebar">
+        <span class="icon">
+          <i class="glyphicon glyphicon-align-right"></i>
+        </span>
+        Templates
+        <i class="toggle fa fa-angle-down"></i>
+      </a>
+      <ul id="customTemplate" class="collapse">
+        <li>
+          <a [routerLink]=" ['setup/templates'] ">Templates</a>
+        </li>
+      </ul>
+    </li> -->
+  </ul>
+</div>

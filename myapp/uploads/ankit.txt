@@ -1,0 +1,391 @@
+{
+  id: 73,
+  name: "react-native-simple-dialogs",
+  install: {
+    packager: "npm",
+    url: "react-native-simple-dialogs"
+  },
+  source: {
+    domain: "github",
+    url: "douglasjunior/react-native-simple-dialogs"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/douglasjunior/react-native-simple-dialogs#screenshots",
+    imgUrl: "https://raw.githubusercontent.com/douglasjunior/react-native-simple-dialogs/master/screenshots/android-dialog.png"
+  },
+  framework: "React Native",
+  version: "0.3.1",
+  license: "MIT",
+  details: "https://github.com/douglasjunior/react-native-simple-dialogs",
+  keywords: ["dialogs", "simple",'dialog-box'],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 74,
+  name: "react-native-elements",
+  install: {
+    packager: "npm",
+    url: "react-native-elements"
+  },
+  source: {
+    domain: "github",
+    url: "react-native-training/react-native-elements"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/react-native-training/react-native-elements",
+    imgUrl: "https://camo.githubusercontent.com/c8ed2a89d1e3f2c28dc46bc1b918b9b874ca18c3/687474703a2f2f692e696d6775722e636f6d2f555872475465472e706e67"
+  },
+  framework: "React Native",
+  version: "0.18.5",
+  license: "MIT",
+  details: "https://github.com/react-native-training/react-native-elements",
+  keywords: ["dialogs", "elements",'native','checkbox','list'],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 75,
+  name: "react-native-navigation",
+  install: {
+    packager: "npm",
+    url: "react-native-navigation"
+  },
+  source: {
+    domain: "github",
+    url: "wix/react-native-navigation"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/wix/react-native-navigation#real-world-examples",
+    imgUrl: "https://github.com/wix/react-native/raw/master/src/videos/rnn-example-demo.gif?raw=true"
+  },
+  framework: "React Native",
+  version: "1.1.85",
+  license: "MIT",
+  details: "https://wix.github.io/react-native-navigation/#/",
+  keywords: ["navigation", "nav bar"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 76,
+  name: "react-native-material-ui",
+  install: {
+    packager: "npm",
+    url: "react-native-material-ui"
+  },
+  source: {
+    domain: "github",
+    url: "xotahal/react-native-material-ui"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/xotahal/react-native-material-ui#animations-are-included",
+    imgUrl: "https://raw.githubusercontent.com/xotahal/react-native-material-ui-demo-app/master/resources/action-button-labels.gif"
+  },
+  framework: "React Native",
+  version: "1.18.0",
+  license: "MIT",
+  details: "https://github.com/xotahal/react-native-material-ui",
+  keywords: ["material", "ui","view","designs"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 77,
+  name: "react-native-maps",
+  install: {
+    packager: "npm",
+    url: "react-native-maps"
+  },
+  source: {
+    domain: "github",
+    url: "react-community/react-native-maps"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/react-community/react-native-maps#examples",
+    imgUrl: "https://camo.githubusercontent.com/bcb60887b83b8b8b84aeacfdf8e2f20ce33bdba5/687474703a2f2f692e67697068792e636f6d2f336f365542706e63595141537532575457382e676966"
+  },
+  framework: "React Native",
+  version: "0.18.3",
+  license: "MIT",
+  details: "https://github.com/react-community/react-native-maps",
+  keywords: ["maps", "google"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 78,
+  name: "react-native-share",
+  install: {
+    packager: "npm",
+    url: "react-native-share"
+  },
+  source: {
+    domain: "github",
+    url: "EstebanFuentealba/react-native-share"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/EstebanFuentealba/react-native-share#how-it-looks",
+    imgUrl: "https://github.com/EstebanFuentealba/react-native-share/raw/master/assets/android-component-250x.gif"
+  },
+  framework: "React Native",
+  version: "1.0.23",
+  license: "MIT",
+  details: "https://github.com/EstebanFuentealba/react-native-share",
+  keywords: ["share", "social","sending"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 79,
+  name: "react-native-image-picker",
+  install: {
+    packager: "npm",
+    url: "react-native-image-picker"
+  },
+  source: {
+    domain: "github",
+    url: "react-community/react-native-image-picker"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/react-community/react-native-image-picker#react-native-image-picker-----",
+    imgUrl: "https://github.com/marcshilling/react-native-image-picker/raw/master/images/android-image.png"
+  },
+  framework: "React Native",
+  version: "0.26.7",
+  license: "MIT",
+  details: "https://github.com/react-community/react-native-image-picker",
+  keywords: ["image", "photo","picker"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 80,
+  name: "react-native-tab-view",
+  install: {
+    packager: "npm",
+    url: "react-native-tab-view"
+  },
+  source: {
+    domain: "github",
+    url: "react-native-community/react-native-tab-view"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/react-native-community/react-native-tab-view#demo",
+    imgUrl: "https://raw.githubusercontent.com/satya164/react-native-tab-view/master/demo/demo.gif"
+  },
+  framework: "React Native",
+  version: "0.0.72",
+  license: "MIT",
+  details: "https://github.com/react-native-community/react-native-tab-view",
+  keywords: ["tab", "view","slide"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 81,
+  name: "react-native-permissions",
+  install: {
+    packager: "npm",
+    url: "react-native-permissions"
+  },
+  source: {
+    domain: "github",
+    url: "yonahforst/react-native-permissions"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/yonahforst/react-native-permissions",
+    imgUrl: "https://cloud.githubusercontent.com/assets/1440796/18713019/271be540-8011-11e6-87fb-c3828c172dfc.png"
+  },
+  framework: "React Native",
+  version: "1.0.4",
+  license: "MIT",
+  details: "https://github.com/yonahforst/react-native-permissions",
+  keywords: ["permissions", "Privacy"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 82,
+  name: "react-native-splash-screen",
+  install: {
+    packager: "npm",
+    url: "react-native-splash-screen"
+  },
+  source: {
+    domain: "github",
+    url: "crazycodeboy/react-native-splash-screen"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/crazycodeboy/react-native-splash-screen#examples",
+    imgUrl: "https://raw.githubusercontent.com/crazycodeboy/react-native-splash-screen/master/examples/Screenshots/react-native-splash-screen-Android.gif"
+  },
+  framework: "React Native",
+  version: "3.0.6",
+  license: "MIT",
+  details: "https://github.com/crazycodeboy/react-native-splash-screen",
+  keywords: ["splash", "screen","hide and show"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 83,
+  name: "react-native-document-scanner",
+  install: {
+    packager: "npm",
+    url: "react-native-document-scanner"
+  },
+  source: {
+    domain: "github",
+    url: "Michaelvilleneuve/react-native-document-scanner"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/Michaelvilleneuve/react-native-document-scanner#can-be-easily-plugged-with-react-native-perspective-image-cropper",
+    imgUrl: "https://camo.githubusercontent.com/0ac887deaa7263172a5fd2759dba3d692e98585a/68747470733a2f2f73332d65752d776573742d312e616d617a6f6e6177732e636f6d2f6d69636861656c76696c6c656e657576652f64656d6f2d63726f702e676966"
+  },
+  framework: "React Native",
+  version: "1.4.2",
+  license: "MIT",
+  details: "https://github.com/Michaelvilleneuve/react-native-document-scanner",
+  keywords: ["document", "scanner","scan"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 84,
+  name: "react-native-linkedin",
+  install: {
+    packager: "npm",
+    url: "react-native-linkedin"
+  },
+  source: {
+    domain: "github",
+    url: "xcarpentier/react-native-linkedin"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/xcarpentier/react-native-linkedin#demo",
+    imgUrl: "https://camo.githubusercontent.com/6a679c85eda112c126e148cfa4ab8ea6b352f1fe/68747470733a2f2f6d656469612e67697068792e636f6d2f6d656469612f6c34464743475074426e396d65493750612f67697068792e676966"
+  },
+  framework: "React Native",
+  version: "1.3.0",
+  license: "MIT",
+  details: "https://github.com/xcarpentier/react-native-linkedin",
+  keywords: ["linkedin", "login"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 85,
+  name: "react-native-multiple-select",
+  install: {
+    packager: "npm",
+    url: "react-native-multiple-select"
+  },
+  source: {
+    domain: "github",
+    url: "toystars/react-native-multiple-select"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/toystars/react-native-multiple-select#react-native-multiple-select",
+    imgUrl: "https://user-images.githubusercontent.com/16062709/30819847-0907dd1e-a218-11e7-9980-e70b2d8e7953.gif"
+  },
+  framework: "React Native",
+  version: "0.3.3",
+  license: "MIT",
+  details: "https://github.com/toystars/react-native-multiple-select",
+  keywords: ["multiple", "select","multiselect"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 86,
+  name: "react-native-contacts",
+  install: {
+    packager: "npm",
+    url: "react-native-contacts"
+  },
+  source: {
+    domain: "github",
+    url: "rt2zz/react-native-contacts"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/rt2zz/react-native-contacts#ios-permissions",
+    imgUrl: "https://cloud.githubusercontent.com/assets/5707542/18704973/3cde3b44-7ffd-11e6-918b-63888e33f983.png"
+  },
+  framework: "React Native",
+  version: "2.0.0",
+  license: "MIT",
+  details: "https://github.com/rt2zz/react-native-contacts",
+  keywords: ["contacts", "permissions"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 87,
+  name: "react-native-popup-menu",
+  install: {
+    packager: "npm",
+    url: "react-native-popup-menu"
+  },
+  source: {
+    domain: "github",
+    url: "instea/react-native-popup-menu"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/instea/react-native-popup-menu#react-native-popup-menu",
+    imgUrl: "https://github.com/instea/react-native-popup-menu/raw/master/android.demo-popover.gif"
+  },
+  framework: "React Native",
+  version: "0.11.0",
+  license: "MIT",
+  details: "https://github.com/instea/react-native-popup-menu",
+  keywords: ["popup", "menu","modal","dialog"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 88,
+  name: "react-native-parallax-scroll-view",
+  install: {
+    packager: "npm",
+    url: "react-native-parallax-scroll-view"
+  },
+  source: {
+    domain: "github",
+    url: "i6mi6/react-native-parallax-scroll-view"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/i6mi6/react-native-parallax-scroll-view#demo",
+    imgUrl: "https://github.com/i6mi6/react-native-parallax-scroll-view/raw/master/demo.ios.0.17.2.gif"
+  },
+  framework: "React Native",
+  version: "0.17.2",
+  license: "MIT",
+  details: "https://github.com/i6mi6/react-native-parallax-scroll-view",
+  keywords: ["parallax", "scroll","view"],
+  contributedBy: "qexon-ankit",
+},
+{
+  id: 89,
+  name: "react-native-modal-datetime-picker",
+  install: {
+    packager: "npm",
+    url: "react-native-modal-datetime-picker"
+  },
+  source: {
+    domain: "github",
+    url: "mmazzarolo/react-native-modal-datetime-picker"
+  },
+  demo: {
+    repl: "img",
+    url: "https://github.com/mmazzarolo/react-native-modal-datetime-picker#demo",
+    imgUrl: "https://raw.githubusercontent.com/mmazzarolo/react-native-modal-datetime-picker/master/extras/datetimepicker-android.gif"
+  },
+  framework: "React Native",
+  version: "0.17.2",
+  license: "MIT",
+  details: "https://github.com/mmazzarolo/react-native-modal-datetime-picker",
+  keywords: ["parallax", "scroll","view"],
+  contributedBy: "qexon-ankit",
+},
